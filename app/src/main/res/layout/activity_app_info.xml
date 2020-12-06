@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AppInfoActivity"
+    android:foreground="@drawable/rounded_corner_bottom"
+    >
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="?android:windowBackground"
+        app:elevation="0dp"
+        >
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="exitUntilCollapsed|scroll|snap"
+            app:toolbarId="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                >
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/expanded_title"
+                    style="@style/TextAppearance.Design.CollapsingToolbar.Expanded"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="App Info"
+                    android:textSize="40sp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/expanded_subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="-5dp"
+                    android:text="Version: N/A"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="bottom"
+                app:contentInsetStartWithNavigation="0dp"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_back">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title"
+                    android:text="App Info"
+                    style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:foreground="@drawable/rounded_corner_top"
+        android:orientation="vertical"
+        >
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="?android:attr/textAppearanceSmall"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="2dp"
+                    android:text="Developer"
+                    />
+                <com.google.android.material.card.MaterialCardView
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:id="@+id/yanndroidcard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_gravity="left|center_vertical"
+                        >
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            android:layout_width="185.04dp"
+                            android:layout_height="133.4dp"
+                            android:src="@drawable/ic_yanndroid"
+                            android:layout_weight="1"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:orientation="horizontal"
+                            >
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_marginHorizontal="10dp"
+                                android:gravity="center_vertical|left"
+                                style="?android:attr/textAppearanceLarge"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Yanndroid"
+                                android:layout_weight="1" />
+
+                            <ImageView
+                                android:id="@+id/ytelegram"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_telegram"
+                                />
+
+                            <ImageView
+                                android:id="@+id/ygithub"
+                                android:layout_marginRight="24dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_github" />
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="?android:attr/textAppearanceSmall"
+                    android:text="Movie Information"
+                    android:textStyle="bold"
+
+                    />
+                <com.google.android.material.card.MaterialCardView
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:id="@+id/tmdbcard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_gravity="left|center_vertical"
+                        >
+                        <ImageView
+                            android:paddingHorizontal="5dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitCenter"
+                            android:layout_width="185.04dp"
+                            android:layout_height="133.4dp"
+                            android:src="@drawable/ic_tmdb_big"
+                            android:layout_weight="1"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:orientation="horizontal"
+                            >
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_marginHorizontal="10dp"
+                                android:gravity="center_vertical|left"
+                                style="?android:attr/textAppearanceLarge"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="TMDb"
+                                android:layout_weight="1" />
+
+                            <ImageView
+                                android:id="@+id/tbrowser"
+                                android:layout_marginRight="24dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_samsung_internet" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="?android:attr/textAppearanceSmall"
+                    android:text="Cloud Storage"
+                    android:textStyle="bold"
+
+                    />
+                <com.google.android.material.card.MaterialCardView
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:id="@+id/fbcard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_gravity="left|center_vertical"
+                        >
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:scaleType="centerCrop"
+                            android:layout_width="185.04dp"
+                            android:layout_height="133.4dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_firebase"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:orientation="horizontal"
+                            >
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_marginHorizontal="10dp"
+                                android:gravity="center_vertical|left"
+                                style="?android:attr/textAppearanceLarge"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Firebase"
+                                android:layout_weight="1" />
+
+                            <ImageView
+                                android:id="@+id/fbrowser"
+                                android:layout_marginRight="24dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_samsung_internet" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

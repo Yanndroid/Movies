@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Movies</string>
+
+
+    <string name="info_catcher">Option 2</string>
+    <string name="welcome_search">Option 1</string>
+    <string name="welcome_search_description">Option 1 description</string>
+    <string name="info_catcher_description">Option 2 description</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="settings">Settings</string>
+    <string name="app_info">App Info</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <string name="tab_text_1">Movies</string>
+    <string name="tab_text_2">Series</string>
+    <string name="video_info">Video Info</string>
+</resources>
