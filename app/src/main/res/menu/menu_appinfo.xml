@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="de.dlyt.yanndroid.movies.AppInfoActivity"
     >
-    <!--test-->
     <item
         android:id="@+id/download"
         android:icon="@drawable/ic_cloud_download"
