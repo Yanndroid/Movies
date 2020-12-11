@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +20,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Timer;
 
 public class TabFragment extends Fragment {
 
@@ -47,6 +50,8 @@ public class TabFragment extends Fragment {
         if (getArguments() != null) {
             counter = getArguments().getInt(ARG_COUNT);
         }
+
+
     }
 
     @Override
@@ -60,16 +65,22 @@ public class TabFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         /** Code */
-
-
-
         TextView textViewCounter = view.findViewById(R.id.moviename);
-        textViewCounter.setText("List " + (counter+1));
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Movies");
+        textViewCounter.setText(counter.toString());
+
+        if(counter == 0 || counter == 1){
+            initRecycler(view, counter);
+
+        }
+
+    }
 
 
 
+    public void initRecycler(View view, int tabnum){
+        String[] tabnames = {"Movies","Series"};
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(tabnames[tabnum]);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -84,9 +95,14 @@ public class TabFragment extends Fragment {
                     //nothing
                 }
 
-                HashMap<String, Object> str = list.get(0);
 
-                textViewCounter.setText(""+str.get("title"));
+
+                //Item view
+                TextView textViewCounter = view.findViewById(R.id.moviename);
+                HashMap<String, Object> str = list.get(0);
+                textViewCounter.setText(str.get("title").toString());
+                //Item view
+
 
             }
 
@@ -95,8 +111,5 @@ public class TabFragment extends Fragment {
 
             }
         });
-
-
     }
-
 }
