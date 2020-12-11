@@ -44,7 +44,12 @@ public class TabFragment extends Fragment {
 
     @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        /** Code */
         TextView textViewCounter = view.findViewById(R.id.moviename);
         textViewCounter.setText("List " + (counter+1));
+
+
+
     }
 }
