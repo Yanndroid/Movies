@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -80,8 +81,6 @@ public class AppInfoActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://firebase.google.com/")));
             }
         });
-
-
     }
 
 

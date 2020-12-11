@@ -1,10 +1,15 @@
 package de.dlyt.yanndroid.movies;
 
 import android.Manifest;
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,15 +28,26 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ScrollingActivity extends AppCompatActivity {
 
     public static int current_tab;
     public String[] tabnames = {"Movies","Series","Favorites"};
     public static TextView expanded_subtitle;
-
+    private DatabaseReference mDatabase;
+    private ArrayList<HashMap<String, Object>> updateinfo;
 
 
     @Override
@@ -39,6 +55,8 @@ public class ScrollingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
         settilte("Movies");
+
+        checkforupdate();
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED ||
@@ -132,6 +150,7 @@ public class ScrollingActivity extends AppCompatActivity {
         });
     }
 
+
     public void setsearching(Boolean searching){
         Toolbar toolbar = findViewById(R.id.toolbar);
         TextView collapsed_title = findViewById(R.id.collapsed_title);
@@ -152,7 +171,6 @@ public class ScrollingActivity extends AppCompatActivity {
             collapsed_title.setVisibility(View.VISIBLE);
         }
     }
-
     public void settilte(String title){
         TextView expanded_title = findViewById(R.id.expanded_title);
         TextView collapsed_title = findViewById(R.id.collapsed_title);
@@ -161,10 +179,67 @@ public class ScrollingActivity extends AppCompatActivity {
         collapsed_title.setText(title);
         searchinput.setHint("Search "+title);
     }
-
     public static void refreshcount(){
         expanded_subtitle.setText(""+TabFragment.getlistsize(current_tab));
     }
+    public void checkforupdate(){
+
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            int versionC = pInfo.versionCode;
+            String versionN = pInfo.versionName;
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("AndroidApp");
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    updateinfo = new ArrayList<>();
+                    try {
+                        GenericTypeIndicator<HashMap<String, Object>> ind = new GenericTypeIndicator<HashMap<String, Object>>() {};
+                        for(DataSnapshot child : snapshot.getChildren()){
+                            HashMap<String, Object> map = child.getValue(ind);
+                            updateinfo.add(map);
+                        }
+                    } catch (Exception e) {
+                        //nothing
+                    }
+
+                    HashMap<String, Object> str = updateinfo.get(0);
+                    //Toast.makeText(ScrollingActivity.this, ""+str.get("name").toString(), Toast.LENGTH_SHORT).show();
+                    if(versionC < Double.parseDouble(str.get("code").toString())){
+                        Snackbar.make(findViewById(R.id.app_bar), "Update available: "+str.get("name").toString(), Snackbar.LENGTH_SHORT).setAction("Download", new Snackbarbutton()).show();
+                    }
+                    if(versionC > Double.parseDouble(str.get("code").toString())){
+                        FirebaseDatabase.getInstance().getReference().child("AndroidApp").child("version").child("code").setValue(versionC);
+                        FirebaseDatabase.getInstance().getReference().child("AndroidApp").child("version").child("name").setValue(versionN);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public class Snackbarbutton implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            Uri uri = Uri.parse("https://github.com/Yanndroid/Movies/raw/master/app/release/app-release.apk");
+            DownloadManager.Request request = new DownloadManager.Request(uri);
+            request.setTitle("Movies Update");
+            //request.setDescription("Downloading");
+            request.setVisibleInDownloadsUi(true);
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, uri.getLastPathSegment());
+            downloadManager.enqueue(request);
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
