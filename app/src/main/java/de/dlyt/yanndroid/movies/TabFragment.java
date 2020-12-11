@@ -5,15 +5,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TabFragment extends Fragment {
 
     private static final String ARG_COUNT = "param1";
     private Integer counter;
-
+    private DatabaseReference mDatabase;
+    private ArrayList<HashMap<String, Object>> list;
 
     public TabFragment() {
         // Required empty public constructor
@@ -46,10 +60,43 @@ public class TabFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         /** Code */
+
+
+
         TextView textViewCounter = view.findViewById(R.id.moviename);
         textViewCounter.setText("List " + (counter+1));
 
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Movies");
+
+
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list = new ArrayList<>();
+                try {
+                    GenericTypeIndicator<HashMap<String, Object>> ind = new GenericTypeIndicator<HashMap<String, Object>>() {};
+                    for(DataSnapshot child : snapshot.getChildren()){
+                        HashMap<String, Object> map = child.getValue(ind);
+                        list.add(map);
+                    }
+                } catch (Exception e) {
+                    //nothing
+                }
+
+                HashMap<String, Object> str = list.get(0);
+
+                textViewCounter.setText(""+str.get("title"));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
     }
+
 }

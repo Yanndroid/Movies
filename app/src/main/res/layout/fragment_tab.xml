@@ -50,7 +50,6 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
                         android:fadingEdge="horizontal"
-                        android:singleLine="true"
                         android:text="Movie Name"
                         android:textSize="18sp" />
 
