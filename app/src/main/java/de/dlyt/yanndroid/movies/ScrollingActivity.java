@@ -28,6 +28,11 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class ScrollingActivity extends AppCompatActivity {
 
+    public static int current_tab;
+    public String[] tabnames = {"Movies","Series","Favorites"};
+    public static TextView expanded_subtitle;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,9 @@ public class ScrollingActivity extends AppCompatActivity {
                 ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE) == PackageManager.PERMISSION_DENIED){
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET, Manifest.permission.ACCESS_NETWORK_STATE}, 1000);
         }
+
+        /** Def */
+        expanded_subtitle = findViewById(R.id.expanded_subtitle);
 
         /** collapsing Toolbar */
         initToolbar();
@@ -95,7 +103,6 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     public void initViewPager(){
-        String[] tabnames = {"Movies","Series","Favorites"};
         int[] tabicons = {R.drawable.ic_movie,R.drawable.ic_serie,R.drawable.ic_bookmark};
         ViewPager2 viewPager = findViewById(R.id.view_pager);
         TabLayout tabLayout = findViewById(R.id.tabs);
@@ -110,7 +117,9 @@ public class ScrollingActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                current_tab = tab.getPosition();
                 settilte(tabnames[tab.getPosition()]);
+                refreshcount();
             }
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
@@ -153,6 +162,9 @@ public class ScrollingActivity extends AppCompatActivity {
         searchinput.setHint("Search "+title);
     }
 
+    public static void refreshcount(){
+        expanded_subtitle.setText(""+TabFragment.getlistsize(current_tab));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

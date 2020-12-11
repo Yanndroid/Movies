@@ -31,6 +31,8 @@ public class TabFragment extends Fragment {
     private Integer counter;
     private DatabaseReference mDatabase;
     private ArrayList<HashMap<String, Object>> list;
+    public static int[] listsize = new int[3];
+
 
     public TabFragment() {
         // Required empty public constructor
@@ -69,47 +71,61 @@ public class TabFragment extends Fragment {
 
         textViewCounter.setText(counter.toString());
 
-        if(counter == 0 || counter == 1){
-            initRecycler(view, counter);
-
-        }
+        initRecycler(view, counter);
 
     }
 
 
 
-    public void initRecycler(View view, int tabnum){
-        String[] tabnames = {"Movies","Series"};
-        mDatabase = FirebaseDatabase.getInstance().getReference().child(tabnames[tabnum]);
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list = new ArrayList<>();
-                try {
-                    GenericTypeIndicator<HashMap<String, Object>> ind = new GenericTypeIndicator<HashMap<String, Object>>() {};
-                    for(DataSnapshot child : snapshot.getChildren()){
-                        HashMap<String, Object> map = child.getValue(ind);
-                        list.add(map);
+    public void initRecycler(View view, int counter){
+        if(counter == 2){
+            TextView textViewCounter = view.findViewById(R.id.moviename);
+            textViewCounter.setText("Favorites");
+            listsize[counter] = 0;
+            ScrollingActivity.refreshcount();
+        }else{
+            String[] children = {"Movies","Series"};
+            mDatabase = FirebaseDatabase.getInstance().getReference().child(children[counter]);
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    list = new ArrayList<>();
+                    try {
+                        GenericTypeIndicator<HashMap<String, Object>> ind = new GenericTypeIndicator<HashMap<String, Object>>() {};
+                        for(DataSnapshot child : snapshot.getChildren()){
+                            HashMap<String, Object> map = child.getValue(ind);
+                            list.add(map);
+                        }
+                    } catch (Exception e) {
+                        //nothing
                     }
-                } catch (Exception e) {
-                    //nothing
+
+
+                    /** Code */
+                    listsize[counter] = list.size();
+                    ScrollingActivity.refreshcount();
+
+
+                    //Item view
+                    TextView textViewCounter = view.findViewById(R.id.moviename);
+                    HashMap<String, Object> str = list.get(0);
+                    textViewCounter.setText(str.get("title").toString());
+                    //Item view
+
+
+                    /** Code end */
                 }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-
-                //Item view
-                TextView textViewCounter = view.findViewById(R.id.moviename);
-                HashMap<String, Object> str = list.get(0);
-                textViewCounter.setText(str.get("title").toString());
-                //Item view
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+                }
+            });
+        }
     }
+
+    public static int getlistsize(int position){
+        return listsize[position];
+    }
+
 }
