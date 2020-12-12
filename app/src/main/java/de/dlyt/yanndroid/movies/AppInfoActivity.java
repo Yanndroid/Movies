@@ -32,7 +32,7 @@ public class AppInfoActivity extends AppCompatActivity {
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;
-            expanded_subtitle.setText("Version: " + version);
+            expanded_subtitle.setText(getString(R.string.version)+": "+ version);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -122,7 +122,7 @@ public class AppInfoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.download) {
             UpdateDialog bottomSheetDialog = UpdateDialog.newInstance();
-            bottomSheetDialog.show(getSupportFragmentManager(), "Bottom Sheet Dialog Fragment");
+            bottomSheetDialog.show(getSupportFragmentManager(), "tag");
         }
 
         return super.onOptionsItemSelected(item);

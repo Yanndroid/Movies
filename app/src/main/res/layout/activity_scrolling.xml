@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="AppTilte"
+                    android:text="App Title"
                     android:textSize="40sp" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -65,7 +65,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/collapsed_title"
-                    android:text="AppTitle"
+                    android:text="App Title"
                     style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                         >
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/searchinput"
-                            android:hint="Search Movie/Series"
+                            android:hint="@string/search"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

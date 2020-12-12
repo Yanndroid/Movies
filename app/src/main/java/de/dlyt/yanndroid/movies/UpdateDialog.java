@@ -58,7 +58,7 @@ public class UpdateDialog extends BottomSheetDialogFragment {
             PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
             int versionC = pInfo.versionCode;
             String versionN = pInfo.versionName;
-            cver.setText("Installed Version: " + versionN);
+            cver.setText(getString(R.string.installed_version)+" "+ versionN);
             mDatabase = FirebaseDatabase.getInstance().getReference().child("AndroidApp");
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -76,12 +76,12 @@ public class UpdateDialog extends BottomSheetDialogFragment {
                     }
 
 
-                    nver.setText("Newest Version: " + updateinfo.get(0).get("name").toString());
+                    nver.setText(getString(R.string.newest_version)+" "+ updateinfo.get(0).get("name").toString());
 
                     if (versionC < Double.parseDouble(updateinfo.get(0).get("code").toString())) {
-                        update.setText("Update");
+                        update.setText(R.string.update);
                     } else {
-                        update.setText("Download");
+                        update.setText(R.string.download);
                     }
 
                 }
@@ -102,7 +102,7 @@ public class UpdateDialog extends BottomSheetDialogFragment {
                 DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
                 Uri uri = Uri.parse("https://github.com/Yanndroid/Movies/raw/master/app/release/app-release.apk");
                 DownloadManager.Request request = new DownloadManager.Request(uri);
-                request.setTitle("Movies Update");
+                request.setTitle(getString(R.string.movies_update));
                 //request.setDescription("Downloading");
                 request.setVisibleInDownloadsUi(true);
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);

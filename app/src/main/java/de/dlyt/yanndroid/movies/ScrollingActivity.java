@@ -56,7 +56,7 @@ import java.util.HashMap;
 public class ScrollingActivity extends AppCompatActivity {
 
     public static int current_tab;
-    public String[] tabnames = {"Movies","Series","Favorites"};
+    public String[] tabnames;
     public static TextView expanded_subtitle;
     private DatabaseReference mDatabase;
     private ArrayList<HashMap<String, Object>> updateinfo;
@@ -65,7 +65,9 @@ public class ScrollingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
-        settilte("Movies");
+
+        tabnames = new String[]{getString(R.string.movies), getString(R.string.series), getString(R.string.favorites)};
+        settilte(getString(R.string.movies));
 
         checkforupdate();
 
@@ -188,7 +190,7 @@ public class ScrollingActivity extends AppCompatActivity {
         EditText searchinput = findViewById(R.id.searchinput);
         expanded_title.setText(title);
         collapsed_title.setText(title);
-        searchinput.setHint("Search "+title);
+        searchinput.setHint(getString(R.string.search)+" "+title);
     }
     public static void refreshcount(){
         expanded_subtitle.setText(""+TabFragment.getlistsize(current_tab));
@@ -215,7 +217,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     }
 
                     if(versionC < Double.parseDouble(updateinfo.get(0).get("code").toString())){
-                        Snackbar.make(findViewById(R.id.app_bar), "Update available: "+updateinfo.get(0).get("name").toString(), Snackbar.LENGTH_SHORT).setAction("Download", new Snackbarbutton()).show();
+                        Snackbar.make(findViewById(R.id.app_bar), getString(R.string.update_available)+": "+updateinfo.get(0).get("name").toString(), Snackbar.LENGTH_SHORT).setAction(R.string.download, new Snackbarbutton()).show();
                     }
                     if(versionC > Double.parseDouble(updateinfo.get(0).get("code").toString())){
                         FirebaseDatabase.getInstance().getReference().child("AndroidApp").child("version").child("code").setValue(versionC);
@@ -240,8 +242,7 @@ public class ScrollingActivity extends AppCompatActivity {
             DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
             Uri uri = Uri.parse("https://github.com/Yanndroid/Movies/raw/master/app/release/app-release.apk");
             DownloadManager.Request request = new DownloadManager.Request(uri);
-            request.setTitle("Movies Update");
-            //request.setDescription("Downloading");
+            request.setTitle(getString(R.string.movies_update));
             request.setVisibleInDownloadsUi(true);
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
             request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, uri.getLastPathSegment());
@@ -252,7 +253,6 @@ public class ScrollingActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_scrolling, menu);
         return true;
     }
@@ -262,7 +262,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         switch(item.getItemId()){
             case R.id.search: setsearching(true) ;return true;
-            case R.id.filter: Toast.makeText(ScrollingActivity.this, "Filter", Toast.LENGTH_SHORT).show(); return true;
+            case R.id.filter: Toast.makeText(ScrollingActivity.this, R.string.filter, Toast.LENGTH_SHORT).show(); return true;
             case R.id.settings: intent.setClass(getApplicationContext(), SettingsActivity.class); startActivity(intent); return true;
             case R.id.about: intent.setClass(getApplicationContext(), AppInfoActivity.class); startActivity(intent); return true;
             case R.id.info: intent.setClass(getApplicationContext(), VideoInfoActivity.class); startActivity(intent); return true;

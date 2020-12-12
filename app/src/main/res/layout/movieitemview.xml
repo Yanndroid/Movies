@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
                     android:fadingEdge="horizontal"
-                    android:text="Movie Name"
+                    android:text="@string/movie_name"
                     android:textSize="18sp" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -52,14 +52,14 @@
                     style="?android:attr/textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Movie Info" />
+                    android:text="@string/movie_info" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/item_info2"
                     style="?android:attr/textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Movie Info" />
+                    android:text="@string/movie_info" />
 
             </LinearLayout>
 

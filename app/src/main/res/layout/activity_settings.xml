@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Settings"
+                    android:text="@string/settings"
                     android:textSize="40sp" />
 
             </LinearLayout>
@@ -58,7 +58,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title"
-                    android:text="Settings"
+                    android:text="@string/settings"
                     style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -127,14 +127,14 @@
                                     android:ellipsize="marquee"
                                     android:fadingEdge="horizontal"
                                     android:singleLine="true"
-                                    android:text="@string/welcome_search"
+                                    android:text="@string/option_1"
                                     android:textSize="18sp" />
 
                                 <com.google.android.material.textview.MaterialTextView
                                     style="?android:attr/textAppearanceSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/welcome_search_description" />
+                                    android:text="@string/option_1_description" />
 
                             </LinearLayout>
 
@@ -198,14 +198,14 @@
                                     android:ellipsize="marquee"
                                     android:fadingEdge="horizontal"
                                     android:singleLine="true"
-                                    android:text="@string/info_catcher"
+                                    android:text="@string/option_2"
                                     android:textSize="18sp" />
 
                                 <com.google.android.material.textview.MaterialTextView
                                     style="?android:attr/textAppearanceSmall"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/info_catcher_description" />
+                                    android:text="@string/option_2_description" />
 
                             </LinearLayout>
 
@@ -270,13 +270,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
-                                android:text="Option 3"
+                                android:text="@string/option_3"
                                 android:textSize="18sp" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Option 3 description" />
+                                android:text="@string/option_3_description" />
 
                         </LinearLayout>
 

@@ -1,22 +1,45 @@
 <resources>
+
     <string name="app_name">Movies</string>
-
-
-    <string name="info_catcher">Option 2</string>
-    <string name="welcome_search">Option 1</string>
-    <string name="welcome_search_description">Option 1 description</string>
-    <string name="info_catcher_description">Option 2 description</string>
-
-
-    <string name="action_settings">Settings</string>
+    <string name="version">Version</string>
+    <string name="movies">Movies</string>
+    <string name="series">Series</string>
+    <string name="favorites">Favorites</string>
     <string name="search">Search</string>
-    <string name="filter">Filter</string>
-    <string name="settings">Settings</string>
+    <string name="update_available">Update available</string>
+    <string name="download">Download</string>
+    <string name="movies_update">Movies Update</string>
+    <string name="installed_version">Installed Version:</string>
+    <string name="newest_version">Newest Version:</string>
+    <string name="update">Update</string>
     <string name="app_info">App Info</string>
-    <string name="title_activity_tab">TabActivity</string>
-    <string name="tab_text_1">Movies</string>
-    <string name="tab_text_2">Series</string>
+    <string name="developer">Developer</string>
+    <string name="movie_information">Movie Information</string>
+    <string name="cloud_storage">Cloud Storage</string>
+    <string name="settings">Settings</string>
+    <string name="option_1">Option 1</string>
+    <string name="option_1_description">Option 1 description</string>
+    <string name="option_2">Option 2</string>
+    <string name="option_2_description">Option 2 description</string>
+    <string name="option_3">Option 3</string>
+    <string name="option_3_description">Option 3 description</string>
     <string name="video_info">Video Info</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="resolution">Resolution</string>
+    <string name="title">Title</string>
+    <string name="language">Language</string>
+    <string name="subtitle">Subtitle</string>
+    <string name="duration">Duration</string>
+    <string name="size">Size</string>
+    <string name="format">Format</string>
+    <string name="close">Close</string>
+    <string name="movie_name">Movie Name</string>
+    <string name="movie_info">Movie Info</string>
+    <string name="textview">TextView</string>
+    <string name="update_app">Update App</string>
+    <string name="cancel">Cancel</string>
+    <string name="newest_version_n_a">Newest Version: N/A</string>
+    <string name="installed_version_n_a">Installed Version: N/A</string>
+    <string name="filter">Filter</string>
+
+
 </resources>

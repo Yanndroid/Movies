@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             style="@style/TextAppearance.AppCompat.Body2"
-            android:text="Update App"
+            android:text="@string/update_app"
             android:textSize="20dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical|left"
-            android:text="Newest Version: N/A"
+            android:text="@string/newest_version_n_a"
             android:textSize="15dp"
             />
 
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical|left"
-            android:text="Installed Version: N/A"
+            android:text="@string/installed_version_n_a"
             android:textSize="15dp"
             />
 
@@ -60,7 +60,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cancle"
+                android:text="@string/cancel"
                 android:textStyle="bold"
                 app:rippleColor="@color/button_ripple_color" />
 
@@ -70,15 +70,12 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Update"
+                android:text="@string/update"
                 android:textStyle="bold"
                 app:rippleColor="@color/button_ripple_color" />
 
 
 
         </LinearLayout>
-
     </LinearLayout>
-
-
 </LinearLayout>

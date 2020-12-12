@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="App Info"
+                    android:text="@string/app_info"
                     android:textSize="40sp" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -67,7 +67,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title"
-                    android:text="App Info"
+                    android:text="@string/app_info"
                     style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                     style="?android:attr/textAppearanceSmall"
                     android:textStyle="bold"
                     android:layout_marginBottom="2dp"
-                    android:text="Developer"
+                    android:text="@string/developer"
                     />
                 <com.google.android.material.card.MaterialCardView
                     android:background="?selectableItemBackground"
@@ -174,7 +174,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="?android:attr/textAppearanceSmall"
-                    android:text="Movie Information"
+                    android:text="@string/movie_information"
                     android:textStyle="bold"
 
                     />
@@ -235,7 +235,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="?android:attr/textAppearanceSmall"
-                    android:text="Cloud Storage"
+                    android:text="@string/cloud_storage"
                     android:textStyle="bold"
 
                     />

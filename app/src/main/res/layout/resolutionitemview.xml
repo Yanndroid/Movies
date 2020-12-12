@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/name"
-        android:text="TextView"
+        android:text="@string/textview"
         android:textSize="18dp" />
     <TextView
         style="?android:attr/textAppearanceLarge"
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/resos"
-        android:text="TextView"
+        android:text="@string/textview"
         android:textSize="18dp" />
     <TextView
         style="?android:attr/textAppearanceLarge"
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/resol"
-        android:text="TextView"
+        android:text="@string/textview"
         android:textSize="18dp" />
 
 </LinearLayout>

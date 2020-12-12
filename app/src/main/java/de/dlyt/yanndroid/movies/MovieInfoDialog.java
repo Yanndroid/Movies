@@ -17,7 +17,6 @@ import java.util.HashMap;
 public class MovieInfoDialog extends BottomSheetDialogFragment {
 
     private DatabaseReference mDatabase;
-    private ArrayList<HashMap<String, Object>> updateinfo;
 
     public static MovieInfoDialog newInstance() {
         MovieInfoDialog fragment = new MovieInfoDialog();

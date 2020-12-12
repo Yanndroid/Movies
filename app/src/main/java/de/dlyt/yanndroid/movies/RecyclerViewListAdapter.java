@@ -48,7 +48,7 @@ public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewLi
             public void onClick(View v) {
                 datainfos = data.get(position);
                 MovieInfoDialog bottomSheetDialog = MovieInfoDialog.newInstance();
-                bottomSheetDialog.show(((FragmentActivity) v.getContext()).getSupportFragmentManager(), "Bottom Sheet Dialog Frageent");
+                bottomSheetDialog.show(((FragmentActivity) v.getContext()).getSupportFragmentManager(), "tag");
             }
         });
 
