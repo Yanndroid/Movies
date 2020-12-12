@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">Movies</string>
@@ -8,7 +9,7 @@
     <string name="search">Search</string>
     <string name="update_available">Update available</string>
     <string name="download">Download</string>
-    <string name="movies_update">Movies Update</string>
+    <string name="movies_update">App Update</string>
     <string name="installed_version">Installed Version:</string>
     <string name="newest_version">Newest Version:</string>
     <string name="update">Update</string>
@@ -27,7 +28,7 @@
     <string name="resolution">Resolution</string>
     <string name="title">Title</string>
     <string name="language">Language</string>
-    <string name="subtitle">Subtitle</string>
+    <string name="subtitle">Subtitles</string>
     <string name="duration">Duration</string>
     <string name="size">Size</string>
     <string name="format">Format</string>
@@ -41,6 +42,5 @@
     <string name="installed_version_n_a">Installed Version: N/A</string>
     <string name="filter">Filter</string>
     <string name="version_n_a">Version: N/A</string>
-
 
 </resources>

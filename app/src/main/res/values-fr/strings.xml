@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="app_name">Movies</string>
+    <string name="close">Fermer</string>
+    <string name="search">Chercher</string>
+    <string name="settings">Paramètres</string>
+    <string name="version">Version</string>
+    <string name="movies">Films</string>
+    <string name="series">Séries</string>
+    <string name="update_available">Mise à jour disponible</string>
+    <string name="download">Télécharger</string>
+    <string name="movies_update">Mise à jour de l\'application</string>
+    <string name="installed_version">Version installée:</string>
+    <string name="newest_version">Dernière version:</string>
+    <string name="update">Mise à jour</string>
+    <string name="favorites">Favoris</string>
+    <string name="app_info">Infos sur l\'application</string>
+    <string name="developer">Développeur</string>
+    <string name="movie_information">Informations sur le film</string>
+    <string name="cloud_storage">Stockage Cloud</string>
+    <string name="video_info">Info vidéo</string>
+    <string name="resolution">Résolution</string>
+    <string name="title">Titre</string>
+    <string name="language">Langue</string>
+    <string name="subtitle">Sous-titres</string>
+    <string name="duration">Durée</string>
+    <string name="size">Taille</string>
+    <string name="format">Format</string>
+    <string name="movie_name">Nom du film</string>
+    <string name="movie_info">Info du film</string>
+    <string name="update_app">Metre à jour l\'application</string>
+    <string name="cancel">Annuler</string>
+    <string name="newest_version_n_a">Dernière version: N/A</string>
+    <string name="installed_version_n_a">Version installée: N/A</string>
+    <string name="version_n_a">Version: N/A</string>
+    <string name="filter">Filtre</string>
+</resources>
+
+

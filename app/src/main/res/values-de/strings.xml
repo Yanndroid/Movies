@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+<string name="app_name">Movies</string>
+<string name="close">Schließen</string>
+<string name="search">Suche</string>
+<string name="settings">Einstellungen</string>
+<string name="version">Version</string>
+<string name="movies">Filme</string>
+<string name="series">Serien</string>
+<string name="update_available">Update verfügbar</string>
+<string name="download">Herunterladen</string>
+<string name="movies_update">App Update</string>
+<string name="installed_version">Installierte Version:</string>
+<string name="newest_version">Neuste Version:</string>
+<string name="update">Update</string>
+<string name="favorites">Favoriten</string>
+<string name="app_info">App Info</string>
+<string name="developer">Entwickler</string>
+<string name="movie_information">Filminformation</string>
+<string name="cloud_storage">Cloud-Speicher</string>
+<string name="video_info">Video Info</string>
+<string name="resolution">Auflösung</string>
+<string name="title">Titel</string>
+<string name="language">Sprache</string>
+<string name="subtitle">Untertitel</string>
+<string name="duration">Dauer</string>
+<string name="size">Größe</string>
+<string name="format">Format</string>
+<string name="movie_name">Film Name</string>
+<string name="movie_info">Film Info</string>
+<string name="update_app">App aktualisieren</string>
+<string name="cancel">Abbrechen</string>
+<string name="newest_version_n_a">Neuste Version: N/A</string>
+<string name="installed_version_n_a">Installierte Version: N/A</string>
+<string name="version_n_a">Version: N/A</string>
+<string name="filter">Filter</string>
+    <string name="option_1_description">Option 1 Beschreibung</string>
+    <string name="option_2_description">Option 2 Beschreibung</string>
+    <string name="option_3_description">Option 3 Beschreibung</string>
+</resources>
