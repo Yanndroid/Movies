@@ -4,14 +4,21 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class SettingsActivity extends AppCompatActivity {
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +26,41 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         initToolbar();
+        initSettings();
+    }
+
+
+
+    public void initSettings(){
+        sharedPreferences = getSharedPreferences("settings", Activity.MODE_PRIVATE);
+
+
+        SwitchMaterial switch1 = findViewById(R.id.switch1);
+        switch1.setChecked(sharedPreferences.getBoolean("switch1",false));
+        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedPreferences.edit().putBoolean("switch1",isChecked).commit();
+            }
+        });
+
+        SwitchMaterial switch2 = findViewById(R.id.switch2);
+        switch2.setChecked(sharedPreferences.getBoolean("switch2",false));
+        switch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedPreferences.edit().putBoolean("switch2",isChecked).commit();
+            }
+        });
+
+        SwitchMaterial switch3 = findViewById(R.id.switch3);
+        switch3.setChecked(sharedPreferences.getBoolean("switch3",false));
+        switch3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                sharedPreferences.edit().putBoolean("switch3",isChecked).commit();
+            }
+        });
 
     }
 

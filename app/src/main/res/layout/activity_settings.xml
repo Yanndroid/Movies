@@ -146,12 +146,12 @@
                                 android:layout_marginBottom="20dp"
                                 android:background="#4D808080"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@id/welcome_switch"
+                                app:layout_constraintEnd_toStartOf="@id/switch1"
                                 app:layout_constraintStart_toEndOf="@id/welcome_text"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <com.google.android.material.switchmaterial.SwitchMaterial
-                                android:id="@+id/welcome_switch"
+                                android:id="@+id/switch1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="14dp"
@@ -217,12 +217,12 @@
                                 android:layout_marginBottom="20dp"
                                 android:background="#4D808080"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@id/catcher_switch"
+                                app:layout_constraintEnd_toStartOf="@id/switch2"
                                 app:layout_constraintStart_toEndOf="@id/catcher_text"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <com.google.android.material.switchmaterial.SwitchMaterial
-                                android:id="@+id/catcher_switch"
+                                android:id="@+id/switch2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="14dp"
@@ -261,7 +261,7 @@
                             android:orientation="vertical"
                             app:layout_constrainedWidth="true"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/firebase_switch"
+                            app:layout_constraintEnd_toStartOf="@id/switch3"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
@@ -281,7 +281,7 @@
                         </LinearLayout>
 
                         <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/firebase_switch"
+                            android:id="@+id/switch3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="14dp"
