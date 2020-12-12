@@ -22,6 +22,7 @@ public class VideoInfoActivity extends AppCompatActivity {
 
     RecyclerView resolutionrecycler;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +31,6 @@ public class VideoInfoActivity extends AppCompatActivity {
         initRecycler();
 
     }
-
 
 
     public void initToolbar(){
