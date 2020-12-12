@@ -40,22 +40,18 @@ public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.Vi
         return this.data.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView resos;
         private TextView resol;
 
         public ViewHolder(View view) {
             super(view);
-            view.setOnClickListener(this);
             this.name = view.findViewById(R.id.name);
             this.resos = view.findViewById(R.id.resos);
             this.resol = view.findViewById(R.id.resol);
         }
 
-        @Override
-        public void onClick(View view) {
-            Toast.makeText(view.getContext(), "position : " + getLayoutPosition() + " text : " + this.name.getText(), Toast.LENGTH_SHORT).show();
-        }
+
     }
 }

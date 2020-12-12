@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +34,7 @@ public class TabFragment extends Fragment {
     private DatabaseReference mDatabase;
     private ArrayList<HashMap<String, Object>> list;
     public static int[] listsize = new int[3];
-
+    RecyclerView recyclerView;
 
     public TabFragment() {
         // Required empty public constructor
@@ -54,6 +56,8 @@ public class TabFragment extends Fragment {
         }
 
 
+
+
     }
 
     @Override
@@ -67,9 +71,6 @@ public class TabFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         /** Code */
-        TextView textViewCounter = view.findViewById(R.id.moviename);
-
-        textViewCounter.setText(counter.toString());
 
         initRecycler(view, counter);
 
@@ -77,8 +78,6 @@ public class TabFragment extends Fragment {
 
     public void initRecycler(View view, int counter){
         if(counter == 2){
-            TextView textViewCounter = view.findViewById(R.id.moviename);
-            textViewCounter.setText("Favorites");
             listsize[counter] = 0;
             ScrollingActivity.refreshcount();
         }else{
@@ -98,20 +97,13 @@ public class TabFragment extends Fragment {
                         //nothing
                     }
 
-
-                    /** Code */
                     listsize[counter] = list.size();
                     ScrollingActivity.refreshcount();
 
+                    recyclerView = view.findViewById(R.id.recyclerview);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    recyclerView.setAdapter(new RecyclerViewListAdapter(list));
 
-                    //Item view
-                    TextView textViewCounter = view.findViewById(R.id.moviename);
-                    HashMap<String, Object> str = list.get(0);
-                    textViewCounter.setText(str.get("title").toString());
-                    //Item view
-
-
-                    /** Code end */
                 }
 
                 @Override
