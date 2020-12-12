@@ -2,36 +2,25 @@ package de.dlyt.yanndroid.movies;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.DocumentsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.io.File;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class AppInfoActivity extends AppCompatActivity {
+
+    BottomSheetDialog bsd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +32,7 @@ public class AppInfoActivity extends AppCompatActivity {
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;
-            expanded_subtitle.setText("Version: "+version);
+            expanded_subtitle.setText("Version: " + version);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -84,8 +73,7 @@ public class AppInfoActivity extends AppCompatActivity {
     }
 
 
-
-    public void initToolbar(){
+    public void initToolbar() {
         /** Def */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -97,7 +85,7 @@ public class AppInfoActivity extends AppCompatActivity {
 
         /** 1/3 of the Screen */
         ViewGroup.LayoutParams layoutParams = AppBar.getLayoutParams();
-        layoutParams.height = (int)((double)this.getResources().getDisplayMetrics().heightPixels / 2.6);
+        layoutParams.height = (int) ((double) this.getResources().getDisplayMetrics().heightPixels / 2.6);
 
 
         /** Collapsing */
@@ -129,18 +117,12 @@ public class AppInfoActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_appinfo, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.download){
-            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-            Uri uri = Uri.parse("https://github.com/Yanndroid/Movies/raw/master/app/release/app-release.apk");
-            DownloadManager.Request request = new DownloadManager.Request(uri);
-            request.setTitle("Movies Update");
-            //request.setDescription("Downloading");
-            request.setVisibleInDownloadsUi(true);
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, uri.getLastPathSegment());
-            downloadManager.enqueue(request);
+        if (item.getItemId() == R.id.download) {
+            UpdateDialog bottomSheetDialog = UpdateDialog.newInstance();
+            bottomSheetDialog.show(getSupportFragmentManager(), "Bottom Sheet Dialog Fragment");
         }
 
         return super.onOptionsItemSelected(item);

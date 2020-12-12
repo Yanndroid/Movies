@@ -5,13 +5,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewListAdapter.ViewHolder> {
     private ArrayList<HashMap<String, Object>> data;
-    public RecyclerViewListAdapter (ArrayList<HashMap<String, Object>> data){
+
+    public RecyclerViewListAdapter(ArrayList<HashMap<String, Object>> data) {
         this.data = data;
     }
 
@@ -25,15 +28,15 @@ public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewLi
     public void onBindViewHolder(RecyclerViewListAdapter.ViewHolder holder, int position) {
 
 
-        if(data.get(position).containsKey("title")){
+        if (data.get(position).containsKey("title")) {
             holder.item_title.setText(this.data.get(position).get("title").toString());
 
         }
-        if(data.get(position).containsKey("size")){
+        if (data.get(position).containsKey("size")) {
             holder.item_info1.setText(this.data.get(position).get("size").toString());
 
         }
-        if(data.get(position).containsKey("format")){
+        if (data.get(position).containsKey("format")) {
             holder.item_info2.setText(this.data.get(position).get("format").toString());
 
         }

@@ -214,12 +214,10 @@ public class ScrollingActivity extends AppCompatActivity {
                         //nothing
                     }
 
-                    HashMap<String, Object> str = updateinfo.get(0);
-                    //Toast.makeText(ScrollingActivity.this, ""+str.get("name").toString(), Toast.LENGTH_SHORT).show();
-                    if(versionC < Double.parseDouble(str.get("code").toString())){
-                        Snackbar.make(findViewById(R.id.app_bar), "Update available: "+str.get("name").toString(), Snackbar.LENGTH_SHORT).setAction("Download", new Snackbarbutton()).show();
+                    if(versionC < Double.parseDouble(updateinfo.get(0).get("code").toString())){
+                        Snackbar.make(findViewById(R.id.app_bar), "Update available: "+updateinfo.get(0).get("name").toString(), Snackbar.LENGTH_SHORT).setAction("Download", new Snackbarbutton()).show();
                     }
-                    if(versionC > Double.parseDouble(str.get("code").toString())){
+                    if(versionC > Double.parseDouble(updateinfo.get(0).get("code").toString())){
                         FirebaseDatabase.getInstance().getReference().child("AndroidApp").child("version").child("code").setValue(versionC);
                         FirebaseDatabase.getInstance().getReference().child("AndroidApp").child("version").child("name").setValue(versionN);
                     }

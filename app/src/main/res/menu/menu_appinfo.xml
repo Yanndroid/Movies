@@ -5,7 +5,7 @@
     >
     <item
         android:id="@+id/download"
-        android:icon="@drawable/ic_cloud_download"
-        android:title="Download latest apk"
+        android:icon="@drawable/ic_loop"
+        android:title="Update App"
         app:showAsAction="always" />
 </menu>
