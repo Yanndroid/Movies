@@ -3,9 +3,10 @@ package de.dlyt.yanndroid.movies;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 
 public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewListAdapter.ViewHolder> {
     private ArrayList<HashMap<String, Object>> data;
+    private static HashMap<String, Object> datainfos;
 
     public RecyclerViewListAdapter(ArrayList<HashMap<String, Object>> data) {
         this.data = data;
@@ -41,6 +43,15 @@ public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewLi
 
         }
 
+        holder.infoimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datainfos = data.get(position);
+                MovieInfoDialog bottomSheetDialog = MovieInfoDialog.newInstance();
+                bottomSheetDialog.show(((FragmentActivity) v.getContext()).getSupportFragmentManager(), "Bottom Sheet Dialog Frageent");
+            }
+        });
+
 
     }
 
@@ -49,22 +60,23 @@ public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewLi
         return this.data.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView item_title;
         private TextView item_info1;
         private TextView item_info2;
+        private ImageView infoimage;
+
 
         public ViewHolder(View view) {
             super(view);
-            view.setOnClickListener(this);
             this.item_title = view.findViewById(R.id.item_title);
             this.item_info1 = view.findViewById(R.id.item_info1);
             this.item_info2 = view.findViewById(R.id.item_info2);
+            this.infoimage = view.findViewById(R.id.info_image);
         }
+    }
 
-        @Override
-        public void onClick(View view) {
-            Toast.makeText(view.getContext(), "position : " + getLayoutPosition() + " text : " + this.item_title.getText(), Toast.LENGTH_SHORT).show();
-        }
+    public static HashMap<String, Object> getData() {
+        return datainfos;
     }
 }
