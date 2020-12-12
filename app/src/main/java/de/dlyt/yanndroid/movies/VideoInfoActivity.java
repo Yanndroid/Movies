@@ -1,21 +1,19 @@
 package de.dlyt.yanndroid.movies;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class VideoInfoActivity extends AppCompatActivity {
@@ -71,8 +69,19 @@ public class VideoInfoActivity extends AppCompatActivity {
     public void initRecycler(){
          resolutionrecycler = findViewById(R.id.resolutionview);
 
+         resolutionrecycler.setLayoutManager(new LinearLayoutManager(this));
+         resolutionrecycler.setAdapter(new ResolutionAdapter(generateData()));
+         resolutionrecycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
 
+
+    }
+    private List<String> generateData() {
+        List<String> data = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            data.add(String.valueOf(i) + "th Element");
+        }
+        return data;
     }
 
 
