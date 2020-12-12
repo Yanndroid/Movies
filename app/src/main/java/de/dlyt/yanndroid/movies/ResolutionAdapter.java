@@ -8,11 +8,13 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.ViewHolder> {
-    private List<String> data;
-    public ResolutionAdapter (List<String> data){
+    private ArrayList<HashMap<String, Object>> data;
+    public ResolutionAdapter (ArrayList<HashMap<String, Object>> data){
         this.data = data;
     }
 
@@ -24,7 +26,13 @@ public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.Vi
 
     @Override
     public void onBindViewHolder(ResolutionAdapter.ViewHolder holder, int position) {
-        holder.textView.setText(this.data.get(position));
+
+
+        holder.name.setText(this.data.get(position).get("name").toString());
+        holder.resos.setText(this.data.get(position).get("resoshort").toString());
+        holder.resol.setText(this.data.get(position).get("resolong").toString());
+
+
     }
 
     @Override
@@ -33,17 +41,21 @@ public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView textView;
+        private TextView name;
+        private TextView resos;
+        private TextView resol;
 
         public ViewHolder(View view) {
             super(view);
             view.setOnClickListener(this);
-            this.textView = view.findViewById(R.id.textview);
+            this.name = view.findViewById(R.id.name);
+            this.resos = view.findViewById(R.id.resos);
+            this.resol = view.findViewById(R.id.resol);
         }
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), "position : " + getLayoutPosition() + " text : " + this.textView.getText(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(), "position : " + getLayoutPosition() + " text : " + this.name.getText(), Toast.LENGTH_SHORT).show();
         }
     }
 }
