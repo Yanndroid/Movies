@@ -107,18 +107,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <!--<androidx.recyclerview.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/resolutionview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="24dp"
                         android:layout_marginVertical="10dp"
-                        />-->
-
+                        />
 
                 </com.google.android.material.card.MaterialCardView>
-
-
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>

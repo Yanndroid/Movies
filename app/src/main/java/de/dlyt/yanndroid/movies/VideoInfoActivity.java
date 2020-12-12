@@ -1,22 +1,34 @@
 package de.dlyt.yanndroid.movies;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.appbar.AppBarLayout;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class VideoInfoActivity extends AppCompatActivity {
+
+    RecyclerView resolutionrecycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_info);
         initToolbar();
+        initRecycler();
+
     }
 
 
@@ -54,4 +66,14 @@ public class VideoInfoActivity extends AppCompatActivity {
         });
 
     }
+
+
+    public void initRecycler(){
+         resolutionrecycler = findViewById(R.id.resolutionview);
+
+
+
+    }
+
+
 }

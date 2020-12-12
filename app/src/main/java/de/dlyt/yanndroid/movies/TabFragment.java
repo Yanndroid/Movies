@@ -75,8 +75,6 @@ public class TabFragment extends Fragment {
 
     }
 
-
-
     public void initRecycler(View view, int counter){
         if(counter == 2){
             TextView textViewCounter = view.findViewById(R.id.moviename);

@@ -1,3 +1,14 @@
+
+/**
+ * todo:
+ *  (user in firebase)
+ *  open apk after update
+ *  recyclerview
+ *  animation
+ *  language
+ * */
+
+
 package de.dlyt.yanndroid.movies;
 
 import android.Manifest;
@@ -6,6 +17,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,7 +60,6 @@ public class ScrollingActivity extends AppCompatActivity {
     public static TextView expanded_subtitle;
     private DatabaseReference mDatabase;
     private ArrayList<HashMap<String, Object>> updateinfo;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
