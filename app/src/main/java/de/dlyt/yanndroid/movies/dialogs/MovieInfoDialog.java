@@ -63,5 +63,4 @@ public class MovieInfoDialog extends BottomSheetDialogFragment {
             }
         });
     }
-
 }

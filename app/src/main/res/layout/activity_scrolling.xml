@@ -5,18 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ScrollingActivity"
     android:foreground="@drawable/rounded_corner_bottom"
-    >
+    tools:context=".ScrollingActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         android:background="?android:windowBackground"
-        app:elevation="0dp"
-        >
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
@@ -30,8 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/expanded_title"
                     style="@style/TextAppearance.Design.CollapsingToolbar.Expanded"
@@ -47,12 +45,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
                     android:layout_marginTop="-5dp"
+                    android:gravity="center"
                     android:text="0"
                     android:textSize="20dp" />
             </LinearLayout>
-
 
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -65,39 +62,38 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/collapsed_title"
-                    android:text="App Title"
                     style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:text="App Title" />
 
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/searchview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    >
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingHorizontal="20dp"
-                        android:orientation="horizontal"
                         android:gravity="center_vertical|left"
-                        >
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="20dp">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/searchinput"
-                            android:hint="@string/search"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            />
+                            android:hint="@string/search" />
+
                         <ImageView
                             android:id="@+id/cancelsearch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_close"/>
+                            android:src="@drawable/ic_close" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </com.google.android.material.appbar.MaterialToolbar>
@@ -105,14 +101,11 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-
-
     <LinearLayout
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
         <com.google.android.material.tabs.TabLayout
@@ -120,17 +113,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            app:tabBackground="@color/transparent"
             android:foreground="@drawable/rounded_corner"
-            />
+            app:tabBackground="@color/transparent" />
 
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:foreground="@drawable/rounded_corner_top"
-            />
+            android:foreground="@drawable/rounded_corner_top" />
 
 
     </LinearLayout>

@@ -4,171 +4,161 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingBottom="15dp"
-    >
+    android:paddingBottom="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/popup_background"
         android:orientation="vertical"
-        android:paddingVertical="5dp"
         android:paddingHorizontal="25dp"
-        >
+        android:paddingVertical="5dp">
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/ititle"
+            style="@style/TextAppearance.AppCompat.Body2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            style="@style/TextAppearance.AppCompat.Body2"
-            android:text="@string/title"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            />
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="@string/title"
+            android:textSize="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_weight="1"
-                >
+                android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_marginVertical="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|left"
                     android:text="@string/language"
-                    android:textSize="15dp"
-                    />
+                    android:textSize="15dp" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_marginVertical="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|left"
                     android:text="@string/subtitle"
-                    android:textSize="15dp"
-                    />
+                    android:textSize="15dp" />
+
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_marginVertical="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|left"
                     android:text="@string/resolution"
-                    android:textSize="15dp"
-                    />
+                    android:textSize="15dp" />
+
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_marginVertical="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|left"
                     android:text="@string/duration"
-                    android:textSize="15dp"
-                    />
+                    android:textSize="15dp" />
+
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_marginVertical="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|left"
                     android:text="@string/size"
-                    android:textSize="15dp"
-                    />
+                    android:textSize="15dp" />
+
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_marginVertical="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|left"
                     android:text="@string/format"
-                    android:textSize="15dp"
-                    />
+                    android:textSize="15dp" />
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_weight="1"
-                >
+                android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/ilanguage"
-                    android:layout_marginVertical="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|right"
                     android:text="N/A"
-                    android:textSize="15dp"
-                    />
+                    android:textSize="15dp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/isubtitle"
-                    android:layout_marginVertical="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|right"
                     android:text="N/A"
-                    android:textSize="15dp"
-                    />
+                    android:textSize="15dp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/iresolution"
-                    android:layout_marginVertical="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|right"
                     android:text="N/A"
-                    android:textSize="15dp"
-                    />
+                    android:textSize="15dp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/iduration"
-                    android:layout_marginVertical="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|right"
                     android:text="N/A"
-                    android:textSize="15dp"
-                    />
+                    android:textSize="15dp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/isize"
-                    android:layout_marginVertical="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|right"
                     android:text="N/A"
-                    android:textSize="15dp"
-                    />
+                    android:textSize="15dp" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/iformat"
-                    android:layout_marginVertical="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|right"
                     android:text="N/A"
-                    android:textSize="15dp"
-                    />
+                    android:textSize="15dp" />
 
 
             </LinearLayout>
 
 
         </LinearLayout>
+
         <com.google.android.material.button.MaterialButton
-            android:layout_marginTop="5dp"
             android:id="@+id/close"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="@string/close"
             android:textStyle="bold"
             app:rippleColor="@color/button_ripple_color" />

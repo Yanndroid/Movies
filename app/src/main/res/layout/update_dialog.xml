@@ -4,76 +4,70 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingBottom="15dp"
-    >
+    android:paddingBottom="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/popup_background"
         android:orientation="vertical"
-        android:paddingVertical="5dp"
         android:paddingHorizontal="25dp"
-        >
+        android:paddingVertical="5dp">
+
         <com.google.android.material.textview.MaterialTextView
+            style="@style/TextAppearance.AppCompat.Body2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            style="@style/TextAppearance.AppCompat.Body2"
-            android:text="@string/update_app"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            />
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="@string/update_app"
+            android:textSize="20dp" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/nver"
-            android:layout_marginVertical="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="2dp"
             android:gravity="center_vertical|left"
             android:text="@string/newest_version_n_a"
-            android:textSize="15dp"
-            />
+            android:textSize="15dp" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/cver"
-            android:layout_marginVertical="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="2dp"
             android:gravity="center_vertical|left"
             android:text="@string/installed_version_n_a"
-            android:textSize="15dp"
-            />
+            android:textSize="15dp" />
 
         <LinearLayout
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
 
             <com.google.android.material.button.MaterialButton
-                android:layout_weight="1"
                 android:id="@+id/cancel"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/cancel"
                 android:textStyle="bold"
                 app:rippleColor="@color/button_ripple_color" />
 
             <com.google.android.material.button.MaterialButton
-                android:layout_weight="1"
                 android:id="@+id/update"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/update"
                 android:textStyle="bold"
                 app:rippleColor="@color/button_ripple_color" />
-
 
 
         </LinearLayout>

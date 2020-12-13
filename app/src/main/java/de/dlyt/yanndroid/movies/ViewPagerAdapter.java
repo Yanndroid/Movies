@@ -12,11 +12,14 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
         super(fragmentActivity);
     }
 
-    @NonNull @Override public Fragment createFragment(int position) {
+    @NonNull
+    @Override
+    public Fragment createFragment(int position) {
         return TabFragment.newInstance(position);
     }
 
-    @Override public int getItemCount() {
+    @Override
+    public int getItemCount() {
         return CARD_ITEM_SIZE;
     }
 }

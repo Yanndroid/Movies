@@ -81,4 +81,5 @@ public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewLi
     public static HashMap<String, Object> getData() {
         return datainfos;
     }
+
 }

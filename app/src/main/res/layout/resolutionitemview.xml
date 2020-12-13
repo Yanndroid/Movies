@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:gravity="center"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:paddingHorizontal="24dp"
-    android:paddingVertical="10dp"
-    >
+    android:paddingVertical="10dp">
 
     <TextView
-        style="?android:attr/textAppearanceLarge"
-        android:gravity="center_vertical|left"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/name"
-        android:text="@string/textview"
-        android:textSize="18dp" />
-    <TextView
         style="?android:attr/textAppearanceLarge"
-        android:gravity="center"
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical|left"
+        android:text="@string/textview"
+        android:textSize="18dp" />
+
+    <TextView
         android:id="@+id/resos"
-        android:text="@string/textview"
-        android:textSize="18dp" />
-    <TextView
         style="?android:attr/textAppearanceLarge"
-        android:gravity="center_vertical|right"
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/textview"
+        android:textSize="18dp" />
+
+    <TextView
         android:id="@+id/resol"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical|right"
         android:text="@string/textview"
         android:textSize="18dp" />
 

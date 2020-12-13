@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import de.dlyt.yanndroid.movies.dialogs.RestartDialog;
-import de.dlyt.yanndroid.movies.dialogs.UpdateDialog;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -52,7 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         Spinner language_spinner = findViewById(R.id.language_spinner);
         language_spinner.setAdapter(new ArrayAdapter<String>(getBaseContext(), R.layout.spinner_layout, language_options));
-        ((ArrayAdapter)language_spinner.getAdapter()).notifyDataSetChanged();
+        ((ArrayAdapter) language_spinner.getAdapter()).notifyDataSetChanged();
 
         language_spinner.setSelection(sharedPreferences.getInt("language_spinner", 0));
         final int[] language_spinner_selection = {sharedPreferences.getInt("language_spinner", 0)};
@@ -60,15 +59,24 @@ public class SettingsActivity extends AppCompatActivity {
         language_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(language_spinner_selection[0] != position){
+                if (language_spinner_selection[0] != position) {
                     restartapp();
                 }
+                sharedPreferences.edit().putInt("language_spinner", position).commit();
                 language_spinner_selection[0] = position;
-                switch (position){
-                    case 0: setLocale(SettingsActivity.this, ""); sharedPreferences.edit().putInt("language_spinner", position).commit(); return;
-                    case 1: setLocale(SettingsActivity.this, "en"); sharedPreferences.edit().putInt("language_spinner", position).commit(); return;
-                    case 2: setLocale(SettingsActivity.this, "de"); sharedPreferences.edit().putInt("language_spinner", position).commit(); return;
-                    case 3: setLocale(SettingsActivity.this, "fr"); sharedPreferences.edit().putInt("language_spinner", position).commit(); return;
+                switch (position) {
+                    case 0:
+                        setLocale(SettingsActivity.this, "");
+                        return;
+                    case 1:
+                        setLocale(SettingsActivity.this, "en");
+                        return;
+                    case 2:
+                        setLocale(SettingsActivity.this, "de");
+                        return;
+                    case 3:
+                        setLocale(SettingsActivity.this, "fr");
+                        return;
                 }
             }
 
@@ -77,7 +85,44 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
-        
+
+        /** Theme_spinner */
+        ArrayList<String> theme_options = new ArrayList<>();
+        theme_options.add(getString(R.string.system));
+        theme_options.add(getString(R.string.always));
+        theme_options.add(getString(R.string.never));
+
+        Spinner theme_spinner = findViewById(R.id.theme_spinner);
+        theme_spinner.setAdapter(new ArrayAdapter<String>(getBaseContext(), R.layout.spinner_layout, theme_options));
+        ((ArrayAdapter) theme_spinner.getAdapter()).notifyDataSetChanged();
+
+        theme_spinner.setSelection(sharedPreferences.getInt("theme_spinner", 0));
+        final int[] theme_spinner_selection = {sharedPreferences.getInt("theme_spinner", 0)};
+
+        theme_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (theme_spinner_selection[0] != position) {
+                    restartapp();
+                }
+                sharedPreferences.edit().putInt("theme_spinner", position).commit();
+                theme_spinner_selection[0] = position;
+                switch (position) {
+                    case 0:
+                        return;
+                    case 1:
+                        return;
+                    case 2:
+                        return;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         /** switches */
 
@@ -108,7 +153,6 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
-
 
 
     }
@@ -156,7 +200,7 @@ public class SettingsActivity extends AppCompatActivity {
         resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 
-    public void restartapp(){
+    public void restartapp() {
         RestartDialog bottomSheetDialog = RestartDialog.newInstance();
         bottomSheetDialog.show(getSupportFragmentManager(), "tag");
     }

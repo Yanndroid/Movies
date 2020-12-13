@@ -60,7 +60,7 @@ public class UpdateDialog extends BottomSheetDialogFragment {
             PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
             int versionC = pInfo.versionCode;
             String versionN = pInfo.versionName;
-            cver.setText(getString(R.string.installed_version)+" "+ versionN);
+            cver.setText(getString(R.string.installed_version) + " " + versionN);
             mDatabase = FirebaseDatabase.getInstance().getReference().child("AndroidApp");
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -78,7 +78,7 @@ public class UpdateDialog extends BottomSheetDialogFragment {
                     }
 
 
-                    nver.setText(getString(R.string.newest_version)+" "+ updateinfo.get(0).get("name").toString());
+                    nver.setText(getString(R.string.newest_version) + " " + updateinfo.get(0).get("name").toString());
 
                     if (versionC < Double.parseDouble(updateinfo.get(0).get("code").toString())) {
                         update.setText(R.string.update);
@@ -120,5 +120,4 @@ public class UpdateDialog extends BottomSheetDialogFragment {
             }
         });
     }
-
 }

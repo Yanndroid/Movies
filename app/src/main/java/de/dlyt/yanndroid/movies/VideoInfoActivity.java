@@ -3,31 +3,17 @@ package de.dlyt.yanndroid.movies;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class VideoInfoActivity extends AppCompatActivity {
 
@@ -44,7 +30,7 @@ public class VideoInfoActivity extends AppCompatActivity {
     }
 
 
-    public void initToolbar(){
+    public void initToolbar() {
         /** Def */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,7 +40,7 @@ public class VideoInfoActivity extends AppCompatActivity {
 
         /** 1/3 of the Screen */
         ViewGroup.LayoutParams layoutParams = AppBar.getLayoutParams();
-        layoutParams.height = (int)((double)this.getResources().getDisplayMetrics().heightPixels / 2.6);
+        layoutParams.height = (int) ((double) this.getResources().getDisplayMetrics().heightPixels / 2.6);
 
 
         /** Collapsing */
@@ -79,7 +65,7 @@ public class VideoInfoActivity extends AppCompatActivity {
     }
 
 
-    public void initRecycler(){
+    public void initRecycler() {
 
 
         resolutionrecycler = findViewById(R.id.resolutionview);
@@ -93,57 +79,57 @@ public class VideoInfoActivity extends AppCompatActivity {
         HashMap<String, Object> map = new HashMap<>();
 
         map = new HashMap<>();
-        map.put("name","FUHD");
-        map.put("resolong","7680x4320");
-        map.put("resoshort","4320p / 8k");
+        map.put("name", "FUHD");
+        map.put("resolong", "7680x4320");
+        map.put("resoshort", "4320p / 8k");
         resolist.add(map);
 
         map = new HashMap<>();
-        map.put("name","6k");
-        map.put("resolong","6144x3456");
-        map.put("resoshort","3456p / 6k");
+        map.put("name", "6k");
+        map.put("resolong", "6144x3456");
+        map.put("resoshort", "3456p / 6k");
         resolist.add(map);
 
         map = new HashMap<>();
-        map.put("name","WUHD");
-        map.put("resolong","5120x2880");
-        map.put("resoshort","2880p / 5k");
+        map.put("name", "WUHD");
+        map.put("resolong", "5120x2880");
+        map.put("resoshort", "2880p / 5k");
         resolist.add(map);
 
         map = new HashMap<>();
-        map.put("name","UHD");
-        map.put("resolong","3840x2160");
-        map.put("resoshort","2160p / 4k");
+        map.put("name", "UHD");
+        map.put("resolong", "3840x2160");
+        map.put("resoshort", "2160p / 4k");
         resolist.add(map);
 
         map = new HashMap<>();
-        map.put("name","QHD");
-        map.put("resolong","2560x1440");
-        map.put("resoshort","1440p / 2k");
+        map.put("name", "QHD");
+        map.put("resolong", "2560x1440");
+        map.put("resoshort", "1440p / 2k");
         resolist.add(map);
 
         map = new HashMap<>();
-        map.put("name","FHD");
-        map.put("resolong","1920x1080");
-        map.put("resoshort","1080p");
+        map.put("name", "FHD");
+        map.put("resolong", "1920x1080");
+        map.put("resoshort", "1080p");
         resolist.add(map);
 
         map = new HashMap<>();
-        map.put("name","HD");
-        map.put("resolong","1080x720");
-        map.put("resoshort","720p");
+        map.put("name", "HD");
+        map.put("resolong", "1080x720");
+        map.put("resoshort", "720p");
         resolist.add(map);
 
         map = new HashMap<>();
-        map.put("name","SD");
-        map.put("resolong","720x576");
-        map.put("resoshort","576p");
+        map.put("name", "SD");
+        map.put("resolong", "720x576");
+        map.put("resoshort", "576p");
         resolist.add(map);
 
         map = new HashMap<>();
-        map.put("name","VGA");
-        map.put("resolong","640x480");
-        map.put("resoshort","480p");
+        map.put("name", "VGA");
+        map.put("resolong", "640x480");
+        map.put("resoshort", "480p");
         resolist.add(map);
 
         return resolist;

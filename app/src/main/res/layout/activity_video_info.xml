@@ -4,20 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoInfoActivity"
     android:foreground="@drawable/rounded_corner_bottom"
-    >
-
+    tools:context=".VideoInfoActivity">
 
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         android:background="?android:windowBackground"
-        app:elevation="0dp"
-        >
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
@@ -31,8 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/expanded_title"
                     style="@style/TextAppearance.Design.CollapsingToolbar.Expanded"
@@ -47,7 +44,6 @@
             </LinearLayout>
 
 
-
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -59,11 +55,11 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title"
-                    android:text="@string/video_info"
                     style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:text="@string/video_info" />
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -71,36 +67,31 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:foreground="@drawable/rounded_corner_top"
         android:orientation="vertical"
-        >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="15dp"
+                    style="?android:attr/textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="?android:attr/textAppearanceSmall"
-                    android:textStyle="bold"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="2dp"
                     android:text="@string/resolution"
-                    />
+                    android:textStyle="bold" />
 
 
                 <com.google.android.material.card.MaterialCardView
@@ -110,9 +101,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/resolutionview"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        />
-
+                        android:layout_height="match_parent" />
 
 
                 </com.google.android.material.card.MaterialCardView>

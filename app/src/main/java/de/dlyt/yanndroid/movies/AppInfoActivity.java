@@ -1,8 +1,5 @@
 package de.dlyt.yanndroid.movies;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -14,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -34,7 +34,7 @@ public class AppInfoActivity extends AppCompatActivity {
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;
-            expanded_subtitle.setText(getString(R.string.version)+": "+ version);
+            expanded_subtitle.setText(getString(R.string.version) + ": " + version);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -129,5 +129,4 @@ public class AppInfoActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }

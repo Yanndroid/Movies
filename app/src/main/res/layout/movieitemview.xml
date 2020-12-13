@@ -1,49 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:gravity="center"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    >
+    android:gravity="center">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
         android:clickable="true"
-        android:focusable="true"
-        >
+        android:focusable="true">
 
 
         <LinearLayout
-            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:layout_gravity="center"
             android:gravity="left|center_vertical"
-            >
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_tmdb_big"
-                />
+                android:src="@drawable/ic_tmdb_big" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_weight="1"
-                >
+                android:orientation="vertical">
+
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_marginTop="5dp"
                     android:id="@+id/item_title"
-                    android:gravity="center"
                     style="?android:attr/textAppearanceLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:ellipsize="marquee"
                     android:fadingEdge="horizontal"
+                    android:gravity="center"
                     android:text="@string/movie_name"
                     android:textSize="18sp" />
 
@@ -72,13 +68,11 @@
 
             <ImageView
                 android:id="@+id/info_image"
-                android:layout_marginRight="24dp"
-                android:layout_marginLeft="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_info"
-                />
-
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="24dp"
+                android:src="@drawable/ic_info" />
 
 
         </LinearLayout>

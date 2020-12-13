@@ -4,17 +4,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.ViewHolder> {
     private ArrayList<HashMap<String, Object>> data;
-    public ResolutionAdapter (ArrayList<HashMap<String, Object>> data){
+
+    public ResolutionAdapter(ArrayList<HashMap<String, Object>> data) {
         this.data = data;
     }
 
@@ -51,7 +50,5 @@ public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.Vi
             this.resos = view.findViewById(R.id.resos);
             this.resol = view.findViewById(R.id.resol);
         }
-
-
     }
 }

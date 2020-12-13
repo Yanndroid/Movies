@@ -4,20 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity"
     android:foreground="@drawable/rounded_corner_bottom"
-    >
-
+    tools:context=".SettingsActivity">
 
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         android:background="?android:windowBackground"
-        app:elevation="0dp"
-        >
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
@@ -31,8 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/expanded_title"
                     style="@style/TextAppearance.Design.CollapsingToolbar.Expanded"
@@ -46,7 +43,6 @@
             </LinearLayout>
 
 
-
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -58,11 +54,11 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title"
-                    android:text="@string/settings"
                     style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:text="@string/settings" />
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -73,25 +69,111 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:foreground="@drawable/rounded_corner_top"
         android:orientation="vertical"
-        >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="?android:attr/textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/layout"
+                    android:textStyle="bold" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="15dp"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|left"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                style="?textAppearanceBody1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/language"
+                                android:textSize="18sp" />
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/language_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:popupBackground="@drawable/popup_background"
+                                android:popupElevation="5dp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_marginVertical="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#4D808080" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|left"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                style="?textAppearanceBody1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/theme"
+                                android:textSize="18sp" />
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/theme_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:popupBackground="@drawable/popup_background"
+                                android:popupElevation="5dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="?android:attr/textAppearanceSmall"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/useless"
+                    android:textStyle="bold" />
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -292,78 +374,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp">
-
-                    <LinearLayout
-                        android:layout_marginHorizontal="24dp"
-                        android:layout_marginVertical="13dp"
-                        android:layout_gravity="center_vertical|left"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:textSize="18sp"
-                            android:layout_weight="1"
-                            style="?textAppearanceBody1"
-                            android:text="@string/language"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                        <androidx.appcompat.widget.AppCompatSpinner
-                            android:popupElevation="5dp"
-                            android:popupBackground="@drawable/popup_background"
-                            android:id="@+id/language_spinner"
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp">
-
-                    <LinearLayout
-                        android:layout_marginHorizontal="24dp"
-                        android:layout_marginVertical="13dp"
-                        android:layout_gravity="center_vertical|left"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:textSize="18sp"
-                            android:layout_weight="1"
-                            style="?textAppearanceBody1"
-                            android:text="@string/theme"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                        <androidx.appcompat.widget.AppCompatSpinner
-                            android:popupElevation="5dp"
-                            android:popupBackground="@drawable/popup_background"
-                            android:id="@+id/theme_spinner"
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-
             </LinearLayout>
-
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
