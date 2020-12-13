@@ -43,6 +43,10 @@
     <string name="french">Français</string>
     <string name="restart_app_to_apply_changes">Fermer l\'application pour appliquer les changements?</string>
     <string name="restart_app">Appliquer les changements</string>
+    <string name="useless">Inutile</string>
+    <string name="always">Toujours</string>
+    <string name="never">Jamais</string>
+    <string name="layout">Apparence</string>
 </resources>
 
 

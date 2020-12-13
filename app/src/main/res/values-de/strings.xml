@@ -45,5 +45,9 @@
     <string name="french">Französisch</string>
     <string name="restart_app">Änderungen übernehmen</string>
     <string name="restart_app_to_apply_changes">App schließen um Änderungen zu übernehemn?</string>
+    <string name="never">Nie</string>
+    <string name="always">Immer</string>
+    <string name="useless">Nutzlos</string>
+    <string name="layout">Layout</string>
 
 </resources>

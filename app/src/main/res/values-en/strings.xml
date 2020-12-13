@@ -49,6 +49,10 @@
     <string name="french">French</string>
     <string name="restart_app">Apply Changes</string>
     <string name="restart_app_to_apply_changes">Close App to apply changes?</string>
+    <string name="layout">Layout</string>
+    <string name="useless">Useless</string>
+    <string name="always">Always</string>
+    <string name="never">Never</string>
 
 
 </resources>

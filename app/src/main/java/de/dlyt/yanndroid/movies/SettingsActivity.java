@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -60,9 +61,9 @@ public class SettingsActivity extends AppCompatActivity {
         language_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (language_spinner_selection[0] != position) {
+                /*if (language_spinner_selection[0] != position) {
                     restartapp();
-                }
+                }*/
                 sharedPreferences.edit().putInt("language_spinner", position).commit();
                 language_spinner_selection[0] = position;
                 switch (position) {
@@ -109,11 +110,11 @@ public class SettingsActivity extends AppCompatActivity {
                 sharedPreferences.edit().putInt("theme_spinner", position).commit();
                 theme_spinner_selection[0] = position;
                 switch (position) {
-                    case 0:
+                    case 0: AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                         return;
-                    case 1:
+                    case 1: AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                         return;
-                    case 2:
+                    case 2: AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                         return;
                 }
             }
