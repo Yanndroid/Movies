@@ -61,9 +61,9 @@ public class SettingsActivity extends AppCompatActivity {
         language_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                /*if (language_spinner_selection[0] != position) {
+                if (language_spinner_selection[0] != position) {
                     restartapp();
-                }*/
+                }
                 sharedPreferences.edit().putInt("language_spinner", position).commit();
                 language_spinner_selection[0] = position;
                 switch (position) {
@@ -104,9 +104,6 @@ public class SettingsActivity extends AppCompatActivity {
         theme_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (theme_spinner_selection[0] != position) {
-                    restartapp();
-                }
                 sharedPreferences.edit().putInt("theme_spinner", position).commit();
                 theme_spinner_selection[0] = position;
                 switch (position) {

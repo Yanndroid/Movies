@@ -5,7 +5,6 @@
  * open apk after update
  * recyclerview
  * animation
- * language
  */
 
 
