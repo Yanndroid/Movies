@@ -15,7 +15,7 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
         <item name="android:navigationBarColor" tools:targetApi="27">@color/background_color</item>
         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
-        <item name="popupMenuBackground">@drawable/sesl_menu_popup_background</item>
+        <item name="popupMenuBackground">@drawable/popup_background</item>
     </style>
 
     <style name="TransparentTheme" parent="AppTheme">

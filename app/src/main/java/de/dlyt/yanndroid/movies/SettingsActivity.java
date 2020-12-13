@@ -7,7 +7,10 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +19,11 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import java.util.ArrayList;
 import java.util.Locale;
+
+import de.dlyt.yanndroid.movies.dialogs.RestartDialog;
+import de.dlyt.yanndroid.movies.dialogs.UpdateDialog;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -29,12 +36,50 @@ public class SettingsActivity extends AppCompatActivity {
 
         initToolbar();
         initSettings();
+
     }
 
 
     public void initSettings() {
         sharedPreferences = getSharedPreferences("settings", Activity.MODE_PRIVATE);
 
+        /** language_spinner */
+        ArrayList<String> language_options = new ArrayList<>();
+        language_options.add(getString(R.string.system));
+        language_options.add(getString(R.string.english));
+        language_options.add(getString(R.string.german));
+        language_options.add(getString(R.string.french));
+
+        Spinner language_spinner = findViewById(R.id.language_spinner);
+        language_spinner.setAdapter(new ArrayAdapter<String>(getBaseContext(), R.layout.spinner_layout, language_options));
+        ((ArrayAdapter)language_spinner.getAdapter()).notifyDataSetChanged();
+
+        language_spinner.setSelection(sharedPreferences.getInt("language_spinner", 0));
+        final int[] language_spinner_selection = {sharedPreferences.getInt("language_spinner", 0)};
+
+        language_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(language_spinner_selection[0] != position){
+                    restartapp();
+                }
+                language_spinner_selection[0] = position;
+                switch (position){
+                    case 0: setLocale(SettingsActivity.this, ""); sharedPreferences.edit().putInt("language_spinner", position).commit(); return;
+                    case 1: setLocale(SettingsActivity.this, "en"); sharedPreferences.edit().putInt("language_spinner", position).commit(); return;
+                    case 2: setLocale(SettingsActivity.this, "de"); sharedPreferences.edit().putInt("language_spinner", position).commit(); return;
+                    case 3: setLocale(SettingsActivity.this, "fr"); sharedPreferences.edit().putInt("language_spinner", position).commit(); return;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        
+
+        /** switches */
 
         SwitchMaterial switch1 = findViewById(R.id.switch1);
         switch1.setChecked(sharedPreferences.getBoolean("switch1", false));
@@ -42,11 +87,6 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 sharedPreferences.edit().putBoolean("switch1", isChecked).commit();
-                if(isChecked){
-                    setLocale(SettingsActivity.this, "fr");
-                }else {
-                    setLocale(SettingsActivity.this, "en");
-                }
             }
         });
 
@@ -68,6 +108,8 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 
@@ -105,7 +147,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-
     public static void setLocale(Activity activity, String languageCode) {
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
@@ -113,6 +154,11 @@ public class SettingsActivity extends AppCompatActivity {
         Configuration config = resources.getConfiguration();
         config.setLocale(locale);
         resources.updateConfiguration(config, resources.getDisplayMetrics());
+    }
+
+    public void restartapp(){
+        RestartDialog bottomSheetDialog = RestartDialog.newInstance();
+        bottomSheetDialog.show(getSupportFragmentManager(), "tag");
     }
 
 }

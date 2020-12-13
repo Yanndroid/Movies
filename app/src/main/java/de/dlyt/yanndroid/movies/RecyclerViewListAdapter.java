@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import de.dlyt.yanndroid.movies.dialogs.MovieInfoDialog;
+
 public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewListAdapter.ViewHolder> {
     private ArrayList<HashMap<String, Object>> data;
     private static HashMap<String, Object> datainfos;

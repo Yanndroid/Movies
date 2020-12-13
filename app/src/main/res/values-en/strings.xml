@@ -42,5 +42,12 @@
     <string name="installed_version_n_a">Installed Version: N/A</string>
     <string name="filter">Filter</string>
     <string name="version_n_a">Version: N/A</string>
+    <string name="theme">Dark Mode</string>
+    <string name="system">System</string>
+    <string name="english">English</string>
+    <string name="german">German</string>
+    <string name="french">French</string>
+    <string name="restart_app">Apply Changes</string>
+    <string name="restart_app_to_apply_changes">Close App to apply changes?</string>
 
 </resources>

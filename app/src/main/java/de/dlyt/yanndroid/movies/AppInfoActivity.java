@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import de.dlyt.yanndroid.movies.dialogs.UpdateDialog;
+
 public class AppInfoActivity extends AppCompatActivity {
 
     BottomSheetDialog bsd;
