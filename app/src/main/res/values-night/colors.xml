@@ -7,4 +7,5 @@
     <color name="tip_card_background_color">#053053</color>
     <color name="tip_title_color">#fafafa</color>
     <color name="tip_text_color">#038bfb</color>
+    <color name="text_color">#ffffffff</color>
 </resources>

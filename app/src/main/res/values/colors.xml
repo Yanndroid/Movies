@@ -26,4 +26,5 @@
     <color name="tip_title_color">#0074d4</color>
     <color name="tip_text_color">#2e2e2e</color>
     <color name="transparent">#00000000</color>
+    <color name="text_color">#ff000000</color>
 </resources>
