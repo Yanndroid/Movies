@@ -2,18 +2,24 @@ package de.dlyt.yanndroid.movies;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +29,8 @@ import de.dlyt.yanndroid.movies.dialogs.MovieInfoDialog;
 public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewListAdapter.ViewHolder> {
     private ArrayList<HashMap<String, Object>> data;
     private static HashMap<String, Object> datainfos;
-    private HashMap<Integer, Boolean> mexpanded = new HashMap<Integer, Boolean>();
+    private HashMap<Integer, Boolean> m_expanded = new HashMap<Integer, Boolean>();
+    private HashMap<Integer, Boolean> s_expanded = new HashMap<Integer, Boolean>();
 
     private android.content.Context context;
 
@@ -86,6 +93,17 @@ public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewLi
             }
         });
 
+        holder.bookmark_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    Snackbar.make(holder.bookmark_check, "Bookmark currently not available", Snackbar.LENGTH_SHORT).show();
+                }else{
+
+                }
+            }
+        });
+
     }
 
 
@@ -115,20 +133,18 @@ public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewLi
         holder.multiple_movies_recyclerview.setAdapter(new multiple_movies_listAdapter(tmp_list));
 
 
-        if(!mexpanded.containsKey(position)){
-            mexpanded.put(position, false);
+        if(!m_expanded.containsKey(position)){
+            m_expanded.put(position, false);
         }
-        set_m_movie_expanded(mexpanded.get(position), holder, position);
+        set_m_movie_expanded(m_expanded.get(position), holder, position);
 
 
         holder.multiple_item_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                set_m_movie_expanded(!mexpanded.get(position), holder, position);
+                set_m_movie_expanded(!m_expanded.get(position), holder, position);
             }
         });
-
-
     }
 
     public void set_m_movie_expanded(boolean setexpanded, ViewHolder holder, Integer position){
@@ -139,11 +155,29 @@ public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewLi
         animator.setInterpolator(new BounceInterpolator());
         if(setexpanded){
             holder.multiple_movies_recyclerview.setVisibility(View.VISIBLE);
-            mexpanded.put(position, true);
+            m_expanded.put(position, true);
             animator.setFloatValues(180);
         }else {
             holder.multiple_movies_recyclerview.setVisibility(View.GONE);
-            mexpanded.put(position, false);
+            m_expanded.put(position, false);
+            animator.setFloatValues(0);
+        }
+        animator.start();
+    }
+
+    public void set_series_expanded(boolean setexpanded, ViewHolder holder, Integer position){
+        ObjectAnimator animator = new ObjectAnimator();
+        animator.setTarget(holder.dropdown_image_series);
+        animator.setPropertyName("rotation");
+        animator.setDuration(500);
+        animator.setInterpolator(new BounceInterpolator());
+        if(setexpanded){
+            holder.series_recyclerview.setVisibility(View.VISIBLE);
+            s_expanded.put(position, true);
+            animator.setFloatValues(180);
+        }else {
+            holder.series_recyclerview.setVisibility(View.GONE);
+            s_expanded.put(position, false);
             animator.setFloatValues(0);
         }
         animator.start();
@@ -159,6 +193,44 @@ public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewLi
             holder.item_series_title.setText(this.data.get(position).get("title").toString());
 
         }
+
+
+        HashMap<String, Object> tmp_list = new HashMap<String, Object>();
+        tmp_list = data.get(position);
+        if(tmp_list.containsKey("title")){
+            tmp_list.remove("title");
+        }
+        if(tmp_list.containsKey("type")){
+            tmp_list.remove("type");
+        }
+
+
+        ArrayList<HashMap<String, Object>> series_list = new ArrayList<HashMap<String, Object>>();
+        HashMap<String, Object> tmp_list2 = new HashMap<String, Object>();
+
+        for(int i = 0; i <tmp_list.size(); i++){
+
+            tmp_list2 = (HashMap<String, Object>) tmp_list.get(String.valueOf(i));
+            series_list.add(tmp_list2);
+        }
+
+
+        holder.series_recyclerview.setLayoutManager(new LinearLayoutManager(this.context));
+        holder.series_recyclerview.setAdapter(new RecyclerViewListAdapter(series_list, context));
+
+
+        if(!s_expanded.containsKey(position)){
+            s_expanded.put(position, false);
+        }
+        set_series_expanded(s_expanded.get(position), holder, position);
+
+
+        holder.series_item_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                set_series_expanded(!s_expanded.get(position), holder, position);
+            }
+        });
 
     }
 
@@ -179,6 +251,7 @@ public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewLi
         private TextView item_resolution;
         private ImageView infoimage;
         private ImageView item_cover;
+        private CheckBox bookmark_check;
 
 
         private MaterialCardView multiple_item_card;
@@ -195,12 +268,14 @@ public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewLi
 
         public ViewHolder(View view) {
             super(view);
+
             this.single_item_card = view.findViewById(R.id.single_item_card);
             this.item_title = view.findViewById(R.id.item_title);
             this.item_language = view.findViewById(R.id.item_language);
             this.item_resolution = view.findViewById(R.id.item_resolution);
             this.infoimage = view.findViewById(R.id.info_image);
             this.item_cover = view.findViewById(R.id.item_cover);
+            this.bookmark_check = view.findViewById(R.id.bookmark_check);
 
             this.multiple_item_card = view.findViewById(R.id.multiple_item_card);
             this.item_multiple_title = view.findViewById(R.id.item_multiple_title);

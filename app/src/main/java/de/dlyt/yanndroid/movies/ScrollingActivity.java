@@ -1,9 +1,10 @@
 
 /**
  * todo:
- * (user in firebase)
+ * filter
+ * search
+ * bookmark
  * open apk after update
- * recyclerview
  * animation
  */
 
@@ -11,6 +12,8 @@
 package de.dlyt.yanndroid.movies;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
@@ -19,14 +22,14 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,6 +61,8 @@ public class ScrollingActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private ArrayList<HashMap<String, Object>> updateinfo;
 
+    private boolean searching;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,17 +90,25 @@ public class ScrollingActivity extends AppCompatActivity {
         initViewPager();
 
         /** Search */
-        ImageView cancelseach = findViewById(R.id.cancelsearch);
+        searching = false;
         EditText searchinput = findViewById(R.id.searchinput);
-        cancelseach.setOnClickListener(new View.OnClickListener() {
+        searchinput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                searchinput.setText("");
-                setsearching(false);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchinput.setError("Search not available");
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
-
-
     }
 
 
@@ -128,7 +141,7 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     public void initViewPager() {
-        int[] tabicons = {R.drawable.ic_movie, R.drawable.ic_serie, R.drawable.ic_bookmark};
+        int[] tabicons = {R.drawable.ic_movie, R.drawable.ic_serie, R.drawable.ic_bookmarks};
         ViewPager2 viewPager = findViewById(R.id.view_pager);
         TabLayout tabLayout = findViewById(R.id.tabs);
         viewPager.setAdapter(new ViewPagerAdapter(this));
@@ -161,24 +174,44 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
 
-    public void setsearching(Boolean searching) {
+    public void switchsearching() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         TextView collapsed_title = findViewById(R.id.collapsed_title);
         CardView searchview = findViewById(R.id.searchview);
         EditText searchinput = findViewById(R.id.searchinput);
 
-        if (searching) {
-            toolbar.getMenu().findItem(R.id.search).setVisible(false);
+        if (!searching) {
+
+            Snackbar.make(findViewById(R.id.app_bar), "Search currently not available", Snackbar.LENGTH_SHORT).show();
+
+
+            toolbar.getMenu().findItem(R.id.search).setIcon(R.drawable.ic_close);
             toolbar.getMenu().findItem(R.id.filter).setVisible(false);
             searchview.setVisibility(View.VISIBLE);
             searchinput.setEnabled(true);
             collapsed_title.setVisibility(View.GONE);
+
+            searchview.animate().alpha(1).setDuration(200).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    searching = true;
+                }
+            });
+
         } else {
-            toolbar.getMenu().findItem(R.id.search).setVisible(true);
-            toolbar.getMenu().findItem(R.id.filter).setVisible(true);
-            searchview.setVisibility(View.GONE);
-            searchinput.setEnabled(false);
-            collapsed_title.setVisibility(View.VISIBLE);
+
+            searchview.animate().alpha(0).setDuration(200).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    toolbar.getMenu().findItem(R.id.search).setIcon(R.drawable.ic_search);
+                    toolbar.getMenu().findItem(R.id.filter).setVisible(true);
+                    searchview.setVisibility(View.GONE);
+                    searchinput.setEnabled(false);
+                    collapsed_title.setVisibility(View.VISIBLE);
+                    searching = false;
+                }
+            });
+
         }
     }
 
@@ -265,10 +298,10 @@ public class ScrollingActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.search:
-                setsearching(true);
+                switchsearching();
                 return true;
             case R.id.filter:
-                Toast.makeText(ScrollingActivity.this, R.string.filter, Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.app_bar), "Filter currently not available", Snackbar.LENGTH_SHORT).show();
                 return true;
             case R.id.settings:
                 intent.setClass(getApplicationContext(), SettingsActivity.class);

@@ -3,6 +3,8 @@ package de.dlyt.yanndroid.movies;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,6 +73,17 @@ public class multiple_movies_listAdapter extends RecyclerView.Adapter<multiple_m
         });
 
 
+        holder.bookmark_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    Snackbar.make(holder.bookmark_check, "Bookmark currently not available", Snackbar.LENGTH_SHORT).show();
+                }else{
+
+                }
+            }
+        });
+
 
     }
 
@@ -91,6 +105,7 @@ public class multiple_movies_listAdapter extends RecyclerView.Adapter<multiple_m
         private TextView item_resolution;
         private ImageView infoimage;
         private ImageView item_cover;
+        private CheckBox bookmark_check;
 
         public ViewHolder(View view) {
             super(view);
@@ -99,6 +114,8 @@ public class multiple_movies_listAdapter extends RecyclerView.Adapter<multiple_m
             this.item_resolution = view.findViewById(R.id.m_item_resolution);
             this.infoimage = view.findViewById(R.id.m_info_image);
             this.item_cover = view.findViewById(R.id.m_item_cover);
+            this.bookmark_check = view.findViewById(R.id.m_bookmark_check);
+
         }
     }
 

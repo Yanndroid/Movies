@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/checked"
+        android:drawable="@drawable/ic_bookmark_full"
+        android:state_checked="true" />
+
+    <item
+        android:id="@+id/unchecked"
+        android:drawable="@drawable/ic_bookmark_empty"
+        android:state_checked="false" />
+
+    <transition
+        android:drawable="@drawable/bookmark_check_anim"
+        android:fromId="@id/unchecked"
+        android:toId="@id/checked" />
+
+    <transition
+        android:drawable="@drawable/bookmark_uncheck_anim"
+        android:fromId="@+id/checked"
+        android:toId="@+id/unchecked" />
+
+</animated-selector>

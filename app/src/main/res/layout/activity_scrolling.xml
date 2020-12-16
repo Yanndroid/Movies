@@ -87,13 +87,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="@string/search" />
-
-                        <ImageView
-                            android:id="@+id/cancelsearch"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_close" />
+                            android:hint="@string/search"
+                            android:imeOptions="actionSearch"
+                            android:singleLine="true" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </com.google.android.material.appbar.MaterialToolbar>
@@ -113,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:foreground="@drawable/rounded_corner"
+            android:foreground="@drawable/rounded_corner_top"
             app:tabBackground="@color/transparent" />
 
 

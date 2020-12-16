@@ -70,13 +70,36 @@
             android:layout_marginVertical="24dp"
             android:background="#4D808080" />
 
-        <ImageView
-            android:id="@+id/m_info_image"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="24dp"
-            android:src="@drawable/ic_info" />
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+            <CheckBox
+                android:id="@+id/m_bookmark_check"
+                android:button="@null"
+                android:checked="false"
+                android:background="@drawable/ic_bookmark_selector"
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
+
+            <View
+                android:layout_marginVertical="5dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp" />
+
+            <ImageView
+                android:id="@+id/m_info_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_info" />
+
+
+        </LinearLayout>
 
 
     </LinearLayout>
