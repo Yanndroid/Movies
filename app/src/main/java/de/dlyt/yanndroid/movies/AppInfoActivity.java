@@ -1,33 +1,76 @@
 package de.dlyt.yanndroid.movies;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Random;
 
 import de.dlyt.yanndroid.movies.dialogs.UpdateDialog;
+
+import static de.dlyt.yanndroid.movies.R.string.easteregg_found;
+import static de.dlyt.yanndroid.movies.R.string.no_EasterEgg;
 
 public class AppInfoActivity extends AppCompatActivity {
 
     BottomSheetDialog bsd;
+    Integer clicks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_info);
+
+        /** Popup */
+        initPopup();
+
+        CardView yanndroidcard = findViewById(R.id.yanndroidcard);
+
+        clicks = 0;
+        yanndroidcard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clicks++;
+                if(clicks == 4){
+                    Snackbar.make(findViewById(R.id.app_bar), no_EasterEgg, Snackbar.LENGTH_LONG).setAction("Ok", new Snackbarbutton()).show();
+                    clicks = 0;
+                }
+            }
+        });
+
+
+
 
         /** App Version */
         TextView expanded_subtitle = findViewById(R.id.expanded_subtitle);
@@ -72,7 +115,130 @@ public class AppInfoActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://firebase.google.com/")));
             }
         });
+
+
     }
+
+
+    public class Snackbarbutton implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            if (android.provider.Settings.canDrawOverlays(AppInfoActivity.this)) {
+                showFloatingWindow();
+                Toast.makeText(AppInfoActivity.this, "Baguette!!!", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+                while(true) {
+                    if (android.provider.Settings.canDrawOverlays(AppInfoActivity.this)) {
+                        showFloatingWindow();
+                        Toast.makeText(AppInfoActivity.this, "Baguette!!!", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+    private void initPopup() {
+        windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+        layoutParams = new WindowManager.LayoutParams();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        } else {
+            layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+        }
+
+        layoutParams.format = PixelFormat.RGBA_8888; layoutParams.gravity = Gravity.CENTER; layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE; layoutParams.width = 400; layoutParams.height = 400; layoutParams.x = 0;
+        layoutParams.y = 0;
+
+        _reCall();
+
+    }
+    private WindowManager windowManager;
+    private WindowManager.LayoutParams layoutParams;
+    private View displayView;
+    private void showFloatingWindow() {
+        ObjectAnimator objectAnimator = new ObjectAnimator();
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        displayView = layoutInflater.inflate(R.layout.popup_view, null); displayView.setOnTouchListener(new FloatingOnTouchListener());
+        ImageView baguette = displayView.findViewById(R.id.baguette);
+        objectAnimator.setTarget(baguette);
+        objectAnimator.setPropertyName("rotation");
+        objectAnimator.setFloatValues((float)(360));
+        objectAnimator.setDuration((int)(2000));
+        objectAnimator.setRepeatMode(ValueAnimator.RESTART);
+        objectAnimator.setRepeatCount((int)(-1));
+        objectAnimator.setInterpolator(new LinearInterpolator());
+        objectAnimator.start();
+        windowManager.addView(displayView, layoutParams);
+        Random rnd = new Random();
+        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        baguette.setColorFilter(color);
+    }
+
+    private class FloatingOnTouchListener implements View.OnTouchListener {
+        private int x;
+        private int y;
+
+        @Override public boolean onTouch(View view, MotionEvent event) {
+
+            ImageView baguette = view.findViewById(R.id.baguette);
+            Random rnd;
+            int color;
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    x = (int) event.getRawX();
+                    y = (int) event.getRawY();
+                    rnd = new Random();
+                    color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+                    baguette.setColorFilter(color);
+                    break;
+                case MotionEvent.ACTION_MOVE: int nowX = (int) event.getRawX();
+                    int nowY = (int) event.getRawY();
+                    int movedX = nowX - x;
+                    int movedY = nowY - y;
+                    x = nowX; y = nowY;
+                    layoutParams.x = layoutParams.x + movedX;
+                    layoutParams.y = layoutParams.y + movedY; windowManager.updateViewLayout(view, layoutParams);
+                    rnd = new Random();
+                    color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+                    baguette.setColorFilter(color);
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
+    }
+
+    public void closes(){
+        try{
+            windowManager.removeView(displayView);
+        }
+        catch(Exception e){
+        }
+    }
+    private void _reCall(){
+    }
+
+
+
+
+
+
+
+
+
+
 
 
     public void initToolbar() {

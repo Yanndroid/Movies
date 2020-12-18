@@ -49,5 +49,7 @@
     <string name="always">Immer</string>
     <string name="useless">Nutzlos</string>
     <string name="layout">Layout</string>
+    <string name="easteregg_found">EasterEgg gefunden 🙃</string>
+    <string name="no_EasterEgg">Kein EasterEgg hier, zieh Leine</string>
 
 </resources>

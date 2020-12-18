@@ -53,6 +53,8 @@
     <string name="useless">Useless</string>
     <string name="always">Always</string>
     <string name="never">Never</string>
+    <string name="easteregg_found">EasterEgg found 🙃</string>
+    <string name="no_EasterEgg">No EasterEgg here, get lost</string>
 
 
 </resources>

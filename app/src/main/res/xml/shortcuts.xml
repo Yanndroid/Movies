@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="app_info"
+        android:enabled="true"
+        android:icon="@drawable/shortcut_info"
+        android:shortcutShortLabel="@string/app_info"
+        android:shortcutLongLabel="@string/app_info">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="de.dlyt.yanndroid.movies"
+            android:targetClass="de.dlyt.yanndroid.movies.AppInfoActivity" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="settings"
+        android:enabled="true"
+        android:icon="@drawable/shortcut_settings"
+        android:shortcutShortLabel="@string/settings"
+        android:shortcutLongLabel="@string/settings">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="de.dlyt.yanndroid.movies"
+            android:targetClass="de.dlyt.yanndroid.movies.SettingsActivity" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+</shortcuts>

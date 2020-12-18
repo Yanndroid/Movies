@@ -191,7 +191,7 @@ public class ScrollingActivity extends AppCompatActivity {
             searchinput.setEnabled(true);
             collapsed_title.setVisibility(View.GONE);
 
-            searchview.animate().alpha(1).setDuration(200).setListener(new AnimatorListenerAdapter() {
+            searchview.animate().alpha(1).setDuration(300).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     searching = true;
@@ -200,7 +200,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         } else {
 
-            searchview.animate().alpha(0).setDuration(200).setListener(new AnimatorListenerAdapter() {
+            searchview.animate().alpha(0).setDuration(300).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     toolbar.getMenu().findItem(R.id.search).setIcon(R.drawable.ic_search);
@@ -251,7 +251,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     }
 
                     if (versionC < Double.parseDouble(updateinfo.get(0).get("code").toString())) {
-                        Snackbar.make(findViewById(R.id.app_bar), getString(R.string.update_available) + ": " + updateinfo.get(0).get("name").toString(), Snackbar.LENGTH_SHORT).setAction(R.string.download, new Snackbarbutton()).show();
+                        Snackbar.make(findViewById(R.id.app_bar), getString(R.string.update_available) + ": " + updateinfo.get(0).get("name").toString(), Snackbar.LENGTH_LONG).setAction(R.string.download, new Snackbarbutton()).show();
                     }
                     if (versionC > Double.parseDouble(updateinfo.get(0).get("code").toString())) {
                         FirebaseDatabase.getInstance().getReference().child("AndroidApp").child("version").child("code").setValue(versionC);

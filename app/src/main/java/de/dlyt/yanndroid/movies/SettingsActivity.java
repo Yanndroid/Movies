@@ -22,6 +22,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 import de.dlyt.yanndroid.movies.dialogs.RestartDialog;

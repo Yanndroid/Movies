@@ -47,6 +47,8 @@
     <string name="always">Toujours</string>
     <string name="never">Jamais</string>
     <string name="layout">Apparence</string>
+    <string name="no_EasterEgg">Pas de EasterEgg ici, casse toi</string>
+    <string name="easteregg_found">EasterEgg trouvé 🙃</string>
 </resources>
 
 

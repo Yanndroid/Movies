@@ -53,7 +53,7 @@
     <string name="useless">Useless</string>
     <string name="always">Always</string>
     <string name="never">Never</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_EasterEgg">No EasterEgg here, get lost</string>
+    <string name="easteregg_found">EasterEgg found 🙃</string>
 
 </resources>
