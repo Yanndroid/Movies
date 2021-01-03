@@ -2,7 +2,6 @@ package de.dlyt.yanndroid.movies;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -12,7 +11,6 @@ import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,7 +21,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,20 +34,23 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Random;
 
-import de.dlyt.yanndroid.movies.dialogs.UpdateDialog;
+import de.dlyt.yanndroid.movies.dialog.UpdateDialog;
 
-import static de.dlyt.yanndroid.movies.R.string.easteregg_found;
 import static de.dlyt.yanndroid.movies.R.string.no_EasterEgg;
 
 public class AppInfoActivity extends AppCompatActivity {
 
     BottomSheetDialog bsd;
     Integer clicks;
+    static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_info);
+
+        context = getBaseContext();
+
 
         /** Popup */
         initPopup();
@@ -62,14 +62,12 @@ public class AppInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 clicks++;
-                if(clicks == 4){
+                if (clicks == 4) {
                     Snackbar.make(findViewById(R.id.app_bar), no_EasterEgg, Snackbar.LENGTH_LONG).setAction("Ok", new Snackbarbutton()).show();
                     clicks = 0;
                 }
             }
         });
-
-
 
 
         /** App Version */
@@ -129,7 +127,7 @@ public class AppInfoActivity extends AppCompatActivity {
             } else {
                 Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
                 startActivity(intent);
-                while(true) {
+                while (true) {
                     if (android.provider.Settings.canDrawOverlays(AppInfoActivity.this)) {
                         showFloatingWindow();
                         Toast.makeText(AppInfoActivity.this, "Baguette!!!", Toast.LENGTH_SHORT).show();
@@ -139,11 +137,6 @@ public class AppInfoActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
-
-
 
 
     private void initPopup() {
@@ -156,26 +149,34 @@ public class AppInfoActivity extends AppCompatActivity {
             layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
         }
 
-        layoutParams.format = PixelFormat.RGBA_8888; layoutParams.gravity = Gravity.CENTER; layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE; layoutParams.width = 400; layoutParams.height = 400; layoutParams.x = 0;
+        layoutParams.format = PixelFormat.RGBA_8888;
+        layoutParams.gravity = Gravity.CENTER;
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        layoutParams.width = 400;
+        layoutParams.height = 400;
+        layoutParams.x = 0;
         layoutParams.y = 0;
 
         _reCall();
 
     }
+
     private WindowManager windowManager;
     private WindowManager.LayoutParams layoutParams;
     private View displayView;
+
     private void showFloatingWindow() {
         ObjectAnimator objectAnimator = new ObjectAnimator();
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        displayView = layoutInflater.inflate(R.layout.popup_view, null); displayView.setOnTouchListener(new FloatingOnTouchListener());
+        displayView = layoutInflater.inflate(R.layout.popup_view, null);
+        displayView.setOnTouchListener(new FloatingOnTouchListener());
         ImageView baguette = displayView.findViewById(R.id.baguette);
         objectAnimator.setTarget(baguette);
         objectAnimator.setPropertyName("rotation");
-        objectAnimator.setFloatValues((float)(360));
-        objectAnimator.setDuration((int)(2000));
+        objectAnimator.setFloatValues((float) (360));
+        objectAnimator.setDuration((int) (2000));
         objectAnimator.setRepeatMode(ValueAnimator.RESTART);
-        objectAnimator.setRepeatCount((int)(-1));
+        objectAnimator.setRepeatCount((int) (-1));
         objectAnimator.setInterpolator(new LinearInterpolator());
         objectAnimator.start();
         windowManager.addView(displayView, layoutParams);
@@ -188,7 +189,8 @@ public class AppInfoActivity extends AppCompatActivity {
         private int x;
         private int y;
 
-        @Override public boolean onTouch(View view, MotionEvent event) {
+        @Override
+        public boolean onTouch(View view, MotionEvent event) {
 
             ImageView baguette = view.findViewById(R.id.baguette);
             Random rnd;
@@ -202,13 +204,16 @@ public class AppInfoActivity extends AppCompatActivity {
                     color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
                     baguette.setColorFilter(color);
                     break;
-                case MotionEvent.ACTION_MOVE: int nowX = (int) event.getRawX();
+                case MotionEvent.ACTION_MOVE:
+                    int nowX = (int) event.getRawX();
                     int nowY = (int) event.getRawY();
                     int movedX = nowX - x;
                     int movedY = nowY - y;
-                    x = nowX; y = nowY;
+                    x = nowX;
+                    y = nowY;
                     layoutParams.x = layoutParams.x + movedX;
-                    layoutParams.y = layoutParams.y + movedY; windowManager.updateViewLayout(view, layoutParams);
+                    layoutParams.y = layoutParams.y + movedY;
+                    windowManager.updateViewLayout(view, layoutParams);
                     rnd = new Random();
                     color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
                     baguette.setColorFilter(color);
@@ -220,25 +225,15 @@ public class AppInfoActivity extends AppCompatActivity {
         }
     }
 
-    public void closes(){
-        try{
+    public void closes() {
+        try {
             windowManager.removeView(displayView);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
         }
     }
-    private void _reCall(){
+
+    private void _reCall() {
     }
-
-
-
-
-
-
-
-
-
-
 
 
     public void initToolbar() {
@@ -295,4 +290,11 @@ public class AppInfoActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public static Context get_Context() {
+        return context;
+    }
+
+
 }

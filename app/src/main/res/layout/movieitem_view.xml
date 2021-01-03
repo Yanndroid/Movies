@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
+    android:animateLayoutChanges="true"
     android:gravity="center"
-    android:orientation="vertical"
-    android:animateLayoutChanges="true">
+    android:orientation="vertical">
 
     <!--Single Item View-->
     <com.google.android.material.card.MaterialCardView
@@ -75,22 +75,21 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="24dp"
-                android:orientation="vertical"
                 android:gravity="center"
-                >
+                android:orientation="vertical">
 
                 <CheckBox
                     android:id="@+id/bookmark_check"
-                    android:button="@null"
-                    android:checked="false"
-                    android:background="@drawable/ic_bookmark_selector"
                     android:layout_width="24dp"
-                    android:layout_height="24dp" />
+                    android:layout_height="24dp"
+                    android:background="@drawable/ic_bookmark_selector"
+                    android:button="@null"
+                    android:checked="false" />
 
                 <View
-                    android:layout_marginVertical="5dp"
                     android:layout_width="0dp"
-                    android:layout_height="0dp" />
+                    android:layout_height="0dp"
+                    android:layout_marginVertical="5dp" />
 
                 <ImageView
                     android:id="@+id/info_image"
@@ -102,25 +101,23 @@
             </LinearLayout>
 
 
-
-
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <!--Multiple Item View-->
     <com.google.android.material.card.MaterialCardView
-        android:animateLayoutChanges="true"
         android:id="@+id/multiple_item_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
         android:background="?selectableItemBackground"
         android:clickable="true"
         android:focusable="true">
 
         <LinearLayout
-            android:animateLayoutChanges="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:orientation="vertical">
 
             <LinearLayout
@@ -131,11 +128,11 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_weight="1"
                     android:id="@+id/item_multiple_title"
                     style="?android:attr/textAppearanceLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:ellipsize="marquee"
                     android:gravity="left"
                     android:paddingLeft="24dp"
@@ -154,13 +151,10 @@
             </LinearLayout>
 
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/multiple_movies_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-
 
 
         </LinearLayout>
@@ -170,18 +164,18 @@
 
     <!--Series Item View-->
     <com.google.android.material.card.MaterialCardView
-        android:animateLayoutChanges="true"
         android:id="@+id/series_item_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
         android:background="?selectableItemBackground"
         android:clickable="true"
         android:focusable="true">
 
         <LinearLayout
-            android:animateLayoutChanges="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:orientation="vertical">
 
             <LinearLayout
@@ -192,11 +186,11 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_weight="1"
                     android:id="@+id/item_series_title"
                     style="?android:attr/textAppearanceLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:ellipsize="marquee"
                     android:gravity="left"
                     android:paddingLeft="24dp"
@@ -215,13 +209,10 @@
             </LinearLayout>
 
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/series_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-
 
 
         </LinearLayout>

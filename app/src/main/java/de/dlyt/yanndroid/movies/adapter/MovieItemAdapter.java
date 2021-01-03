@@ -1,8 +1,9 @@
-package de.dlyt.yanndroid.movies;
+package de.dlyt.yanndroid.movies.adapter;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,62 +12,58 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import de.dlyt.yanndroid.movies.dialogs.MovieInfoDialog;
+import de.dlyt.yanndroid.movies.R;
+import de.dlyt.yanndroid.movies.dialog.MovieInfoDialog;
 
-public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewListAdapter.ViewHolder> {
+public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.ViewHolder> {
     private ArrayList<HashMap<String, Object>> data;
     private static HashMap<String, Object> datainfos;
     private HashMap<Integer, Boolean> m_expanded = new HashMap<Integer, Boolean>();
-    private HashMap<Integer, Boolean> s_expanded = new HashMap<Integer, Boolean>();
 
     private android.content.Context context;
 
-    public RecyclerViewListAdapter(ArrayList<HashMap<String, Object>> data, Context context) {
+    public MovieItemAdapter(ArrayList<HashMap<String, Object>> data, Context context) {
         this.data = data;
         this.context = context;
     }
+
     @Override
-    public RecyclerViewListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.movieitemview, parent, false);
+    public MovieItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.movieitem_view, parent, false);
         return new ViewHolder(rowItem);
     }
 
 
-
-
-
-
     @Override
-    public void onBindViewHolder(RecyclerViewListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(MovieItemAdapter.ViewHolder holder, int position) {
         if (data.get(position).containsKey("type")) {
-            switch (data.get(position).get("type").toString()){
-                case "single_movie": load_single_movie(holder, position);return;
-                case "movie_series": load_multiple_movie(holder, position);return;
-                case "series": load_series(holder, position);return;
-
+            switch (data.get(position).get("type").toString()) {
+                case "single_item":
+                    single_item(holder, position);
+                    return;
+                case "multiple_item":
+                    multiple_item(holder, position);
+                    return;
             }
         }
 
     }
 
 
-
-
-
-    public void load_single_movie(RecyclerViewListAdapter.ViewHolder holder, int position){
+    public void single_item(MovieItemAdapter.ViewHolder holder, int position) {
         holder.single_item_card.setVisibility(View.VISIBLE);
         holder.multiple_item_card.setVisibility(View.GONE);
         holder.series_item_card.setVisibility(View.GONE);
@@ -96,18 +93,34 @@ public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewLi
         holder.bookmark_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    Snackbar.make(holder.bookmark_check, "Bookmark currently not available", Snackbar.LENGTH_SHORT).show();
-                }else{
+
+                SharedPreferences sharedPreferences;
+                Gson gson = new Gson();
+                Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>() {
+                }.getType();
+                sharedPreferences = context.getSharedPreferences("lists", Activity.MODE_PRIVATE);
+
+                ArrayList<HashMap<String, Object>> fav_list = new ArrayList<>();
+                fav_list = gson.fromJson(sharedPreferences.getString("fav_list", "[]"), listType);
+                if (isChecked) {
+
+                    fav_list.add(data.get(position));
+
+                    //Snackbar.make(holder.bookmark_check, "Bookmark currently not available", Snackbar.LENGTH_SHORT).show();
+                } else {
+
 
                 }
+
+                sharedPreferences.edit().putString("fav_list", gson.toJson(fav_list)).commit();
+
             }
         });
 
     }
 
 
-    public void load_multiple_movie(RecyclerViewListAdapter.ViewHolder holder, int position){
+    public void multiple_item(MovieItemAdapter.ViewHolder holder, int position) {
         holder.single_item_card.setVisibility(View.GONE);
         holder.multiple_item_card.setVisibility(View.VISIBLE);
         holder.series_item_card.setVisibility(View.GONE);
@@ -120,122 +133,56 @@ public class RecyclerViewListAdapter extends RecyclerView.Adapter<RecyclerViewLi
 
         HashMap<String, Object> tmp_list = new HashMap<String, Object>();
         tmp_list = data.get(position);
-        if(tmp_list.containsKey("title")){
+        if (tmp_list.containsKey("title")) {
             tmp_list.remove("title");
         }
-        if(tmp_list.containsKey("type")){
+        if (tmp_list.containsKey("type")) {
             tmp_list.remove("type");
         }
 
+        ArrayList<HashMap<String, Object>> series_list = new ArrayList<HashMap<String, Object>>();
+        HashMap<String, Object> tmp_list2 = new HashMap<String, Object>();
+        for (int i = 0; i < tmp_list.size(); i++) {
+            tmp_list2 = (HashMap<String, Object>) tmp_list.get(String.valueOf(i));
+            series_list.add(tmp_list2);
+        }
 
 
         holder.multiple_movies_recyclerview.setLayoutManager(new LinearLayoutManager(this.context));
-        holder.multiple_movies_recyclerview.setAdapter(new multiple_movies_listAdapter(tmp_list));
+        holder.multiple_movies_recyclerview.setAdapter(new MovieItemAdapter(series_list, context));
 
 
-        if(!m_expanded.containsKey(position)){
+        if (!m_expanded.containsKey(position)) {
             m_expanded.put(position, false);
         }
-        set_m_movie_expanded(m_expanded.get(position), holder, position);
+        set_multiple_item_expand(m_expanded.get(position), holder, position);
 
 
         holder.multiple_item_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                set_m_movie_expanded(!m_expanded.get(position), holder, position);
+                set_multiple_item_expand(!m_expanded.get(position), holder, position);
             }
         });
     }
 
-    public void set_m_movie_expanded(boolean setexpanded, ViewHolder holder, Integer position){
+    public void set_multiple_item_expand(boolean setexpanded, ViewHolder holder, Integer position) {
         ObjectAnimator animator = new ObjectAnimator();
         animator.setTarget(holder.dropdown_image);
         animator.setPropertyName("rotation");
         animator.setDuration(500);
         animator.setInterpolator(new BounceInterpolator());
-        if(setexpanded){
+        if (setexpanded) {
             holder.multiple_movies_recyclerview.setVisibility(View.VISIBLE);
             m_expanded.put(position, true);
             animator.setFloatValues(180);
-        }else {
+        } else {
             holder.multiple_movies_recyclerview.setVisibility(View.GONE);
             m_expanded.put(position, false);
             animator.setFloatValues(0);
         }
         animator.start();
     }
-
-    public void set_series_expanded(boolean setexpanded, ViewHolder holder, Integer position){
-        ObjectAnimator animator = new ObjectAnimator();
-        animator.setTarget(holder.dropdown_image_series);
-        animator.setPropertyName("rotation");
-        animator.setDuration(500);
-        animator.setInterpolator(new BounceInterpolator());
-        if(setexpanded){
-            holder.series_recyclerview.setVisibility(View.VISIBLE);
-            s_expanded.put(position, true);
-            animator.setFloatValues(180);
-        }else {
-            holder.series_recyclerview.setVisibility(View.GONE);
-            s_expanded.put(position, false);
-            animator.setFloatValues(0);
-        }
-        animator.start();
-    }
-
-
-    public void load_series(RecyclerViewListAdapter.ViewHolder holder, int position){
-        holder.single_item_card.setVisibility(View.GONE);
-        holder.multiple_item_card.setVisibility(View.GONE);
-        holder.series_item_card.setVisibility(View.VISIBLE);
-
-        if (data.get(position).containsKey("title")) {
-            holder.item_series_title.setText(this.data.get(position).get("title").toString());
-
-        }
-
-
-        HashMap<String, Object> tmp_list = new HashMap<String, Object>();
-        tmp_list = data.get(position);
-        if(tmp_list.containsKey("title")){
-            tmp_list.remove("title");
-        }
-        if(tmp_list.containsKey("type")){
-            tmp_list.remove("type");
-        }
-
-
-        ArrayList<HashMap<String, Object>> series_list = new ArrayList<HashMap<String, Object>>();
-        HashMap<String, Object> tmp_list2 = new HashMap<String, Object>();
-
-        for(int i = 0; i <tmp_list.size(); i++){
-
-            tmp_list2 = (HashMap<String, Object>) tmp_list.get(String.valueOf(i));
-            series_list.add(tmp_list2);
-        }
-
-
-        holder.series_recyclerview.setLayoutManager(new LinearLayoutManager(this.context));
-        holder.series_recyclerview.setAdapter(new RecyclerViewListAdapter(series_list, context));
-
-
-        if(!s_expanded.containsKey(position)){
-            s_expanded.put(position, false);
-        }
-        set_series_expanded(s_expanded.get(position), holder, position);
-
-
-        holder.series_item_card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                set_series_expanded(!s_expanded.get(position), holder, position);
-            }
-        });
-
-    }
-
-
-
 
 
     @Override

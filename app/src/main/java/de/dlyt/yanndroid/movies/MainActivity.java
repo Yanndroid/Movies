@@ -14,14 +14,13 @@ package de.dlyt.yanndroid.movies;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -53,7 +52,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ScrollingActivity extends AppCompatActivity {
+import de.dlyt.yanndroid.movies.adapter.ViewPagerAdapter;
+
+public class MainActivity extends AppCompatActivity {
 
     public static int current_tab;
     public String[] tabnames;
@@ -66,18 +67,17 @@ public class ScrollingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling);
+        setContentView(R.layout.activity_main);
 
         tabnames = new String[]{getString(R.string.movies), getString(R.string.series), getString(R.string.favorites)};
         settilte(getString(R.string.movies));
 
+        //checkforconnection();
         checkforupdate();
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_DENIED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET, Manifest.permission.ACCESS_NETWORK_STATE}, 1000);
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
         }
 
         /** Def */
@@ -109,6 +109,19 @@ public class ScrollingActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    public void checkforconnection() {
+        AppBarLayout AppBar = findViewById(R.id.app_bar);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED) {
+            Snackbar.make(AppBar, "Mobile Data Connection: ", Snackbar.LENGTH_SHORT).show();
+        } else if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            Snackbar.make(AppBar, "Wifi Connection: ", Snackbar.LENGTH_SHORT).show();
+        } else {
+            Snackbar.make(AppBar, "No Connection", Snackbar.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -274,14 +287,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-            Uri uri = Uri.parse("https://github.com/Yanndroid/Movies/raw/master/app/release/app-release.apk");
-            DownloadManager.Request request = new DownloadManager.Request(uri);
-            request.setTitle(getString(R.string.movies_update));
-            request.setVisibleInDownloadsUi(true);
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, uri.getLastPathSegment());
-            downloadManager.enqueue(request);
+            UpdateApp.DownloadAndInstall(getBaseContext(), "https://github.com/Yanndroid/Movies/raw/master/app/release/app-release.apk", "Movies_" + updateinfo.get(0).get("name").toString() + ".apk", "Movies Update", updateinfo.get(0).get("name").toString());
         }
     }
 

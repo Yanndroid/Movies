@@ -1,13 +1,9 @@
-package de.dlyt.yanndroid.movies.dialogs;
+package de.dlyt.yanndroid.movies.dialog;
 
 import android.app.Dialog;
-import android.app.DownloadManager;
-import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,7 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import de.dlyt.yanndroid.movies.AppInfoActivity;
 import de.dlyt.yanndroid.movies.R;
+import de.dlyt.yanndroid.movies.UpdateApp;
 
 public class UpdateDialog extends BottomSheetDialogFragment {
 
@@ -101,15 +99,9 @@ public class UpdateDialog extends BottomSheetDialogFragment {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
-                Uri uri = Uri.parse("https://github.com/Yanndroid/Movies/raw/master/app/release/app-release.apk");
-                DownloadManager.Request request = new DownloadManager.Request(uri);
-                request.setTitle(getString(R.string.movies_update));
-                //request.setDescription("Downloading");
-                request.setVisibleInDownloadsUi(true);
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, uri.getLastPathSegment());
-                downloadManager.enqueue(request);
+
+                UpdateApp.DownloadAndInstall(AppInfoActivity.get_Context(), "https://github.com/Yanndroid/Movies/raw/master/app/release/app-release.apk", "Movies_" + updateinfo.get(0).get("name").toString() + ".apk", "Movies Update", updateinfo.get(0).get("name").toString());
+
                 dialog.dismiss();
             }
         });
@@ -120,4 +112,5 @@ public class UpdateDialog extends BottomSheetDialogFragment {
             }
         });
     }
+
 }

@@ -1,5 +1,7 @@
 package de.dlyt.yanndroid.movies;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,9 +19,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import de.dlyt.yanndroid.movies.adapter.MovieItemAdapter;
 
 public class TabFragment extends Fragment {
 
@@ -30,6 +36,8 @@ public class TabFragment extends Fragment {
     private ArrayList<HashMap<String, Object>> list;
     public static int[] listsize = new int[3];
     RecyclerView recyclerView;
+
+    SharedPreferences sharedPreferences;
 
     public TabFragment() {
         // Required empty public constructor
@@ -56,7 +64,6 @@ public class TabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tab, container, false);
     }
 
@@ -66,15 +73,48 @@ public class TabFragment extends Fragment {
 
         /** Code */
 
+        sharedPreferences = getContext().getSharedPreferences("lists", Activity.MODE_PRIVATE);
+
         initRecycler(view, counter);
 
     }
 
     public void initRecycler(View view, int counter) {
+
+        recyclerView = view.findViewById(R.id.recyclerview);
+
         if (counter == 2) {
-            listsize[counter] = 0;
-            ScrollingActivity.refreshcount();
+
+            Gson gson = new Gson();
+            Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>() {
+            }.getType();
+
+
+            list = gson.fromJson(sharedPreferences.getString("fav_list", "[]"), listType);
+            if (list != null) {
+                recyclerView = view.findViewById(R.id.recyclerview);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerView.setAdapter(new MovieItemAdapter(list, getContext()));
+            }
+
+
+            listsize[counter] = list.size();
+            MainActivity.refreshcount();
         } else {
+
+            /*Gson gson = new Gson();
+            Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType();
+            String[] shpreitems = {"movie_list", "series_list"};
+
+
+            list = gson.fromJson(sharedPreferences.getString(shpreitems[counter], null), listType);
+            if (list != null){
+                recyclerView = view.findViewById(R.id.recyclerview);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerView.setAdapter(new RecyclerViewListAdapter(list, getContext()));
+            }*/
+
+
             String[] children = {"Movies", "Series"};
             mDatabase = FirebaseDatabase.getInstance().getReference().child(children[counter]);
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -93,12 +133,14 @@ public class TabFragment extends Fragment {
                     }
 
                     listsize[counter] = list.size();
-                    ScrollingActivity.refreshcount();
+                    MainActivity.refreshcount();
+
+                    //sharedPreferences.edit().putString(shpreitems[counter] ,gson.toJson(list)).commit();
 
                     recyclerView = view.findViewById(R.id.recyclerview);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     //recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-                    recyclerView.setAdapter(new RecyclerViewListAdapter(list, getContext()));
+                    recyclerView.setAdapter(new MovieItemAdapter(list, getContext()));
 
                 }
 

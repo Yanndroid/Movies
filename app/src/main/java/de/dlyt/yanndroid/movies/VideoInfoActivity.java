@@ -15,6 +15,8 @@ import com.google.android.material.appbar.AppBarLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import de.dlyt.yanndroid.movies.adapter.ResolutionAdapter;
+
 public class VideoInfoActivity extends AppCompatActivity {
 
     RecyclerView resolutionrecycler;

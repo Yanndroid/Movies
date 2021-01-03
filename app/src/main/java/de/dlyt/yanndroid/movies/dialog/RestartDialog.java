@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.movies.dialogs;
+package de.dlyt.yanndroid.movies.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 

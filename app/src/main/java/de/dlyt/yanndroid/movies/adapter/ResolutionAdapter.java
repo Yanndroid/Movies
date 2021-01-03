@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.movies;
+package de.dlyt.yanndroid.movies.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import de.dlyt.yanndroid.movies.R;
+
 public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.ViewHolder> {
     private ArrayList<HashMap<String, Object>> data;
 
@@ -19,7 +21,7 @@ public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.Vi
 
     @Override
     public ResolutionAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.resolutionitemview, parent, false);
+        View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.resolutionitem_view, parent, false);
         return new ViewHolder(rowItem);
     }
 

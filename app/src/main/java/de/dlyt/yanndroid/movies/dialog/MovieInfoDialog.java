@@ -1,4 +1,4 @@
-package de.dlyt.yanndroid.movies.dialogs;
+package de.dlyt.yanndroid.movies.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -14,14 +14,14 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.HashMap;
 
 import de.dlyt.yanndroid.movies.R;
-import de.dlyt.yanndroid.movies.multiple_movies_listAdapter;
+import de.dlyt.yanndroid.movies.adapter.MovieItemAdapter;
 
-public class mMovieInfoDialog extends BottomSheetDialogFragment {
+public class MovieInfoDialog extends BottomSheetDialogFragment {
 
     private DatabaseReference mDatabase;
 
-    public static mMovieInfoDialog newInstance() {
-        mMovieInfoDialog fragment = new mMovieInfoDialog();
+    public static MovieInfoDialog newInstance() {
+        MovieInfoDialog fragment = new MovieInfoDialog();
         return fragment;
     }
 
@@ -46,7 +46,7 @@ public class mMovieInfoDialog extends BottomSheetDialogFragment {
         TextView isize = dialog.findViewById(R.id.isize);
         TextView iformat = dialog.findViewById(R.id.iformat);
 
-        HashMap<String, Object> infos = multiple_movies_listAdapter.getData();
+        HashMap<String, Object> infos = MovieItemAdapter.getData();
 
         ititle.setText(infos.get("title").toString());
         ilanguage.setText(infos.get("language").toString());

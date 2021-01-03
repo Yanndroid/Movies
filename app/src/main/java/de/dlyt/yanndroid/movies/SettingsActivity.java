@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +21,9 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
 
-import de.dlyt.yanndroid.movies.dialogs.RestartDialog;
+import de.dlyt.yanndroid.movies.dialog.RestartDialog;
 
 public class SettingsActivity extends AppCompatActivity {
 

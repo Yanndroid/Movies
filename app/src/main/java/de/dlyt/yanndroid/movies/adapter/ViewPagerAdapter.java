@@ -1,9 +1,11 @@
-package de.dlyt.yanndroid.movies;
+package de.dlyt.yanndroid.movies.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import de.dlyt.yanndroid.movies.TabFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
     private static final int CARD_ITEM_SIZE = 3;
