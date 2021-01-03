@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +33,8 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
     private ArrayList<HashMap<String, Object>> data;
     private static HashMap<String, Object> datainfos;
     private HashMap<Integer, Boolean> m_expanded = new HashMap<Integer, Boolean>();
+
+    ArrayList<HashMap<String, Object>> fav_list;
 
     private android.content.Context context;
 
@@ -59,26 +62,21 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
                     return;
             }
         }
-
     }
 
 
     public void single_item(MovieItemAdapter.ViewHolder holder, int position) {
         holder.single_item_card.setVisibility(View.VISIBLE);
         holder.multiple_item_card.setVisibility(View.GONE);
-        holder.series_item_card.setVisibility(View.GONE);
 
         if (data.get(position).containsKey("title")) {
             holder.item_title.setText(this.data.get(position).get("title").toString());
-
         }
         if (data.get(position).containsKey("language")) {
             holder.item_language.setText(this.data.get(position).get("language").toString());
-
         }
         if (data.get(position).containsKey("resolution")) {
             holder.item_resolution.setText(this.data.get(position).get("resolution").toString());
-
         }
 
         holder.infoimage.setOnClickListener(new View.OnClickListener() {
@@ -90,30 +88,40 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
             }
         });
 
+
+        /** fav */
+        SharedPreferences sharedPreferences;
+        Gson gson = new Gson();
+        Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>() {
+        }.getType();
+        sharedPreferences = context.getSharedPreferences("lists", Activity.MODE_PRIVATE);
+
+        fav_list = new ArrayList<>();
+        fav_list = gson.fromJson(sharedPreferences.getString("fav_list", "[]"), listType);
+
+        for (int j = 0; j < fav_list.size(); j++) {
+            if (this.data.get(position).equals(fav_list.get(j))) {
+                holder.bookmark_check.setChecked(true);
+                break;
+            }
+        }
+
         holder.bookmark_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                SharedPreferences sharedPreferences;
-                Gson gson = new Gson();
-                Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>() {
-                }.getType();
-                sharedPreferences = context.getSharedPreferences("lists", Activity.MODE_PRIVATE);
-
-                ArrayList<HashMap<String, Object>> fav_list = new ArrayList<>();
+                fav_list = new ArrayList<>();
                 fav_list = gson.fromJson(sharedPreferences.getString("fav_list", "[]"), listType);
                 if (isChecked) {
-
                     fav_list.add(data.get(position));
-
-                    //Snackbar.make(holder.bookmark_check, "Bookmark currently not available", Snackbar.LENGTH_SHORT).show();
                 } else {
-
-
+                    for (int j = 0; j < fav_list.size(); j++) {
+                        if (data.get(position).equals(fav_list.get(j))) {
+                            fav_list.remove(j);
+                            break;
+                        }
+                    }
                 }
-
                 sharedPreferences.edit().putString("fav_list", gson.toJson(fav_list)).commit();
-
             }
         });
 
@@ -123,7 +131,6 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
     public void multiple_item(MovieItemAdapter.ViewHolder holder, int position) {
         holder.single_item_card.setVisibility(View.GONE);
         holder.multiple_item_card.setVisibility(View.VISIBLE);
-        holder.series_item_card.setVisibility(View.GONE);
 
         if (data.get(position).containsKey("title")) {
             holder.item_multiple_title.setText(this.data.get(position).get("title").toString());
@@ -149,6 +156,7 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
 
 
         holder.multiple_movies_recyclerview.setLayoutManager(new LinearLayoutManager(this.context));
+        //holder.multiple_movies_recyclerview.setLayoutManager(new GridLayoutManager(context, 2));
         holder.multiple_movies_recyclerview.setAdapter(new MovieItemAdapter(series_list, context));
 
 
@@ -206,13 +214,6 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
         private ImageView dropdown_image;
         private RecyclerView multiple_movies_recyclerview;
 
-
-        private MaterialCardView series_item_card;
-        private TextView item_series_title;
-        private ImageView dropdown_image_series;
-        private RecyclerView series_recyclerview;
-
-
         public ViewHolder(View view) {
             super(view);
 
@@ -229,10 +230,6 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
             this.dropdown_image = view.findViewById(R.id.dropdown_image);
             this.multiple_movies_recyclerview = view.findViewById(R.id.multiple_movies_recyclerview);
 
-            this.series_item_card = view.findViewById(R.id.series_item_card);
-            this.item_series_title = view.findViewById(R.id.item_series_title);
-            this.dropdown_image_series = view.findViewById(R.id.dropdown_image_series);
-            this.series_recyclerview = view.findViewById(R.id.series_recyclerview);
         }
     }
 

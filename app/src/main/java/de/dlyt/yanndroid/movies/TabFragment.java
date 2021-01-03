@@ -33,11 +33,12 @@ public class TabFragment extends Fragment {
     private static final String ARG_COUNT = "param1";
     private Integer counter;
     private DatabaseReference mDatabase;
-    private ArrayList<HashMap<String, Object>> list;
+    private static ArrayList<HashMap<String, Object>> list;
     public static int[] listsize = new int[3];
     RecyclerView recyclerView;
-
+    MovieItemAdapter adapter;
     SharedPreferences sharedPreferences;
+
 
     public TabFragment() {
         // Required empty public constructor
@@ -80,7 +81,6 @@ public class TabFragment extends Fragment {
     }
 
     public void initRecycler(View view, int counter) {
-
         recyclerView = view.findViewById(R.id.recyclerview);
 
         if (counter == 2) {
@@ -94,9 +94,10 @@ public class TabFragment extends Fragment {
             if (list != null) {
                 recyclerView = view.findViewById(R.id.recyclerview);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerView.setAdapter(new MovieItemAdapter(list, getContext()));
+                //recyclerView.setAdapter(new MovieItemAdapter(list, getContext()));
+                adapter = new MovieItemAdapter(list, getContext());
+                recyclerView.setAdapter(adapter);
             }
-
 
             listsize[counter] = list.size();
             MainActivity.refreshcount();
@@ -140,7 +141,9 @@ public class TabFragment extends Fragment {
                     recyclerView = view.findViewById(R.id.recyclerview);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     //recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-                    recyclerView.setAdapter(new MovieItemAdapter(list, getContext()));
+                    //recyclerView.setAdapter(new MovieItemAdapter(list, getContext()));
+                    adapter = new MovieItemAdapter(list, getContext());
+                    recyclerView.setAdapter(adapter);
 
                 }
 
@@ -155,5 +158,4 @@ public class TabFragment extends Fragment {
     public static int getlistsize(int position) {
         return listsize[position];
     }
-
 }
