@@ -20,10 +20,10 @@ public class UpdateApp {
         File file = new File(destination);
 
         if (file.exists()){
-            Toast.makeText(context, "true", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "true", Toast.LENGTH_SHORT).show();
             file.delete();
         } else {
-            Toast.makeText(context, file.getPath(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, file.getPath(), Toast.LENGTH_LONG).show();
 
         }
 
