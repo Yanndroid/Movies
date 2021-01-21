@@ -70,10 +70,10 @@
 
 
                 <com.google.android.material.card.MaterialCardView
-                    android:alpha="0"
                     android:id="@+id/searchview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:alpha="0"
                     android:visibility="gone">
 
                     <LinearLayout
@@ -110,11 +110,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:foreground="@drawable/rounded_corner_top"
+            android:foreground="@drawable/rounded_corner"
             app:tabBackground="@color/transparent" />
 
 
         <androidx.viewpager2.widget.ViewPager2
+
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -122,4 +123,26 @@
 
 
     </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:background="@color/green"
+        android:gravity="center"
+        android:id="@+id/alertBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:textColor="@color/black"
+            android:id="@+id/alertBarText"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alert Bar Text"
+            />
+
+    </LinearLayout>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

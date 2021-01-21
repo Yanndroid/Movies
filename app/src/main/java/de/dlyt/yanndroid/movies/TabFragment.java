@@ -31,14 +31,14 @@ import de.dlyt.yanndroid.movies.adapter.MovieItemAdapter;
 public class TabFragment extends Fragment {
 
     private static final String ARG_COUNT = "param1";
-    private Integer counter;
-    private DatabaseReference mDatabase;
+    private Integer current_tab;
     private static ArrayList<HashMap<String, Object>> list;
     public static int[] listsize = new int[3];
     RecyclerView recyclerView;
     MovieItemAdapter adapter;
     SharedPreferences sharedPreferences;
 
+    private View rootView;
 
     public TabFragment() {
         // Required empty public constructor
@@ -56,15 +56,12 @@ public class TabFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            counter = getArguments().getInt(ARG_COUNT);
+            current_tab = getArguments().getInt(ARG_COUNT);
         }
-
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_tab, container, false);
     }
 
@@ -76,14 +73,14 @@ public class TabFragment extends Fragment {
 
         sharedPreferences = getContext().getSharedPreferences("lists", Activity.MODE_PRIVATE);
 
-        initRecycler(view, counter);
+        initRecycler(view);
 
     }
 
-    public void initRecycler(View view, int counter) {
+    public void initRecycler(View view) {
         recyclerView = view.findViewById(R.id.recyclerview);
 
-        if (counter == 2) {
+        if (current_tab == 2) {
 
             Gson gson = new Gson();
             Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>() {
@@ -99,8 +96,8 @@ public class TabFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
             }
 
-            listsize[counter] = list.size();
-            MainActivity.refreshcount();
+            listsize[current_tab] = list.size();
+            MainActivity.refreshcount(current_tab);
         } else {
 
             /*Gson gson = new Gson();
@@ -108,7 +105,7 @@ public class TabFragment extends Fragment {
             String[] shpreitems = {"movie_list", "series_list"};
 
 
-            list = gson.fromJson(sharedPreferences.getString(shpreitems[counter], null), listType);
+            list = gson.fromJson(sharedPreferences.getString(shpreitems[current_tab], null), listType);
             if (list != null){
                 recyclerView = view.findViewById(R.id.recyclerview);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -117,7 +114,7 @@ public class TabFragment extends Fragment {
 
 
             String[] children = {"Movies", "Series"};
-            mDatabase = FirebaseDatabase.getInstance().getReference().child(children[counter]);
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(children[current_tab]);
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -133,10 +130,10 @@ public class TabFragment extends Fragment {
                         //nothing
                     }
 
-                    listsize[counter] = list.size();
-                    MainActivity.refreshcount();
+                    listsize[current_tab] = list.size();
+                    MainActivity.refreshcount(current_tab);
 
-                    //sharedPreferences.edit().putString(shpreitems[counter] ,gson.toJson(list)).commit();
+                    //sharedPreferences.edit().putString(shpreitems[current_tab] ,gson.toJson(list)).commit();
 
                     recyclerView = view.findViewById(R.id.recyclerview);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

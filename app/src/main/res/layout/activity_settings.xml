@@ -101,25 +101,32 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:paddingHorizontal="24dp"
-                        android:paddingVertical="15dp"
-                        >
+                        android:paddingVertical="15dp">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical|left"
+                            android:gravity="center"
                             android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:src="@drawable/settings_language"
+                                app:tint="@color/blue" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 style="?textAppearanceBody1"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:text="@string/language"
                                 android:textSize="18sp" />
 
                             <androidx.appcompat.widget.AppCompatSpinner
-                                style="?textAppearanceBody1"
                                 android:id="@+id/language_spinner"
+                                style="?textAppearanceBody1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -130,22 +137,30 @@
                         </LinearLayout>
 
                         <View
-                            android:layout_marginVertical="10dp"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
+                            android:layout_marginLeft="44dp"
+                            android:layout_marginVertical="10dp"
                             android:background="#4D808080" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical|left"
+                            android:gravity="center"
                             android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:src="@drawable/settings_day_night"
+                                app:tint="@color/yellow" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 style="?textAppearanceBody1"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:text="@string/theme"
                                 android:textSize="18sp" />
 
@@ -164,7 +179,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.textview.MaterialTextView
+                <!--<com.google.android.material.textview.MaterialTextView
                     style="?android:attr/textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -173,6 +188,7 @@
                     android:layout_marginBottom="2dp"
                     android:text="@string/useless"
                     android:textStyle="bold" />
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -320,6 +336,7 @@
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
+
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -374,7 +391,7 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>-->
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

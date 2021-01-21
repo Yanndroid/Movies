@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -51,12 +54,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import de.dlyt.yanndroid.movies.adapter.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static int current_tab;
     public String[] tabnames;
     public static TextView expanded_subtitle;
     private DatabaseReference mDatabase;
@@ -72,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         tabnames = new String[]{getString(R.string.movies), getString(R.string.series), getString(R.string.favorites)};
         settilte(getString(R.string.movies));
 
-        //checkforconnection();
+        checkforconnection();
         checkforupdate();
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED ||
@@ -116,11 +120,11 @@ public class MainActivity extends AppCompatActivity {
         AppBarLayout AppBar = findViewById(R.id.app_bar);
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED) {
-            Snackbar.make(AppBar, "Mobile Data Connection: ", Snackbar.LENGTH_SHORT).show();
+            alert("Mobile Data", Color.YELLOW);
         } else if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            Snackbar.make(AppBar, "Wifi Connection: ", Snackbar.LENGTH_SHORT).show();
+            alert("Wifi", Color.GREEN);
         } else {
-            Snackbar.make(AppBar, "No Connection", Snackbar.LENGTH_SHORT).show();
+            alert("Offline", Color.RED);
         }
     }
 
@@ -169,9 +173,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                current_tab = tab.getPosition();
                 settilte(tabnames[tab.getPosition()]);
-                refreshcount();
+                refreshcount(tab.getPosition());
             }
 
             @Override
@@ -236,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
         searchinput.setHint(getString(R.string.search) + " " + title);
     }
 
-    public static void refreshcount() {
+    public static void refreshcount(Integer current_tab) {
         expanded_subtitle.setText("" + TabFragment.getlistsize(current_tab));
     }
 
@@ -324,4 +327,38 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void alert(String text, Integer color){
+        View alertBar = findViewById(R.id.alertBar);
+        TextView alertBarText = findViewById(R.id.alertBarText);
+        Timer timer;
+        timer = new Timer();
+        alertBar.setBackgroundColor(color);
+        alertBarText.setText(text);
+
+        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(2000);
+        anim.setRepeatCount(1);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                alertBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                alertBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        alertBar.startAnimation(anim);
+
+
+    }
+
 }

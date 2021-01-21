@@ -124,7 +124,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         /** switches */
 
-        SwitchMaterial switch1 = findViewById(R.id.switch1);
+        /*SwitchMaterial switch1 = findViewById(R.id.switch1);
         switch1.setChecked(sharedPreferences.getBoolean("switch1", false));
         switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -150,7 +150,7 @@ public class SettingsActivity extends AppCompatActivity {
                 sharedPreferences.edit().putBoolean("switch3", isChecked).commit();
 
             }
-        });
+        });*/
 
 
     }

@@ -41,7 +41,7 @@ public class UpdateApp {
             public void onReceive(Context ctxt, Intent intent) {
                 Log.d("download", "File downloaded");
 
-                Uri apkfileuri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", new File("/storage/emulated/0/Download/Movies_1.5.2.apk"));
+                Uri apkfileuri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", file/*new File("/storage/emulated/0/Download/Movies_1.5.2.apk")*/);
                 Intent install = new Intent(Intent.ACTION_VIEW);
                 install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

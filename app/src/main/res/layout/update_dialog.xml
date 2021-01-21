@@ -60,6 +60,7 @@
                 app:rippleColor="@color/button_ripple_color" />
 
             <com.google.android.material.button.MaterialButton
+                android:enabled="false"
                 android:id="@+id/update"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"

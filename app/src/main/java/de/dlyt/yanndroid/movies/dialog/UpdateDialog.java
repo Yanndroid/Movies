@@ -83,6 +83,7 @@ public class UpdateDialog extends BottomSheetDialogFragment {
                     } else {
                         update.setText(R.string.download);
                     }
+                    update.setEnabled(true);
 
                 }
 
