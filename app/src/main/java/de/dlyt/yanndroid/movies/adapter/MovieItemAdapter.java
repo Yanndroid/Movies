@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +14,25 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import de.dlyt.yanndroid.movies.Movie;
 import de.dlyt.yanndroid.movies.R;
 import de.dlyt.yanndroid.movies.dialog.MovieInfoDialog;
+import de.dlyt.yanndroid.movies.utilities.NetworkUtils;
 
 public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.ViewHolder> {
     private ArrayList<HashMap<String, Object>> data;
@@ -125,6 +130,63 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
             }
         });
 
+
+        /** TMDb */
+
+
+        holder.moviedataurl = "https://api.themoviedb.org/3/search/movie?api_key=4ce769e35162474ccf8833d517f5285e&query=" + this.data.get(position).get("title").toString().replace(" ", "+");
+
+        new FetchMovies(holder).execute();
+
+
+    }
+
+    public class FetchMovies extends AsyncTask<Void, Void, Void> {
+
+        MovieItemAdapter.ViewHolder holder;
+
+        public FetchMovies(MovieItemAdapter.ViewHolder holder) {
+            this.holder = holder;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+
+            holder.moviedatalist = new ArrayList<>();
+            try {
+                if (NetworkUtils.networkStatus(context)) {
+                    holder.moviedatalist = NetworkUtils.fetchData(holder.moviedataurl); //Get popular movies
+
+                } else {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                    dialog.setTitle("No Connection");
+                    dialog.setCancelable(false);
+                    dialog.show();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void s) {
+            super.onPostExecute(s);
+
+            if (holder.moviedatalist.size() != 0) {
+                holder.movie = holder.moviedatalist.get(0);
+                Picasso.get().load(holder.movie.getPosterPath()).resize(300, 0).placeholder(R.drawable.ic_no_cover).into(holder.item_cover);
+            }
+        }
     }
 
 
@@ -213,6 +275,10 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
         private TextView item_multiple_title;
         private ImageView dropdown_image;
         private RecyclerView multiple_movies_recyclerview;
+
+        private String moviedataurl;
+        private ArrayList<Movie> moviedatalist;
+        private Movie movie;
 
         public ViewHolder(View view) {
             super(view);

@@ -1,0 +1,163 @@
+package de.dlyt.yanndroid.movies;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.Nullable;
+
+import com.google.gson.annotations.SerializedName;
+
+public class Movie implements Parcelable {
+
+    public static final String LOG_TAG = de.dlyt.yanndroid.movies.Movie.class.getSimpleName();
+
+
+    @SerializedName("id")
+    private Long id;
+    @SerializedName("vote_average")
+    private String voteAverage;
+    @SerializedName("original_title")
+    private String originalTitle;
+    @SerializedName("backdrop_path")
+    private String backdropPath;
+    @SerializedName("overview")
+    private String overview;
+    @SerializedName("release_date")
+    private String releaseDate;
+    @SerializedName("poster_path")
+    private String posterPath;
+
+    public Movie() {
+
+    }
+
+    public Movie(long id,
+                 String voteAverage,
+                 String originalTitle,
+                 String backdropPath,
+                 String overview,
+                 String releaseDate,
+                 String posterPath) {
+        this.id = id;
+        this.voteAverage = voteAverage;
+        this.originalTitle = originalTitle;
+        this.backdropPath = backdropPath;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+        this.posterPath = posterPath;
+    }
+
+    protected Movie(Parcel in) {
+        id = in.readLong();
+        voteAverage = in.readString();
+        originalTitle = in.readString();
+        backdropPath = in.readString();
+        overview = in.readString();
+        releaseDate = in.readString();
+        posterPath = in.readString();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public de.dlyt.yanndroid.movies.Movie createFromParcel(Parcel in) {
+            return new de.dlyt.yanndroid.movies.Movie(in);
+        }
+
+        @Override
+        public de.dlyt.yanndroid.movies.Movie[] newArray(int size) {
+            return new de.dlyt.yanndroid.movies.Movie[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
+        parcel.writeString(voteAverage);
+        parcel.writeString(originalTitle);
+        parcel.writeString(backdropPath);
+        parcel.writeString(overview);
+        parcel.writeString(releaseDate);
+        parcel.writeString(posterPath);
+    }
+
+    //Getter Methods
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(String voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
+    public String getBackdropPath() {
+        if (backdropPath != null && !backdropPath.isEmpty()) {
+            if (!backdropPath.toLowerCase().contains("http://")) {
+                return "https://image.tmdb.org/t/p/w1280" + backdropPath;
+            } else {
+                return backdropPath;
+            }
+
+        }
+        return null; //Use Picasso to put placeholder for poster
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    @Nullable
+    public String getPosterPath() {
+        if (posterPath != null && !posterPath.isEmpty()) {
+
+            if (!posterPath.toLowerCase().contains("http://")) {
+                return "https://image.tmdb.org/t/p/w342" + posterPath;
+            } else {
+                return posterPath;
+            }
+
+        }
+        return null; //Use Picasso to put placeholder for poster
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+}
