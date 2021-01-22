@@ -18,10 +18,11 @@ import de.dlyt.yanndroid.movies.adapter.MovieItemAdapter;
 
 public class MovieInfoDialog extends BottomSheetDialogFragment {
 
-    private DatabaseReference mDatabase;
+    private static HashMap<String, Object> infos;
 
-    public static MovieInfoDialog newInstance() {
+    public static MovieInfoDialog newInstance(HashMap<String, Object> infos) {
         MovieInfoDialog fragment = new MovieInfoDialog();
+        MovieInfoDialog.infos = infos;
         return fragment;
     }
 
@@ -45,8 +46,6 @@ public class MovieInfoDialog extends BottomSheetDialogFragment {
         TextView iduration = dialog.findViewById(R.id.iduration);
         TextView isize = dialog.findViewById(R.id.isize);
         TextView iformat = dialog.findViewById(R.id.iformat);
-
-        HashMap<String, Object> infos = MovieItemAdapter.getData();
 
         ititle.setText(infos.get("title").toString());
         ilanguage.setText(infos.get("language").toString());

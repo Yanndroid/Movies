@@ -22,7 +22,8 @@
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="@string/update_app"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/nver"
@@ -60,12 +61,12 @@
                 app:rippleColor="@color/button_ripple_color" />
 
             <com.google.android.material.button.MaterialButton
-                android:enabled="false"
                 android:id="@+id/update"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:text="@string/update"
                 android:textStyle="bold"
                 app:rippleColor="@color/button_ripple_color" />

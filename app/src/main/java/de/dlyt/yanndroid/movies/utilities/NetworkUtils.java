@@ -16,8 +16,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import de.dlyt.yanndroid.movies.Movie;
-
 public class NetworkUtils {
 
     private static final String TAG = NetworkUtils.class.getSimpleName();
@@ -27,13 +25,13 @@ public class NetworkUtils {
         ArrayList<Movie> movies = new ArrayList<Movie>();
         try {
 
-            URL new_url = new URL(url); //create a url from a String
-            HttpURLConnection connection = (HttpURLConnection) new_url.openConnection(); //Opening a http connection  to the remote object
+            URL new_url = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) new_url.openConnection();
             connection.connect();
 
-            InputStream inputStream = connection.getInputStream(); //reading from the object
-            String results = IOUtils.toString(inputStream);  //IOUtils to convert inputstream objects into Strings type
-            parseJson(results,movies);
+            InputStream inputStream = connection.getInputStream();
+            String results = IOUtils.toString(inputStream);
+            parseJson(results, movies);
             inputStream.close();
 
         } catch (IOException e) {
@@ -43,16 +41,16 @@ public class NetworkUtils {
         return movies;
     }
 
-    public static void parseJson(String data, ArrayList<Movie> list){
+    public static void parseJson(String data, ArrayList<Movie> list) {
 
 
         try {
             JSONObject mainObject = new JSONObject(data);
-            Log.v(TAG,mainObject.toString());
-            JSONArray resArray = mainObject.getJSONArray("results"); //Getting the results object
+            Log.v(TAG, mainObject.toString());
+            JSONArray resArray = mainObject.getJSONArray("results");
             for (int i = 0; i < resArray.length(); i++) {
                 JSONObject jsonObject = resArray.getJSONObject(i);
-                de.dlyt.yanndroid.movies.Movie movie = new de.dlyt.yanndroid.movies.Movie(); //New Movie object
+                Movie movie = new Movie();
                 movie.setId(jsonObject.getLong("id"));
                 movie.setVoteAverage(jsonObject.getString("vote_average"));
                 movie.setOriginalTitle(jsonObject.getString("original_title"));
@@ -60,22 +58,20 @@ public class NetworkUtils {
                 movie.setOverview(jsonObject.getString("overview"));
                 movie.setReleaseDate(jsonObject.getString("release_date"));
                 movie.setPosterPath(jsonObject.getString("poster_path"));
-                //Adding a new movie object into ArrayList
                 list.add(movie);
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.e(TAG, "Error occurred during JSON Parsing");
         }
 
     }
 
 
-        public static Boolean networkStatus(Context context){
+    public static Boolean networkStatus(Context context) {
         ConnectivityManager manager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()){
+        if (networkInfo != null && networkInfo.isConnected()) {
             return true;
         }
         return false;

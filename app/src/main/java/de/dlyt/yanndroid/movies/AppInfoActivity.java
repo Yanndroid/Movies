@@ -36,6 +36,7 @@ import java.util.Random;
 
 import de.dlyt.yanndroid.movies.dialog.UpdateDialog;
 
+import static de.dlyt.yanndroid.movies.R.string.Baguette;
 import static de.dlyt.yanndroid.movies.R.string.no_EasterEgg;
 
 public class AppInfoActivity extends AppCompatActivity {
@@ -63,7 +64,7 @@ public class AppInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 clicks++;
                 if (clicks == 4) {
-                    Snackbar.make(findViewById(R.id.app_bar), no_EasterEgg, Snackbar.LENGTH_LONG).setAction("Ok", new Snackbarbutton()).show();
+                    Snackbar.make(findViewById(R.id.app_bar), no_EasterEgg, Snackbar.LENGTH_LONG).setAction(R.string.ok, new Snackbarbutton()).show();
                     clicks = 0;
                 }
             }
@@ -123,14 +124,14 @@ public class AppInfoActivity extends AppCompatActivity {
         public void onClick(View v) {
             if (android.provider.Settings.canDrawOverlays(AppInfoActivity.this)) {
                 showFloatingWindow();
-                Toast.makeText(AppInfoActivity.this, "Baguette!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AppInfoActivity.this, Baguette, Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
                 startActivity(intent);
                 while (true) {
                     if (android.provider.Settings.canDrawOverlays(AppInfoActivity.this)) {
                         showFloatingWindow();
-                        Toast.makeText(AppInfoActivity.this, "Baguette!!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AppInfoActivity.this, Baguette, Toast.LENGTH_SHORT).show();
                         break;
                     }
                 }

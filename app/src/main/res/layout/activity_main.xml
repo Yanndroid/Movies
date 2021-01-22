@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="App Title"
+                    android:text="@string/movies"
                     android:textSize="40sp" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="App Title" />
+                    android:text="@string/movies" />
 
 
                 <com.google.android.material.card.MaterialCardView
@@ -125,23 +125,24 @@
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
-        android:background="@color/green"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/popup_background"
+        android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:id="@+id/alertBar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
         <com.google.android.material.textview.MaterialTextView
+            android:layout_marginHorizontal="10dp"
+            android:layout_gravity="center"
             android:textColor="@color/black"
             android:id="@+id/alertBarText"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alert Bar Text"
+            android:text="@string/alert_bar_text"
             />
-
     </LinearLayout>
 
 

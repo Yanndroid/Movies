@@ -5,7 +5,6 @@
  * search
  * bookmark
  * open apk after update
- * animation
  */
 
 
@@ -14,11 +13,14 @@ package de.dlyt.yanndroid.movies;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -54,10 +56,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import de.dlyt.yanndroid.movies.adapter.ViewPagerAdapter;
+
+import static de.dlyt.yanndroid.movies.R.string.Filter_currently_not_available;
+import static de.dlyt.yanndroid.movies.R.string.Search_currently_not_available;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setLanguage();
 
         tabnames = new String[]{getString(R.string.movies), getString(R.string.series), getString(R.string.favorites)};
         settilte(getString(R.string.movies));
@@ -104,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                searchinput.setError("Search not available");
+                searchinput.setError(getString(R.string.Search_not_available));
 
             }
 
@@ -116,15 +123,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void setLanguage() {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("settings", Activity.MODE_PRIVATE);
+
+        switch (sharedPreferences.getInt("language_spinner", 0)) {
+            case 0:
+                setLocale(MainActivity.this, "");
+                return;
+            case 1:
+                setLocale(MainActivity.this, "en");
+                return;
+            case 2:
+                setLocale(MainActivity.this, "de");
+                return;
+            case 3:
+                setLocale(MainActivity.this, "fr");
+                return;
+        }
+    }
+
+    public void setLocale(Activity activity, String languageCode) {
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+        Resources resources = activity.getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
+    }
+
+
     public void checkforconnection() {
         AppBarLayout AppBar = findViewById(R.id.app_bar);
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED) {
-            alert("Mobile Data", Color.YELLOW);
+            alert(getString(R.string.mobile_data), R.color.yellow);
         } else if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            alert("Wifi", Color.GREEN);
+            alert(getString(R.string.wifi), R.color.green);
         } else {
-            alert("Offline", Color.RED);
+            alert(getString(R.string.offline), R.color.red);
         }
     }
 
@@ -197,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (!searching) {
 
-            Snackbar.make(findViewById(R.id.app_bar), "Search currently not available", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.app_bar), Search_currently_not_available, Snackbar.LENGTH_SHORT).show();
 
 
             toolbar.getMenu().findItem(R.id.search).setIcon(R.drawable.ic_close);
@@ -309,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
                 switchsearching();
                 return true;
             case R.id.filter:
-                Snackbar.make(findViewById(R.id.app_bar), "Filter currently not available", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.app_bar), Filter_currently_not_available, Snackbar.LENGTH_SHORT).show();
                 return true;
             case R.id.settings:
                 intent.setClass(getApplicationContext(), SettingsActivity.class);
@@ -328,12 +365,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void alert(String text, Integer color){
+    public void alert(String text, Integer color) {
         View alertBar = findViewById(R.id.alertBar);
         TextView alertBarText = findViewById(R.id.alertBarText);
         Timer timer;
         timer = new Timer();
-        alertBar.setBackgroundColor(color);
+        alertBar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), color));
         alertBarText.setText(text);
 
         AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
@@ -358,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
         });
         alertBar.startAnimation(anim);
 
-
     }
+
 
 }

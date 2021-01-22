@@ -35,9 +35,6 @@
     <string name="installed_version_n_a">Installierte Version: N/A</string>
     <string name="version_n_a">Version: N/A</string>
     <string name="filter">Filter</string>
-    <string name="option_1_description">Option 1 Beschreibung</string>
-    <string name="option_2_description">Option 2 Beschreibung</string>
-    <string name="option_3_description">Option 3 Beschreibung</string>
     <string name="theme">Nacht Modus</string>
     <string name="system">System</string>
     <string name="english">Englisch</string>
@@ -51,5 +48,13 @@
     <string name="layout">Layout</string>
     <string name="easteregg_found">EasterEgg gefunden 🙃</string>
     <string name="no_EasterEgg">Kein EasterEgg hier, zieh Leine</string>
+    <string name="trailer">Trailer</string>
+    <string name="alternative_results">Alternative Ergebnisse</string>
+    <string name="no_information">Keine Information</string>
+    <string name="mobile_data">Mobile Daten</string>
+    <string name="offline">Offline</string>
+    <string name="Filter_currently_not_available">Filter derzeit nicht verfügbar</string>
+    <string name="Search_currently_not_available">Suche derzeit nicht verfügbar</string>
+    <string name="Search_not_available">nicht verfügbar</string>
 
 </resources>

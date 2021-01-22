@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -91,8 +92,7 @@ public class TabFragment extends Fragment {
             if (list != null) {
                 recyclerView = view.findViewById(R.id.recyclerview);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                //recyclerView.setAdapter(new MovieItemAdapter(list, getContext()));
-                adapter = new MovieItemAdapter(list, getContext());
+                adapter = new MovieItemAdapter(list, getContext(), R.layout.movieitem_view);
                 recyclerView.setAdapter(adapter);
             }
 
@@ -135,12 +135,26 @@ public class TabFragment extends Fragment {
 
                     //sharedPreferences.edit().putString(shpreitems[current_tab] ,gson.toJson(list)).commit();
 
-                    recyclerView = view.findViewById(R.id.recyclerview);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    //recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-                    //recyclerView.setAdapter(new MovieItemAdapter(list, getContext()));
-                    adapter = new MovieItemAdapter(list, getContext());
-                    recyclerView.setAdapter(adapter);
+                    switch (current_tab) {
+                        case 0:
+                            recyclerView = view.findViewById(R.id.recyclerview);
+                            if (true) {
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                adapter = new MovieItemAdapter(list, getContext(), R.layout.movieitem_view);
+                            } else {
+                                recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                                //adapter = new MovieItemAdapter(list, getContext());
+                            }
+
+                            recyclerView.setAdapter(adapter);
+                            return;
+                        case 1:
+                            recyclerView = view.findViewById(R.id.recyclerview);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            adapter = new MovieItemAdapter(list, getContext(), R.layout.movieitem_view);
+                            recyclerView.setAdapter(adapter);
+                            return;
+                    }
 
                 }
 

@@ -49,6 +49,14 @@
     <string name="layout">Apparence</string>
     <string name="no_EasterEgg">Pas de EasterEgg ici, casse toi</string>
     <string name="easteregg_found">EasterEgg trouvé 🙃</string>
+    <string name="trailer">Bande annonce</string>
+    <string name="alternative_results">Résultats alternatifs</string>
+    <string name="no_information">Pas d\'information</string>
+    <string name="mobile_data">Données mobiles</string>
+    <string name="offline">Hors ligne</string>
+    <string name="Filter_currently_not_available">Filtre actuellement indisponible</string>
+    <string name="Search_currently_not_available">Recherche actuellement indisponible</string>
+    <string name="Search_not_available">Indisponible</string>
 </resources>
 
 

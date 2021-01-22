@@ -137,7 +137,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical|left"
-                                android:text="Yanndroid" />
+                                android:text="@string/yanndroid" />
 
                             <ImageView
                                 android:id="@+id/ytelegram"
@@ -208,7 +208,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical|left"
-                                android:text="TMDb" />
+                                android:text="@string/tmdb" />
 
                             <ImageView
                                 android:id="@+id/tbrowser"
@@ -269,7 +269,7 @@
                                 android:layout_marginHorizontal="10dp"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical|left"
-                                android:text="Firebase" />
+                                android:text="@string/firebase" />
 
                             <ImageView
                                 android:id="@+id/fbrowser"

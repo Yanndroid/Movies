@@ -14,7 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,29 +27,32 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
-import de.dlyt.yanndroid.movies.Movie;
 import de.dlyt.yanndroid.movies.R;
 import de.dlyt.yanndroid.movies.dialog.MovieInfoDialog;
+import de.dlyt.yanndroid.movies.dialog.TMDbInfoDialog;
+import de.dlyt.yanndroid.movies.utilities.Movie;
 import de.dlyt.yanndroid.movies.utilities.NetworkUtils;
 
 public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.ViewHolder> {
     private ArrayList<HashMap<String, Object>> data;
-    private static HashMap<String, Object> datainfos;
     private HashMap<Integer, Boolean> m_expanded = new HashMap<Integer, Boolean>();
 
     ArrayList<HashMap<String, Object>> fav_list;
 
     private android.content.Context context;
+    int movieitem_view;
 
-    public MovieItemAdapter(ArrayList<HashMap<String, Object>> data, Context context) {
+    public MovieItemAdapter(ArrayList<HashMap<String, Object>> data, Context context, int movieitem_view) {
         this.data = data;
         this.context = context;
+        this.movieitem_view = movieitem_view;
     }
 
     @Override
     public MovieItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.movieitem_view, parent, false);
+        View rowItem = LayoutInflater.from(parent.getContext()).inflate(movieitem_view, parent, false);
         return new ViewHolder(rowItem);
     }
 
@@ -87,9 +89,19 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
         holder.infoimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datainfos = data.get(position);
-                MovieInfoDialog bottomSheetDialog = MovieInfoDialog.newInstance();
+                MovieInfoDialog bottomSheetDialog = MovieInfoDialog.newInstance(data.get(position));
                 bottomSheetDialog.show(((FragmentActivity) v.getContext()).getSupportFragmentManager(), "tag");
+            }
+        });
+
+
+        holder.single_item_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.moviedatalist != null) {
+                    TMDbInfoDialog bottomSheetDialog = TMDbInfoDialog.newInstance(holder.moviedatalist, 0);
+                    bottomSheetDialog.show(((FragmentActivity) v.getContext()).getSupportFragmentManager(), "tag");
+                }
             }
         });
 
@@ -132,9 +144,17 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
 
 
         /** TMDb */
+        SharedPreferences sharedPreferences_settings;
+        sharedPreferences_settings = context.getSharedPreferences("settings", Activity.MODE_PRIVATE);
 
 
-        holder.moviedataurl = "https://api.themoviedb.org/3/search/movie?api_key=4ce769e35162474ccf8833d517f5285e&query=" + this.data.get(position).get("title").toString().replace(" ", "+");
+        HashMap<Integer, String> languages = new HashMap<>();
+        languages.put(0, Locale.getDefault().toLanguageTag());
+        languages.put(1, "en-US");
+        languages.put(2, "de-DE");
+        languages.put(3, "fr-FR");
+
+        holder.moviedataurl = "https://api.themoviedb.org/3/search/movie?api_key=4ce769e35162474ccf8833d517f5285e&query=" + this.data.get(position).get("title").toString().replace(" ", "+") + "&language=" + languages.get(sharedPreferences_settings.getInt("language_spinner", 0));
 
         new FetchMovies(holder).execute();
 
@@ -149,11 +169,6 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
             this.holder = holder;
         }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -162,13 +177,7 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
             holder.moviedatalist = new ArrayList<>();
             try {
                 if (NetworkUtils.networkStatus(context)) {
-                    holder.moviedatalist = NetworkUtils.fetchData(holder.moviedataurl); //Get popular movies
-
-                } else {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-                    dialog.setTitle("No Connection");
-                    dialog.setCancelable(false);
-                    dialog.show();
+                    holder.moviedatalist = NetworkUtils.fetchData(holder.moviedataurl);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -184,7 +193,7 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
 
             if (holder.moviedatalist.size() != 0) {
                 holder.movie = holder.moviedatalist.get(0);
-                Picasso.get().load(holder.movie.getPosterPath()).resize(300, 0).placeholder(R.drawable.ic_no_cover).into(holder.item_cover);
+                Picasso.get().load(holder.movie.getPosterPath()).placeholder(R.drawable.ic_no_cover).into(holder.item_cover);
             }
         }
     }
@@ -219,7 +228,7 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
 
         holder.multiple_movies_recyclerview.setLayoutManager(new LinearLayoutManager(this.context));
         //holder.multiple_movies_recyclerview.setLayoutManager(new GridLayoutManager(context, 2));
-        holder.multiple_movies_recyclerview.setAdapter(new MovieItemAdapter(series_list, context));
+        holder.multiple_movies_recyclerview.setAdapter(new MovieItemAdapter(series_list, context, R.layout.movieitem_view));
 
 
         if (!m_expanded.containsKey(position)) {
@@ -297,9 +306,5 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
             this.multiple_movies_recyclerview = view.findViewById(R.id.multiple_movies_recyclerview);
 
         }
-    }
-
-    public static HashMap<String, Object> getData() {
-        return datainfos;
     }
 }

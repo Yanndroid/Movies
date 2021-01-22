@@ -23,7 +23,8 @@
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="@string/title"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|right"
-                    android:text="N/A"
+                    android:text="@string/n_a"
                     android:textSize="15dp" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -108,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|right"
-                    android:text="N/A"
+                    android:text="@string/n_a"
                     android:textSize="15dp" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -126,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|right"
-                    android:text="N/A"
+                    android:text="@string/n_a"
                     android:textSize="15dp" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -135,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|right"
-                    android:text="N/A"
+                    android:text="@string/n_a"
                     android:textSize="15dp" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -144,7 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="2dp"
                     android:gravity="center_vertical|right"
-                    android:text="N/A"
+                    android:text="@string/n_a"
                     android:textSize="15dp" />
 
 

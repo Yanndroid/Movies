@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_vertical|left"
-        android:text="@string/textview"
         android:textSize="18dp" />
 
     <TextView
@@ -23,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/textview"
         android:textSize="18dp" />
 
     <TextView
@@ -33,7 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_vertical|right"
-        android:text="@string/textview"
         android:textSize="18dp" />
 
 </LinearLayout>

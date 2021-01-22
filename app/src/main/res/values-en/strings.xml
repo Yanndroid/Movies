@@ -18,12 +18,6 @@
     <string name="movie_information">Movie Information</string>
     <string name="cloud_storage">Cloud Storage</string>
     <string name="settings">Settings</string>
-    <string name="option_1">Option 1</string>
-    <string name="option_1_description">Option 1 description</string>
-    <string name="option_2">Option 2</string>
-    <string name="option_2_description">Option 2 description</string>
-    <string name="option_3">Option 3</string>
-    <string name="option_3_description">Option 3 description</string>
     <string name="video_info">Video Info</string>
     <string name="resolution">Resolution</string>
     <string name="title">Title</string>
@@ -35,7 +29,6 @@
     <string name="close">Close</string>
     <string name="movie_name">Movie Name</string>
     <string name="movie_info">Movie Info</string>
-    <string name="textview">TextView</string>
     <string name="update_app">Update App</string>
     <string name="cancel">Cancel</string>
     <string name="newest_version_n_a">Newest Version: N/A</string>
@@ -55,6 +48,14 @@
     <string name="never">Never</string>
     <string name="easteregg_found">EasterEgg found 🙃</string>
     <string name="no_EasterEgg">No EasterEgg here, get lost</string>
+    <string name="alternative_results">Alternative Results</string>
+    <string name="no_information">No Information</string>
+    <string name="mobile_data">Mobile Data</string>
+    <string name="offline">Offline</string>
+    <string name="Filter_currently_not_available">Filter currently not available</string>
+    <string name="Search_currently_not_available">Search currently not available</string>
+    <string name="Search_not_available">not available</string>
+    <string name="trailer">Trailer</string>
 
 
 </resources>
