@@ -99,7 +99,7 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
             @Override
             public void onClick(View v) {
                 if (holder.moviedatalist != null) {
-                    TMDbInfoDialog bottomSheetDialog = TMDbInfoDialog.newInstance(holder.moviedatalist, 0);
+                    TMDbInfoDialog bottomSheetDialog = TMDbInfoDialog.newInstance(holder.moviedatalist, 0, true);
                     bottomSheetDialog.show(((FragmentActivity) v.getContext()).getSupportFragmentManager(), "tag");
                 }
             }

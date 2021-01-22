@@ -41,12 +41,14 @@ public class TMDbInfoDialog extends BottomSheetDialogFragment {
 
     private static ArrayList<Movie> moviedatalist;
     private static int whichtoload;
+    private static Boolean first;
     private Movie movie;
 
-    public static TMDbInfoDialog newInstance(ArrayList<Movie> moviedatalist, int whichtoload) {
+    public static TMDbInfoDialog newInstance(ArrayList<Movie> moviedatalist, int whichtoload, Boolean first) {
         TMDbInfoDialog fragment = new TMDbInfoDialog();
         TMDbInfoDialog.moviedatalist = moviedatalist;
         TMDbInfoDialog.whichtoload = whichtoload;
+        TMDbInfoDialog.first = first;
         return fragment;
     }
 
@@ -71,7 +73,7 @@ public class TMDbInfoDialog extends BottomSheetDialogFragment {
 
         View list_all = dialog.findViewById(R.id.list_all);
 
-        if (moviedatalist.size() > 1 && whichtoload == 0) {
+        if (moviedatalist.size() > 1 && first) {
             list_all.setVisibility(View.VISIBLE);
         }
 

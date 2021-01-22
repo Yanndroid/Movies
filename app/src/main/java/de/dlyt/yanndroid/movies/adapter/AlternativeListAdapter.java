@@ -47,7 +47,7 @@ public class AlternativeListAdapter extends RecyclerView.Adapter<AlternativeList
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TMDbInfoDialog bottomSheetDialog = TMDbInfoDialog.newInstance(moviedatalist, position);
+                TMDbInfoDialog bottomSheetDialog = TMDbInfoDialog.newInstance(moviedatalist, position, false);
                 bottomSheetDialog.show(((FragmentActivity) v.getContext()).getSupportFragmentManager(), "tag");
             }
         });
