@@ -4,7 +4,7 @@
  * filter
  * search
  * bookmark
- * open apk after update
+ * genre
  */
 
 
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (sharedPreferences.getInt("language_spinner", 0)) {
             case 0:
-                setLocale(MainActivity.this, "");
+                setLocale(MainActivity.this, Locale.getDefault().getLanguage());
                 return;
             case 1:
                 setLocale(MainActivity.this, "en");

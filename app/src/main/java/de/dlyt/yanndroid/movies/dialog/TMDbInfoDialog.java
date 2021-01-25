@@ -1,14 +1,7 @@
 package de.dlyt.yanndroid.movies.dialog;
 
 
-/**
- * todo:
- * genre
- */
-
 import android.app.Dialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -17,10 +10,14 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.io.IOUtils;
@@ -137,7 +134,7 @@ public class TMDbInfoDialog extends BottomSheetDialogFragment {
                 String results = IOUtils.toString(inputStream);
 
                 if (new JSONObject(results).getJSONArray("results").length() != 0) {
-                    trailerUrl = "https://www.youtube.com/watch?v=" + new JSONObject(results).getJSONArray("results").getJSONObject(0).getString("key");
+                    trailerUrl = /*"https://www.youtube.com/watch?v=" +*/ new JSONObject(results).getJSONArray("results").getJSONObject(0).getString("key");
                 }
 
                 inputStream.close();
@@ -158,23 +155,24 @@ public class TMDbInfoDialog extends BottomSheetDialogFragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
-            View trailer_button = dialog.findViewById(R.id.trailer_button);
+            //View trailer_button = dialog.findViewById(R.id.trailer_button);
+            YouTubePlayerView youTubePlayerView = dialog.findViewById(R.id.youtubeView);
+            TextView noTrailer = dialog.findViewById(R.id.noTrailer);
 
             if (trailerUrl != null) {
-                trailer_button.setVisibility(View.VISIBLE);
-                trailer_button.setOnClickListener(new View.OnClickListener() {
+                noTrailer.setVisibility(View.GONE);
+                getLifecycle().addObserver(youTubePlayerView);
+                youTubePlayerView.setVisibility(View.VISIBLE);
+                youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
                     @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl)));
+                    public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                        youTubePlayer.cueVideo(trailerUrl, 0);
                     }
                 });
             } else {
-                trailer_button.setVisibility(View.GONE);
+                noTrailer.setVisibility(View.VISIBLE);
+                youTubePlayerView.setVisibility(View.GONE);
             }
         }
-
-
     }
-
 }

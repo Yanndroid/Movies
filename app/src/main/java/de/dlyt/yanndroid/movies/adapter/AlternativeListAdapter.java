@@ -53,7 +53,6 @@ public class AlternativeListAdapter extends RecyclerView.Adapter<AlternativeList
         });
 
 
-
     }
 
     @Override

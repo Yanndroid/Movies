@@ -45,7 +45,7 @@ public class AlternativeDialog extends BottomSheetDialogFragment {
         ImageView close = dialog.findViewById(R.id.close);
         RecyclerView recyclerView = dialog.findViewById(R.id.recyclerview);
 
-        moviedatalist.remove(0);
+        //moviedatalist.remove(0);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(new AlternativeListAdapter(moviedatalist, getContext()));
 

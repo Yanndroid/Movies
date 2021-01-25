@@ -65,7 +65,7 @@ public class SettingsActivity extends AppCompatActivity {
                 language_spinner_selection[0] = position;
                 switch (position) {
                     case 0:
-                        setLocale(SettingsActivity.this, "");
+                        setLocale(SettingsActivity.this, Locale.getDefault().getLanguage());
                         return;
                     case 1:
                         setLocale(SettingsActivity.this, "en");

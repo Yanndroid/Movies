@@ -1,6 +1,7 @@
 package de.dlyt.yanndroid.movies.dialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -30,9 +31,11 @@ public class UpdateDialog extends BottomSheetDialogFragment {
 
     private DatabaseReference mDatabase;
     private ArrayList<HashMap<String, Object>> updateinfo;
+    private static Context context;
 
-    public static UpdateDialog newInstance() {
+    public static UpdateDialog newInstance(Context context) {
         UpdateDialog fragment = new UpdateDialog();
+        UpdateDialog.context = context;
         return fragment;
     }
 
@@ -101,7 +104,7 @@ public class UpdateDialog extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
 
-                UpdateApp.DownloadAndInstall(AppInfoActivity.get_Context(), "https://github.com/Yanndroid/Movies/raw/master/app/release/app-release.apk", "Movies_" + updateinfo.get(0).get("name").toString() + ".apk", "Movies Update", updateinfo.get(0).get("name").toString());
+                UpdateApp.DownloadAndInstall(context, "https://github.com/Yanndroid/Movies/raw/master/app/release/app-release.apk", "Movies_" + updateinfo.get(0).get("name").toString() + ".apk", "Movies Update", updateinfo.get(0).get("name").toString());
 
                 dialog.dismiss();
             }

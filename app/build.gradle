@@ -12,8 +12,8 @@ android {
         applicationId "de.dlyt.yanndroid.movies"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 20
-        versionName "1.6.1"
+        versionCode 21
+        versionName "1.6.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -52,6 +52,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'org.apache.directory.studio:org.apache.commons.io:2.4'
-
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 
 }

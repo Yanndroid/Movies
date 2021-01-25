@@ -57,6 +57,7 @@
     <string name="Filter_currently_not_available">Filtre actuellement indisponible</string>
     <string name="Search_currently_not_available">Recherche actuellement indisponible</string>
     <string name="Search_not_available">Indisponible</string>
+    <string name="no_trailer">Pas de bande annonce</string>
 </resources>
 
 

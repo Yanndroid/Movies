@@ -12,8 +12,8 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -63,12 +63,12 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:id="@+id/trailer_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/popup_background"
-                            android:backgroundTint="@color/blue">
+                            android:backgroundTint="@color/blue"
+                            android:visibility="gone">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -94,13 +94,13 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:id="@+id/list_all"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:background="@drawable/popup_background"
-                            android:backgroundTint="@color/blue">
+                            android:backgroundTint="@color/blue"
+                            android:visibility="gone">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -172,6 +172,35 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:foreground="@drawable/rounded_corner"
+                        android:foregroundTint="@color/switch_card_background_off"
+                        android:orientation="vertical">
+
+                        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                            android:visibility="gone"
+                            android:id="@+id/youtubeView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:showFullScreenButton="false" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:visibility="gone"
+                            android:id="@+id/noTrailer"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            style="?textAppearanceBody1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_trailer" />
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 

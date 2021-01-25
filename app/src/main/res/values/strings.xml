@@ -64,5 +64,6 @@
     <string name="firebase" translatable="false">Firebase</string>
     <string name="n_a" translatable="false">N/A</string>
     <string name="trailer">Trailer</string>
+    <string name="no_trailer">No Trailer</string>
 
 </resources>

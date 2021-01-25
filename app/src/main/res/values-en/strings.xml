@@ -56,6 +56,7 @@
     <string name="Search_currently_not_available">Search currently not available</string>
     <string name="Search_not_available">not available</string>
     <string name="trailer">Trailer</string>
+    <string name="no_trailer">No Trailer</string>
 
 
 </resources>

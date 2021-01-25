@@ -285,17 +285,10 @@ public class AppInfoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.download) {
-            UpdateDialog bottomSheetDialog = UpdateDialog.newInstance();
+            UpdateDialog bottomSheetDialog = UpdateDialog.newInstance(getBaseContext());
             bottomSheetDialog.show(getSupportFragmentManager(), "tag");
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-
-    public static Context get_Context() {
-        return context;
-    }
-
-
 }

@@ -12,10 +12,10 @@
         android:orientation="vertical">
 
         <FrameLayout
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="5dp">
 
             <ImageView
                 android:id="@+id/close"
@@ -39,11 +39,11 @@
 
 
         <LinearLayout
-            android:foregroundTint="@color/switch_card_background_off"
-            android:layout_marginHorizontal="5dp"
-            android:foreground="@drawable/rounded_corner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:foreground="@drawable/rounded_corner"
+            android:foregroundTint="@color/switch_card_background_off"
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
