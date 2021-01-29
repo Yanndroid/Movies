@@ -65,5 +65,19 @@
     <string name="n_a" translatable="false">N/A</string>
     <string name="trailer">Trailer</string>
     <string name="no_trailer">No Trailer</string>
+    <string name="watch">Watch</string>
+    <string name="russian">Russian</string>
+    <string name="all">All</string>
+    <string name="data_saving">Data Saving</string>
+    <string name="server">Server</string>
+    <string name="don_t_load_covers_in_list">Don\'t load covers in list</string>
+    <string name="use_a_local_server_for_streaming">Use a local Server for streaming</string>
+    <string name="local_server">Local server</string>
+    <string name="ex_192_168_4_44">ex: 192.168.4.44</string>
+    <string name="ip_or_hostname">IP or Hostname</string>
+    <string name="username">Username</string>
+    <string name="ex_yanndroid">ex: yanndroid</string>
+    <string name="password">Password</string>
+    <string name="default_tab">Tab</string>
 
 </resources>

@@ -28,21 +28,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.dlyt.yanndroid.movies.adapter.MovieItemAdapter;
+import de.dlyt.yanndroid.movies.utilities.ItemViewModel;
 
 public class TabFragment extends Fragment {
 
     private static final String ARG_COUNT = "param1";
-    private Integer current_tab;
-    private static ArrayList<HashMap<String, Object>> list;
     public static int[] listsize = new int[3];
+    private static ArrayList<HashMap<String, Object>> list;
     RecyclerView recyclerView;
     MovieItemAdapter adapter;
     SharedPreferences sharedPreferences;
+    private Integer current_tab;
+    private ItemViewModel viewModel;
 
     private View rootView;
 
     public TabFragment() {
-        // Required empty public constructor
     }
 
     public static TabFragment newInstance(Integer counter) {
@@ -51,6 +52,10 @@ public class TabFragment extends Fragment {
         args.putInt(ARG_COUNT, counter);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static int getlistsize(int position) {
+        return listsize[position];
     }
 
     @Override
@@ -92,7 +97,7 @@ public class TabFragment extends Fragment {
             if (list != null) {
                 recyclerView = view.findViewById(R.id.recyclerview);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                adapter = new MovieItemAdapter(list, getContext(), R.layout.movieitem_view);
+                adapter = new MovieItemAdapter(list, getContext(), getActivity());
                 recyclerView.setAdapter(adapter);
             }
 
@@ -135,26 +140,16 @@ public class TabFragment extends Fragment {
 
                     //sharedPreferences.edit().putString(shpreitems[current_tab] ,gson.toJson(list)).commit();
 
-                    switch (current_tab) {
-                        case 0:
-                            recyclerView = view.findViewById(R.id.recyclerview);
-                            if (true) {
-                                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                adapter = new MovieItemAdapter(list, getContext(), R.layout.movieitem_view);
-                            } else {
-                                recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-                                //adapter = new MovieItemAdapter(list, getContext());
-                            }
+                    recyclerView = view.findViewById(R.id.recyclerview);
 
-                            recyclerView.setAdapter(adapter);
-                            return;
-                        case 1:
-                            recyclerView = view.findViewById(R.id.recyclerview);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            adapter = new MovieItemAdapter(list, getContext(), R.layout.movieitem_view);
-                            recyclerView.setAdapter(adapter);
-                            return;
+                    if (false && current_tab == 0) {
+                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                    } else {
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     }
+
+                    adapter = new MovieItemAdapter(list, getContext(), getActivity());
+                    recyclerView.setAdapter(adapter);
 
                 }
 
@@ -164,9 +159,5 @@ public class TabFragment extends Fragment {
                 }
             });
         }
-    }
-
-    public static int getlistsize(int position) {
-        return listsize[position];
     }
 }

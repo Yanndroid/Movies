@@ -1,10 +1,6 @@
-
 /**
  * todo:
- * filter
- * search
  * bookmark
- * genre
  */
 
 
@@ -32,7 +28,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,6 +40,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -60,23 +60,30 @@ import java.util.Locale;
 import java.util.Timer;
 
 import de.dlyt.yanndroid.movies.adapter.ViewPagerAdapter;
-
-import static de.dlyt.yanndroid.movies.R.string.Filter_currently_not_available;
-import static de.dlyt.yanndroid.movies.R.string.Search_currently_not_available;
+import de.dlyt.yanndroid.movies.utilities.ItemViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    public String[] tabnames;
     public static TextView expanded_subtitle;
+    public static Boolean datasaving;
+    public String[] tabnames;
     private DatabaseReference mDatabase;
     private ArrayList<HashMap<String, Object>> updateinfo;
+    private boolean searching = false;
+    private boolean filtering = false;
+    private ItemViewModel viewModel;
+    private HashMap<String, String> newFilter = new HashMap<>();
 
-    private boolean searching;
+    public static void refreshcount(Integer current_tab) {
+        expanded_subtitle.setText("" + TabFragment.getlistsize(current_tab));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        viewModel = new ViewModelProvider(this).get(ItemViewModel.class);
 
         setLanguage();
 
@@ -100,8 +107,11 @@ public class MainActivity extends AppCompatActivity {
         /** ViewPager */
         initViewPager();
 
-        /** Search */
-        searching = false;
+        /** Search and Filter */
+        newFilter.put("search", "");
+        newFilter.put("language", "");
+        newFilter.put("resolution", "");
+
         EditText searchinput = findViewById(R.id.searchinput);
         searchinput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -111,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                searchinput.setError(getString(R.string.Search_not_available));
-
+                //searchinput.setError(getString(R.string.Search_not_available));
+                applyFilter("search", s.toString().toLowerCase());
             }
 
             @Override
@@ -120,6 +130,63 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        ArrayList<String> language_options = new ArrayList<>();
+        language_options.add(getString(R.string.all));
+        language_options.add(getString(R.string.english));
+        language_options.add(getString(R.string.german));
+        language_options.add(getString(R.string.french));
+        language_options.add(getString(R.string.russian));
+        String[] languages = {"", "English", "Deutsch", "Français", "Pусский"};
+
+        Spinner language_filter = findViewById(R.id.language_filter);
+        language_filter.setAdapter(new ArrayAdapter<String>(getBaseContext(), R.layout.spinner_layout, language_options));
+        ((ArrayAdapter) language_filter.getAdapter()).notifyDataSetChanged();
+        language_filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (filtering) {
+                    applyFilter("language", languages[position].toLowerCase());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        ArrayList<String> resolution_options = new ArrayList<>();
+        resolution_options.add(getString(R.string.all));
+        resolution_options.add("FHD");
+        resolution_options.add("HD");
+        String[] resolutions = {"", "1080p", "720p"};
+
+
+        Spinner resolution_filter = findViewById(R.id.resolution_filter);
+        resolution_filter.setAdapter(new ArrayAdapter<String>(getBaseContext(), R.layout.spinner_layout, resolution_options));
+        ((ArrayAdapter) resolution_filter.getAdapter()).notifyDataSetChanged();
+        resolution_filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (filtering) {
+                    applyFilter("resolution", resolutions[position].toLowerCase());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
+
+    public void applyFilter(String key, String value) {
+        newFilter.put(key, value);
+        viewModel.setHashMap(newFilter);
     }
 
 
@@ -152,19 +219,20 @@ public class MainActivity extends AppCompatActivity {
         resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 
-
     public void checkforconnection() {
+        SharedPreferences sharedPreferences = getSharedPreferences("settings", Activity.MODE_PRIVATE);
         AppBarLayout AppBar = findViewById(R.id.app_bar);
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED) {
             alert(getString(R.string.mobile_data), R.color.yellow);
+            datasaving = sharedPreferences.getBoolean("switch_mobiledata", true);
         } else if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
             alert(getString(R.string.wifi), R.color.green);
+            datasaving = sharedPreferences.getBoolean("switch_wifi", false);
         } else {
             alert(getString(R.string.offline), R.color.red);
         }
     }
-
 
     public void initToolbar() {
         /** Def */
@@ -223,8 +291,9 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+        SharedPreferences sharedPreferences = getSharedPreferences("settings", Activity.MODE_PRIVATE);
+        tabLayout.selectTab(tabLayout.getTabAt(sharedPreferences.getInt("default_tab", 0)));
     }
-
 
     public void switchsearching() {
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -233,9 +302,11 @@ public class MainActivity extends AppCompatActivity {
         EditText searchinput = findViewById(R.id.searchinput);
 
         if (!searching) {
+            /** Search */
+            //Snackbar.make(findViewById(R.id.app_bar), Search_currently_not_available, Snackbar.LENGTH_SHORT).show();
 
-            Snackbar.make(findViewById(R.id.app_bar), Search_currently_not_available, Snackbar.LENGTH_SHORT).show();
-
+            AppBarLayout AppBar = findViewById(R.id.app_bar);
+            AppBar.setExpanded(false, true);
 
             toolbar.getMenu().findItem(R.id.search).setIcon(R.drawable.ic_close);
             toolbar.getMenu().findItem(R.id.filter).setVisible(false);
@@ -251,7 +322,8 @@ public class MainActivity extends AppCompatActivity {
             });
 
         } else {
-
+            /** not Search */
+            searchinput.setText("");
             searchview.animate().alpha(0).setDuration(300).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
@@ -267,6 +339,54 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void switchfiltering() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView collapsed_title = findViewById(R.id.collapsed_title);
+        CardView filterview = findViewById(R.id.filterview);
+        Spinner language_filter = findViewById(R.id.language_filter);
+        Spinner resolution_filter = findViewById(R.id.resolution_filter);
+
+        if (!filtering) {
+            /** Filter */
+
+            AppBarLayout AppBar = findViewById(R.id.app_bar);
+            AppBar.setExpanded(false, true);
+
+            toolbar.getMenu().findItem(R.id.filter).setIcon(R.drawable.ic_close);
+            toolbar.getMenu().findItem(R.id.search).setVisible(false);
+            filterview.setVisibility(View.VISIBLE);
+            language_filter.setEnabled(true);
+            resolution_filter.setEnabled(true);
+            collapsed_title.setVisibility(View.GONE);
+
+            filterview.animate().alpha(1).setDuration(300).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    filtering = true;
+                }
+            });
+
+        } else {
+            /** not Filter */
+            language_filter.setSelection(0);
+            resolution_filter.setSelection(0);
+            filterview.animate().alpha(0).setDuration(300).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    toolbar.getMenu().findItem(R.id.filter).setIcon(R.drawable.ic_filter);
+                    toolbar.getMenu().findItem(R.id.search).setVisible(true);
+                    filterview.setVisibility(View.GONE);
+                    language_filter.setEnabled(false);
+                    resolution_filter.setEnabled(false);
+                    collapsed_title.setVisibility(View.VISIBLE);
+                    filtering = false;
+                }
+            });
+
+        }
+    }
+
+
     public void settilte(String title) {
         TextView expanded_title = findViewById(R.id.expanded_title);
         TextView collapsed_title = findViewById(R.id.collapsed_title);
@@ -274,10 +394,6 @@ public class MainActivity extends AppCompatActivity {
         expanded_title.setText(title);
         collapsed_title.setText(title);
         searchinput.setHint(getString(R.string.search) + " " + title);
-    }
-
-    public static void refreshcount(Integer current_tab) {
-        expanded_subtitle.setText("" + TabFragment.getlistsize(current_tab));
     }
 
     public void checkforupdate() {
@@ -322,15 +438,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public class Snackbarbutton implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            UpdateApp.DownloadAndInstall(getBaseContext(), "https://github.com/Yanndroid/Movies/raw/master/app/release/app-release.apk", "Movies_" + updateinfo.get(0).get("name").toString() + ".apk", "Movies Update", updateinfo.get(0).get("name").toString());
-        }
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_scrolling, menu);
@@ -346,7 +453,7 @@ public class MainActivity extends AppCompatActivity {
                 switchsearching();
                 return true;
             case R.id.filter:
-                Snackbar.make(findViewById(R.id.app_bar), Filter_currently_not_available, Snackbar.LENGTH_SHORT).show();
+                switchfiltering();
                 return true;
             case R.id.settings:
                 intent.setClass(getApplicationContext(), SettingsActivity.class);
@@ -395,6 +502,14 @@ public class MainActivity extends AppCompatActivity {
         });
         alertBar.startAnimation(anim);
 
+    }
+
+    public class Snackbarbutton implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            UpdateApp.DownloadAndInstall(getBaseContext(), "https://github.com/Yanndroid/Movies/raw/master/app/release/app-release.apk", "Movies_" + updateinfo.get(0).get("name").toString() + ".apk", "Movies Update", updateinfo.get(0).get("name").toString());
+        }
     }
 
 

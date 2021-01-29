@@ -41,9 +41,12 @@ import static de.dlyt.yanndroid.movies.R.string.no_EasterEgg;
 
 public class AppInfoActivity extends AppCompatActivity {
 
+    static Context context;
     BottomSheetDialog bsd;
     Integer clicks;
-    static Context context;
+    private WindowManager windowManager;
+    private WindowManager.LayoutParams layoutParams;
+    private View displayView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,28 +121,6 @@ public class AppInfoActivity extends AppCompatActivity {
 
     }
 
-
-    public class Snackbarbutton implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            if (android.provider.Settings.canDrawOverlays(AppInfoActivity.this)) {
-                showFloatingWindow();
-                Toast.makeText(AppInfoActivity.this, Baguette, Toast.LENGTH_SHORT).show();
-            } else {
-                Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-                startActivity(intent);
-                while (true) {
-                    if (android.provider.Settings.canDrawOverlays(AppInfoActivity.this)) {
-                        showFloatingWindow();
-                        Toast.makeText(AppInfoActivity.this, Baguette, Toast.LENGTH_SHORT).show();
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-
     private void initPopup() {
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         layoutParams = new WindowManager.LayoutParams();
@@ -162,10 +143,6 @@ public class AppInfoActivity extends AppCompatActivity {
 
     }
 
-    private WindowManager windowManager;
-    private WindowManager.LayoutParams layoutParams;
-    private View displayView;
-
     private void showFloatingWindow() {
         ObjectAnimator objectAnimator = new ObjectAnimator();
         LayoutInflater layoutInflater = LayoutInflater.from(this);
@@ -184,6 +161,90 @@ public class AppInfoActivity extends AppCompatActivity {
         Random rnd = new Random();
         int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
         baguette.setColorFilter(color);
+    }
+
+    public void closes() {
+        try {
+            windowManager.removeView(displayView);
+        } catch (Exception e) {
+        }
+    }
+
+    private void _reCall() {
+    }
+
+    public void initToolbar() {
+        /** Def */
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        AppBarLayout AppBar = findViewById(R.id.app_bar);
+        TextView expanded_title = findViewById(R.id.expanded_title);
+        TextView title = findViewById(R.id.title);
+        TextView expanded_subtitle = findViewById(R.id.expanded_subtitle);
+
+
+        /** 1/3 of the Screen */
+        ViewGroup.LayoutParams layoutParams = AppBar.getLayoutParams();
+        layoutParams.height = (int) ((double) this.getResources().getDisplayMetrics().heightPixels / 2.6);
+
+
+        /** Collapsing */
+        AppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                float percentage = (AppBar.getY() / AppBar.getTotalScrollRange());
+                expanded_title.setAlpha(1 - (percentage * 2 * -1));
+                expanded_subtitle.setAlpha(1 - (percentage * 2 * -1));
+                title.setAlpha(percentage * -1);
+
+            }
+        });
+
+        /** Back */
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_appinfo, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.download) {
+            UpdateDialog bottomSheetDialog = UpdateDialog.newInstance(getBaseContext());
+            bottomSheetDialog.show(getSupportFragmentManager(), "tag");
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public class Snackbarbutton implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            if (android.provider.Settings.canDrawOverlays(AppInfoActivity.this)) {
+                showFloatingWindow();
+                Toast.makeText(AppInfoActivity.this, Baguette, Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+                while (true) {
+                    if (android.provider.Settings.canDrawOverlays(AppInfoActivity.this)) {
+                        showFloatingWindow();
+                        Toast.makeText(AppInfoActivity.this, Baguette, Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     private class FloatingOnTouchListener implements View.OnTouchListener {
@@ -224,71 +285,5 @@ public class AppInfoActivity extends AppCompatActivity {
             }
             return true;
         }
-    }
-
-    public void closes() {
-        try {
-            windowManager.removeView(displayView);
-        } catch (Exception e) {
-        }
-    }
-
-    private void _reCall() {
-    }
-
-
-    public void initToolbar() {
-        /** Def */
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        AppBarLayout AppBar = findViewById(R.id.app_bar);
-        TextView expanded_title = findViewById(R.id.expanded_title);
-        TextView title = findViewById(R.id.title);
-        TextView expanded_subtitle = findViewById(R.id.expanded_subtitle);
-
-
-        /** 1/3 of the Screen */
-        ViewGroup.LayoutParams layoutParams = AppBar.getLayoutParams();
-        layoutParams.height = (int) ((double) this.getResources().getDisplayMetrics().heightPixels / 2.6);
-
-
-        /** Collapsing */
-        AppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                float percentage = (AppBar.getY() / AppBar.getTotalScrollRange());
-                expanded_title.setAlpha(1 - (percentage * 2 * -1));
-                expanded_subtitle.setAlpha(1 - (percentage * 2 * -1));
-                title.setAlpha(percentage * -1);
-
-            }
-        });
-
-        /** Back */
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_appinfo, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.download) {
-            UpdateDialog bottomSheetDialog = UpdateDialog.newInstance(getBaseContext());
-            bottomSheetDialog.show(getSupportFragmentManager(), "tag");
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

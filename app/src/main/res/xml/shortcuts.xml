@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
-        android:shortcutId="app_info"
         android:enabled="true"
         android:icon="@drawable/shortcut_info"
-        android:shortcutShortLabel="@string/app_info"
-        android:shortcutLongLabel="@string/app_info">
+        android:shortcutId="app_info"
+        android:shortcutLongLabel="@string/app_info"
+        android:shortcutShortLabel="@string/app_info">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="de.dlyt.yanndroid.movies"
-            android:targetClass="de.dlyt.yanndroid.movies.AppInfoActivity" />
+            android:targetClass="de.dlyt.yanndroid.movies.AppInfoActivity"
+            android:targetPackage="de.dlyt.yanndroid.movies" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
     <shortcut
-        android:shortcutId="settings"
         android:enabled="true"
         android:icon="@drawable/shortcut_settings"
-        android:shortcutShortLabel="@string/settings"
-        android:shortcutLongLabel="@string/settings">
+        android:shortcutId="settings"
+        android:shortcutLongLabel="@string/settings"
+        android:shortcutShortLabel="@string/settings">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="de.dlyt.yanndroid.movies"
-            android:targetClass="de.dlyt.yanndroid.movies.SettingsActivity" />
+            android:targetClass="de.dlyt.yanndroid.movies.SettingsActivity"
+            android:targetPackage="de.dlyt.yanndroid.movies" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 

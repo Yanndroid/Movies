@@ -88,11 +88,51 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:enabled="false"
                             android:hint="@string/search"
                             android:imeOptions="actionSearch"
                             android:singleLine="true" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/filterview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_vertical|left"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/language_filter"
+                            style="?textAppearanceBody1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:popupBackground="@drawable/popup_background"
+                            android:popupElevation="5dp" />
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/resolution_filter"
+                            style="?textAppearanceBody1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="false"
+                            android:popupBackground="@drawable/popup_background"
+                            android:popupElevation="5dp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -103,7 +143,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -125,24 +164,24 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="24dp"
-        android:background="@drawable/popup_background"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
         android:id="@+id/alertBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/popup_background"
+        android:gravity="center"
         android:orientation="horizontal">
+
         <com.google.android.material.textview.MaterialTextView
-            android:layout_marginHorizontal="10dp"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
             android:id="@+id/alertBarText"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
             android:text="@string/alert_bar_text"
-            />
+            android:textColor="@color/black" />
     </LinearLayout>
 
 

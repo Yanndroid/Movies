@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -17,6 +19,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -26,6 +30,15 @@ import de.dlyt.yanndroid.movies.dialog.RestartDialog;
 public class SettingsActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
+
+    public static void setLocale(Activity activity, String languageCode) {
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+        Resources resources = activity.getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +50,34 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-
     public void initSettings() {
         sharedPreferences = getSharedPreferences("settings", Activity.MODE_PRIVATE);
+
+        /** Default Tab */
+
+        TabLayout defaulttab = findViewById(R.id.defaulttab);
+        int[] tabicons = {R.drawable.ic_movie, R.drawable.ic_serie, R.drawable.ic_bookmarks};
+        for (int i = 0; i < 3; i++) {
+            defaulttab.addTab(defaulttab.newTab().setIcon(tabicons[i]));
+        }
+        defaulttab.selectTab(defaulttab.getTabAt(sharedPreferences.getInt("default_tab", 0)));
+        defaulttab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                sharedPreferences.edit().putInt("default_tab", tab.getPosition()).commit();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
 
         /** language_spinner */
         ArrayList<String> language_options = new ArrayList<>();
@@ -125,35 +163,45 @@ public class SettingsActivity extends AppCompatActivity {
 
         /** switches */
 
-        /*SwitchMaterial switch1 = findViewById(R.id.switch1);
-        switch1.setChecked(sharedPreferences.getBoolean("switch1", false));
-        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        SwitchMaterial switch_mobiledata = findViewById(R.id.switch_mobiledata);
+        switch_mobiledata.setChecked(sharedPreferences.getBoolean("switch_mobiledata", true));
+        switch_mobiledata.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                sharedPreferences.edit().putBoolean("switch1", isChecked).commit();
+                sharedPreferences.edit().putBoolean("switch_mobiledata", isChecked).commit();
             }
         });
 
-        SwitchMaterial switch2 = findViewById(R.id.switch2);
-        switch2.setChecked(sharedPreferences.getBoolean("switch2", false));
-        switch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        SwitchMaterial switch_wifi = findViewById(R.id.switch_wifi);
+        switch_wifi.setChecked(sharedPreferences.getBoolean("switch_wifi", false));
+        switch_wifi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                sharedPreferences.edit().putBoolean("switch2", isChecked).commit();
+                sharedPreferences.edit().putBoolean("switch_wifi", isChecked).commit();
             }
         });
 
-        SwitchMaterial switch3 = findViewById(R.id.switch3);
-        switch3.setChecked(sharedPreferences.getBoolean("switch3", false));
-        switch3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        SwitchMaterial switch_localserver = findViewById(R.id.switch_localserver);
+        LinearLayout localserver_settings = findViewById(R.id.localserver_settings);
+        setVisible(localserver_settings, sharedPreferences.getBoolean("switch_localserver", false));
+        switch_localserver.setChecked(sharedPreferences.getBoolean("switch_localserver", false));
+        switch_localserver.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                sharedPreferences.edit().putBoolean("switch3", isChecked).commit();
-
+                sharedPreferences.edit().putBoolean("switch_localserver", isChecked).commit();
+                setVisible(localserver_settings, isChecked);
             }
-        });*/
+        });
+
+    }
 
 
+    public void setVisible(View view, Boolean visible) {
+        if (visible) {
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
     }
 
 
@@ -188,15 +236,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    public static void setLocale(Activity activity, String languageCode) {
-        Locale locale = new Locale(languageCode);
-        Locale.setDefault(locale);
-        Resources resources = activity.getResources();
-        Configuration config = resources.getConfiguration();
-        config.setLocale(locale);
-        resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 
     public void restartapp() {

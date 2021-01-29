@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="10dp"
     android:gravity="center">
 
 
     <com.google.android.material.card.MaterialCardView
-        app:strokeWidth="1dp"
-        app:strokeColor="@color/black"
         android:id="@+id/item_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
 
 
         <LinearLayout
@@ -53,13 +53,12 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/item_info"
-                    android:ellipsize="end"
                     style="?android:attr/textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/movie_info"
+                    android:ellipsize="end"
                     android:maxLines="3"
-                    />
+                    android:text="@string/movie_info" />
 
 
             </LinearLayout>

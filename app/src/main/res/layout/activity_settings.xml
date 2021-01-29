@@ -106,15 +106,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical|left"
-                            android:gravity="center"
+                            android:gravity="center_vertical|left"
                             android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
-                                android:src="@drawable/settings_language"
+                                android:src="@drawable/ic_language"
                                 app:tint="@color/blue" />
 
                             <com.google.android.material.textview.MaterialTextView
@@ -139,22 +138,21 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_marginLeft="44dp"
                             android:layout_marginVertical="10dp"
+                            android:layout_marginLeft="44dp"
                             android:background="#4D808080" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical|left"
-                            android:gravity="center"
+                            android:gravity="center_vertical|left"
                             android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
-                                android:src="@drawable/settings_day_night"
+                                android:src="@drawable/ic_day_night"
                                 app:tint="@color/yellow" />
 
                             <com.google.android.material.textview.MaterialTextView
@@ -174,19 +172,56 @@
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="10dp"
+                            android:layout_marginLeft="44dp"
+                            android:background="#4D808080" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical|left"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:src="@drawable/ic_tabs"
+                                app:tint="@color/orange" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                style="?textAppearanceBody1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/default_tab"
+                                android:textSize="18sp" />
+
+                            <com.google.android.material.tabs.TabLayout
+                                android:id="@+id/defaulttab"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:background="@color/transparent"
+                                app:tabBackground="@color/transparent" />
+
+                        </LinearLayout>
+
                     </LinearLayout>
 
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!--<com.google.android.material.textview.MaterialTextView
+                <com.google.android.material.textview.MaterialTextView
                     style="?android:attr/textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="2dp"
-                    android:text="@string/useless"
+                    android:text="@string/data_saving"
                     android:textStyle="bold" />
 
                 <com.google.android.material.card.MaterialCardView
@@ -196,202 +231,317 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="left|center"
                         android:orientation="vertical">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/welcome_layout"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="?selectableItemBackground"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:gravity="center_vertical">
+                            android:layout_height="match_parent"
+                            android:gravity="left|center_vertical"
+                            android:orientation="horizontal">
 
                             <LinearLayout
-                                android:id="@+id/welcome_text"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="24dp"
-                                android:layout_marginVertical="13dp"
-                                android:orientation="vertical"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@id/welcome_divider"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
+                                android:layout_marginVertical="15dp"
+                                android:layout_marginLeft="24dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:orientation="horizontal">
 
-                                <com.google.android.material.textview.MaterialTextView
-                                    style="?android:attr/textAppearanceLarge"
-                                    android:layout_width="match_parent"
+                                <ImageView
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:ellipsize="marquee"
-                                    android:fadingEdge="horizontal"
-                                    android:singleLine="true"
-                                    android:text="@string/option_1"
-                                    android:textSize="18sp" />
+                                    android:layout_marginRight="20dp"
+                                    android:src="@drawable/ic_data_settings"
+                                    app:tint="@color/green2" />
 
-                                <com.google.android.material.textview.MaterialTextView
-                                    style="?android:attr/textAppearanceSmall"
-                                    android:layout_width="match_parent"
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/option_1_description" />
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        style="?textAppearanceBody1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/mobile_data"
+                                        android:textSize="18sp" />
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        style="?android:attr/textAppearanceSmall"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/don_t_load_covers_in_list" />
+
+                                </LinearLayout>
+
 
                             </LinearLayout>
 
                             <View
-                                android:id="@+id/welcome_divider"
                                 android:layout_width="1dp"
                                 android:layout_height="30dp"
                                 android:layout_marginTop="20dp"
+                                android:layout_marginRight="10dp"
                                 android:layout_marginBottom="20dp"
-                                android:background="#4D808080"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@id/switch1"
-                                app:layout_constraintStart_toEndOf="@id/welcome_text"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:background="#4D808080" />
 
                             <com.google.android.material.switchmaterial.SwitchMaterial
-                                android:id="@+id/switch1"
+                                android:id="@+id/switch_mobiledata"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="14dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/welcome_divider"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:layout_marginRight="14dp" />
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                        </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_marginStart="22dp"
-                            android:layout_marginEnd="22dp"
+                            android:layout_marginLeft="68dp"
+                            android:layout_marginRight="24dp"
                             android:background="#4D808080" />
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/catcher_layout"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="?selectableItemBackground"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:gravity="center_vertical">
+                            android:layout_height="match_parent"
+                            android:gravity="left|center_vertical"
+                            android:orientation="horizontal">
 
                             <LinearLayout
-                                android:id="@+id/catcher_text"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="24dp"
-                                android:layout_marginVertical="13dp"
-                                android:orientation="vertical"
-                                app:layout_constrainedWidth="true"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@id/catcher_divider"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
+                                android:layout_marginVertical="15dp"
+                                android:layout_marginLeft="24dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:orientation="horizontal">
 
-                                <com.google.android.material.textview.MaterialTextView
-                                    style="?android:attr/textAppearanceLarge"
-                                    android:layout_width="match_parent"
+                                <ImageView
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:ellipsize="marquee"
-                                    android:fadingEdge="horizontal"
-                                    android:singleLine="true"
-                                    android:text="@string/option_2"
-                                    android:textSize="18sp" />
+                                    android:layout_marginRight="20dp"
+                                    android:src="@drawable/ic_wifi"
+                                    app:tint="@color/purple" />
 
-                                <com.google.android.material.textview.MaterialTextView
-                                    style="?android:attr/textAppearanceSmall"
-                                    android:layout_width="match_parent"
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/option_2_description" />
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        style="?textAppearanceBody1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/wifi"
+                                        android:textSize="18sp" />
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        style="?android:attr/textAppearanceSmall"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/don_t_load_covers_in_list" />
+
+                                </LinearLayout>
+
 
                             </LinearLayout>
 
                             <View
-                                android:id="@+id/catcher_divider"
                                 android:layout_width="1dp"
                                 android:layout_height="30dp"
                                 android:layout_marginTop="20dp"
+                                android:layout_marginRight="10dp"
                                 android:layout_marginBottom="20dp"
-                                android:background="#4D808080"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@id/switch2"
-                                app:layout_constraintStart_toEndOf="@id/catcher_text"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:background="#4D808080" />
 
                             <com.google.android.material.switchmaterial.SwitchMaterial
-                                android:id="@+id/switch2"
+                                android:id="@+id/switch_wifi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="14dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/catcher_divider"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/firebase_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center_vertical">
-
-                        <LinearLayout
-                            android:id="@+id/firebase_text"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="24dp"
-                            android:layout_marginVertical="13dp"
-                            android:orientation="vertical"
-                            app:layout_constrainedWidth="true"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/switch3"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <com.google.android.material.textview.MaterialTextView
-                                style="?textAppearanceBody1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:singleLine="true"
-                                android:text="@string/option_3"
-                                android:textSize="18sp" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/option_3_description" />
+                                android:layout_marginRight="14dp" />
 
                         </LinearLayout>
 
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/switch3"
-                            android:layout_width="wrap_content"
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="?android:attr/textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/server"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="left|center_vertical"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="15dp"
+                                android:layout_marginLeft="24dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|left"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="20dp"
+                                    android:src="@drawable/ic_server"
+                                    app:tint="@color/red" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        style="?textAppearanceBody1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/local_server"
+                                        android:textSize="18sp" />
+
+                                    <com.google.android.material.textview.MaterialTextView
+                                        style="?android:attr/textAppearanceSmall"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/use_a_local_server_for_streaming" />
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="20dp"
+                                android:background="#4D808080" />
+
+                            <com.google.android.material.switchmaterial.SwitchMaterial
+                                android:id="@+id/switch_localserver"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="14dp"
+                                android:enabled="false" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/localserver_settings"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="14dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/firebase_text"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:layout_marginHorizontal="24dp"
+                            android:layout_marginBottom="15dp"
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|center_vertical"
+                                android:orientation="horizontal">
 
-                </com.google.android.material.card.MaterialCardView>-->
+                                <com.google.android.material.textview.MaterialTextView
+                                    style="?textAppearanceBody2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/ip_or_hostname" />
+
+                                <EditText
+                                    android:id="@+id/ip_edittext"
+                                    style="?textAppearanceBody2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="right"
+                                    android:hint="@string/ex_192_168_4_44" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|center_vertical"
+                                android:orientation="horizontal">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    style="?textAppearanceBody2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/username" />
+
+                                <EditText
+                                    android:id="@+id/username_edittext"
+                                    style="?textAppearanceBody2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="right"
+                                    android:hint="@string/ex_yanndroid" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right|center_vertical"
+                                android:orientation="horizontal">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    style="?textAppearanceBody2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="@string/password" />
+
+                                <EditText
+                                    android:id="@+id/password_edittext"
+                                    style="?textAppearanceBody2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="right"
+                                    android:inputType="textPassword" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

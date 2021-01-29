@@ -5,11 +5,27 @@ import android.os.Parcelable;
 
 import androidx.annotation.Nullable;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class Movie implements Parcelable {
 
 
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
     @SerializedName("id")
     private Long id;
     @SerializedName("vote_average")
@@ -24,6 +40,8 @@ public class Movie implements Parcelable {
     private String releaseDate;
     @SerializedName("poster_path")
     private String posterPath;
+    @SerializedName("genre_ids")
+    private String genreIds;
 
     public Movie() {
 
@@ -35,7 +53,8 @@ public class Movie implements Parcelable {
                  String backdropPath,
                  String overview,
                  String releaseDate,
-                 String posterPath) {
+                 String posterPath,
+                 String genreIds) {
         this.id = id;
         this.voteAverage = voteAverage;
         this.originalTitle = originalTitle;
@@ -43,6 +62,7 @@ public class Movie implements Parcelable {
         this.overview = overview;
         this.releaseDate = releaseDate;
         this.posterPath = posterPath;
+        this.genreIds = genreIds;
     }
 
     protected Movie(Parcel in) {
@@ -53,19 +73,8 @@ public class Movie implements Parcelable {
         overview = in.readString();
         releaseDate = in.readString();
         posterPath = in.readString();
+        genreIds = in.readString();
     }
-
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
-        @Override
-        public Movie createFromParcel(Parcel in) {
-            return new Movie(in);
-        }
-
-        @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
-        }
-    };
 
     @Override
     public int describeContents() {
@@ -81,6 +90,7 @@ public class Movie implements Parcelable {
         parcel.writeString(overview);
         parcel.writeString(releaseDate);
         parcel.writeString(posterPath);
+        parcel.writeString(genreIds);
     }
 
     public Long getId() {
@@ -157,4 +167,16 @@ public class Movie implements Parcelable {
         this.posterPath = posterPath;
     }
 
+    public ArrayList<Integer> getGenreIds() {
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<Integer>>() {
+        }.getType();
+        ArrayList<Integer> genrelist = new ArrayList<>();
+        genrelist = gson.fromJson(genreIds, type);
+        return genrelist;
+    }
+
+    public void setGenreIds(String genreIds) {
+        this.genreIds = genreIds;
+    }
 }

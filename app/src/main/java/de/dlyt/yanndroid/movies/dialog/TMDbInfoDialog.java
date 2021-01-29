@@ -1,38 +1,49 @@
 package de.dlyt.yanndroid.movies.dialog;
 
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.common.io.CharStreams;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.squareup.picasso.Picasso;
 
-import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
 
 import de.dlyt.yanndroid.movies.R;
+import de.dlyt.yanndroid.movies.adapter.GenreAdapter;
 import de.dlyt.yanndroid.movies.utilities.Movie;
+import kotlin.text.Charsets;
+
 
 public class TMDbInfoDialog extends BottomSheetDialogFragment {
 
@@ -94,10 +105,14 @@ public class TMDbInfoDialog extends BottomSheetDialogFragment {
             overview.setText(movie.getOverview());
             release_date.setText(movie.getReleaseDate());
 
-
             ratingBar.setRating(Float.valueOf(movie.getVoteAverage()) / 2);
 
-            new getTrailer(movie.getId(), dialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            ProgressBar loading = dialog.findViewById(R.id.loading);
+            loading.setVisibility(View.VISIBLE);
+
+            new setGenre(movie.getGenreIds(), dialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new loadTrailer(movie.getId(), dialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
 
         close.setOnClickListener(new View.OnClickListener() {
@@ -110,13 +125,14 @@ public class TMDbInfoDialog extends BottomSheetDialogFragment {
 
     }
 
-    public class getTrailer extends AsyncTask<Long, Void, String> {
+
+    public class loadTrailer extends AsyncTask<Long, Void, String> {
 
         Long id;
         Dialog dialog;
         String trailerUrl;
 
-        public getTrailer(Long id, Dialog dialog) {
+        public loadTrailer(Long id, Dialog dialog) {
             this.id = id;
             this.dialog = dialog;
         }
@@ -124,14 +140,23 @@ public class TMDbInfoDialog extends BottomSheetDialogFragment {
         @Override
         protected String doInBackground(Long... longs) {
 
+            HashMap<Integer, String> languages = new HashMap<>();
+            languages.put(0, Locale.getDefault().toLanguageTag());
+            languages.put(1, "en-US");
+            languages.put(2, "de-DE");
+            languages.put(3, "fr-FR");
+
+            SharedPreferences sharedPreferences_settings;
+            sharedPreferences_settings = getContext().getSharedPreferences("settings", Activity.MODE_PRIVATE);
+
             try {
                 URL url;
-                url = new URL("https://api.themoviedb.org/3/movie/" + id + "/videos?api_key=4ce769e35162474ccf8833d517f5285e");
+                url = new URL("https://api.themoviedb.org/3/movie/" + id + "/videos?api_key=4ce769e35162474ccf8833d517f5285e&language=" + languages.get(sharedPreferences_settings.getInt("language_spinner", 0)));
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
                 InputStream inputStream = connection.getInputStream();
-                String results = IOUtils.toString(inputStream);
+                String results = CharStreams.toString(new InputStreamReader(inputStream, Charsets.UTF_8));
 
                 if (new JSONObject(results).getJSONArray("results").length() != 0) {
                     trailerUrl = /*"https://www.youtube.com/watch?v=" +*/ new JSONObject(results).getJSONArray("results").getJSONObject(0).getString("key");
@@ -155,14 +180,15 @@ public class TMDbInfoDialog extends BottomSheetDialogFragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            //View trailer_button = dialog.findViewById(R.id.trailer_button);
             YouTubePlayerView youTubePlayerView = dialog.findViewById(R.id.youtubeView);
             TextView noTrailer = dialog.findViewById(R.id.noTrailer);
+            ProgressBar loading = dialog.findViewById(R.id.loading);
+            loading.setVisibility(View.GONE);
 
             if (trailerUrl != null) {
                 noTrailer.setVisibility(View.GONE);
-                getLifecycle().addObserver(youTubePlayerView);
                 youTubePlayerView.setVisibility(View.VISIBLE);
+                getLifecycle().addObserver(youTubePlayerView);
                 youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
                     @Override
                     public void onReady(@NonNull YouTubePlayer youTubePlayer) {
@@ -175,4 +201,79 @@ public class TMDbInfoDialog extends BottomSheetDialogFragment {
             }
         }
     }
+
+    public class setGenre extends AsyncTask<ArrayList<Integer>, Void, HashMap<Integer, String>> {
+
+        ArrayList<Integer> input;
+        Dialog dialog;
+
+        public setGenre(ArrayList<Integer> input, Dialog dialog) {
+            this.input = input;
+            this.dialog = dialog;
+        }
+
+        @Override
+        protected HashMap<Integer, String> doInBackground(ArrayList<Integer>... arrayLists) {
+            SharedPreferences sharedPreferences_settings;
+            sharedPreferences_settings = getContext().getSharedPreferences("settings", Activity.MODE_PRIVATE);
+            HashMap<Integer, String> languages = new HashMap<>();
+            languages.put(0, Locale.getDefault().toLanguageTag());
+            languages.put(1, "en-US");
+            languages.put(2, "de-DE");
+            languages.put(3, "fr-FR");
+
+            HashMap<Integer, String> IntToStringList = new HashMap<>();
+
+            try {
+                URL url;
+                url = new URL("https://api.themoviedb.org/3/genre/movie/list?api_key=4ce769e35162474ccf8833d517f5285e&language=" + languages.get(sharedPreferences_settings.getInt("language_spinner", 0)));
+                HttpURLConnection connection = null;
+                connection = (HttpURLConnection) url.openConnection();
+
+                connection.connect();
+
+                InputStream inputStream = connection.getInputStream();
+                String genres = CharStreams.toString(new InputStreamReader(inputStream, Charsets.UTF_8));
+
+                for (int i = 0; i < new JSONObject(genres).getJSONArray("genres").length(); i++) {
+                    IntToStringList.put(new JSONObject(genres).getJSONArray("genres").getJSONObject(i).getInt("id"), new JSONObject(genres).getJSONArray("genres").getJSONObject(i).getString("name"));
+                }
+
+                inputStream.close();
+
+                return IntToStringList;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return null;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return null;
+            }
+
+
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<Integer, String> genrelist) {
+            super.onPostExecute(genrelist);
+
+            if (genrelist != null) {
+                ArrayList<String> output = new ArrayList<>();
+                RecyclerView genreRecycler = dialog.findViewById(R.id.genreRecycler);
+                for (Integer integer : input) {
+                    if (genrelist.containsKey(integer)) {
+                        output.add(genrelist.get(integer));
+                    }
+                }
+                genreRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+                genreRecycler.setAdapter(new GenreAdapter(output));
+            }
+
+
+        }
+    }
+
 }

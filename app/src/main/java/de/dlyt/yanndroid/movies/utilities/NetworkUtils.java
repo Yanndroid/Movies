@@ -5,16 +5,20 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import org.apache.commons.io.IOUtils;
+import com.google.common.io.CharStreams;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+
+import kotlin.text.Charsets;
 
 public class NetworkUtils {
 
@@ -30,7 +34,7 @@ public class NetworkUtils {
             connection.connect();
 
             InputStream inputStream = connection.getInputStream();
-            String results = IOUtils.toString(inputStream);
+            String results = CharStreams.toString(new InputStreamReader(inputStream, Charsets.UTF_8));
             parseJson(results, movies);
             inputStream.close();
 
@@ -58,6 +62,7 @@ public class NetworkUtils {
                 movie.setOverview(jsonObject.getString("overview"));
                 movie.setReleaseDate(jsonObject.getString("release_date"));
                 movie.setPosterPath(jsonObject.getString("poster_path"));
+                movie.setGenreIds(jsonObject.getString("genre_ids"));
                 list.add(movie);
             }
         } catch (JSONException e) {

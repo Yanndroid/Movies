@@ -2,11 +2,18 @@
 <resources>
     <color name="ic_launcher_background">#FFFFFF</color>
     <color name="background_color">#f2f2f2</color>
-    <color name="red">#f64141</color>
-    <color name="yellow">#FEC006</color>
-    <color name="green">#15b76d</color>
-    <color name="blue">#2979FF</color>
-    <color name="purple">#6E6ED1</color>
+
+    <color name="red">#D50000</color>
+    <color name="yellow">#FFD600</color>
+    <color name="green">#009808</color>
+    <color name="blue">#304FFE</color>
+    <color name="purple">#AA00FF</color>
+    <color name="orange">#FF6D00</color>
+    <color name="cyan">#00BFA5</color>
+    <color name="magenta">#C51162</color>
+    <color name="green2">#64DD17</color>
+
+
     <color name="black">#ff000000</color>
     <color name="white">#ffffffff</color>
     <color name="switch_thumb_off_color">#fffafafa</color>

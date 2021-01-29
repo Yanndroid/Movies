@@ -9,12 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.HashMap;
 
 import de.dlyt.yanndroid.movies.R;
-import de.dlyt.yanndroid.movies.adapter.MovieItemAdapter;
 
 public class MovieInfoDialog extends BottomSheetDialogFragment {
 

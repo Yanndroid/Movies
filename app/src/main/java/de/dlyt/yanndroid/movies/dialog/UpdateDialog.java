@@ -23,15 +23,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import de.dlyt.yanndroid.movies.AppInfoActivity;
 import de.dlyt.yanndroid.movies.R;
 import de.dlyt.yanndroid.movies.UpdateApp;
 
 public class UpdateDialog extends BottomSheetDialogFragment {
 
+    private static Context context;
     private DatabaseReference mDatabase;
     private ArrayList<HashMap<String, Object>> updateinfo;
-    private static Context context;
 
     public static UpdateDialog newInstance(Context context) {
         UpdateDialog fragment = new UpdateDialog();

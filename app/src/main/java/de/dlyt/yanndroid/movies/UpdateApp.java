@@ -34,7 +34,7 @@ public class UpdateApp {
         BroadcastReceiver onComplete = new BroadcastReceiver() {
             public void onReceive(Context ctxt, Intent intent) {
 
-                Uri apkfileuri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", new File("/storage/emulated/0/Download/"+fileName));
+                Uri apkfileuri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", new File("/storage/emulated/0/Download/" + fileName));
                 Intent install = new Intent(Intent.ACTION_VIEW);
                 install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,52 +30,84 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
+import de.dlyt.yanndroid.movies.MainActivity;
 import de.dlyt.yanndroid.movies.R;
 import de.dlyt.yanndroid.movies.dialog.MovieInfoDialog;
 import de.dlyt.yanndroid.movies.dialog.TMDbInfoDialog;
+import de.dlyt.yanndroid.movies.utilities.ItemViewModel;
 import de.dlyt.yanndroid.movies.utilities.Movie;
 import de.dlyt.yanndroid.movies.utilities.NetworkUtils;
 
 public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.ViewHolder> {
     private ArrayList<HashMap<String, Object>> data;
     private HashMap<Integer, Boolean> m_expanded = new HashMap<Integer, Boolean>();
-
-    ArrayList<HashMap<String, Object>> fav_list;
-
+    private ArrayList<HashMap<String, Object>> fav_data;
     private android.content.Context context;
-    int movieitem_view;
 
-    public MovieItemAdapter(ArrayList<HashMap<String, Object>> data, Context context, int movieitem_view) {
+    private ItemViewModel itemViewModel;
+    private FragmentActivity activity;
+
+
+    public MovieItemAdapter(ArrayList<HashMap<String, Object>> data, Context context, FragmentActivity activity) {
         this.data = data;
         this.context = context;
-        this.movieitem_view = movieitem_view;
+
+        this.activity = activity;
+        itemViewModel = new ViewModelProvider(activity).get(ItemViewModel.class);
     }
 
     @Override
     public MovieItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rowItem = LayoutInflater.from(parent.getContext()).inflate(movieitem_view, parent, false);
+        View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.movieitem_view, parent, false);
         return new ViewHolder(rowItem);
     }
 
 
     @Override
     public void onBindViewHolder(MovieItemAdapter.ViewHolder holder, int position) {
-        if (data.get(position).containsKey("type")) {
-            switch (data.get(position).get("type").toString()) {
-                case "single_item":
-                    single_item(holder, position);
-                    return;
-                case "multiple_item":
-                    multiple_item(holder, position);
-                    return;
+        if (data.get(position).containsKey("title")) {
+            if (data.get(position).containsKey("type")) {
+                switch (data.get(position).get("type").toString()) {
+                    case "single_item":
+                        single_item(holder, position);
+                        return;
+                    case "multiple_item":
+                        multiple_item(holder, position);
+                        return;
+                }
             }
         }
+    }
+
+    public void no_item(MovieItemAdapter.ViewHolder holder) {
+        holder.single_item_card.setVisibility(View.GONE);
+        holder.multiple_item_card.setVisibility(View.GONE);
     }
 
 
     public void single_item(MovieItemAdapter.ViewHolder holder, int position) {
         holder.single_item_card.setVisibility(View.VISIBLE);
         holder.multiple_item_card.setVisibility(View.GONE);
+
+
+        /** Search and Filter */
+        itemViewModel.getHashmap().observe(activity, hashMap -> {
+            if (data.get(position).get("title").toString().toLowerCase().contains(hashMap.get("search")) && data.get(position).get("language").toString().toLowerCase().contains(hashMap.get("language")) && data.get(position).get("resolution").toString().toLowerCase().contains(hashMap.get("resolution"))) {
+                holder.single_item_card.setVisibility(View.VISIBLE);
+            } else {
+
+                if (data.get(position).containsKey("group")) {
+                    if (data.get(position).get("group").toString().toLowerCase().contains(hashMap.get("search")) && !hashMap.get("search").isEmpty()) {
+                        holder.single_item_card.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.single_item_card.setVisibility(View.GONE);
+                    }
+                } else {
+                    holder.single_item_card.setVisibility(View.GONE);
+                }
+            }
+        });
+
 
         if (data.get(position).containsKey("title")) {
             holder.item_title.setText(this.data.get(position).get("title").toString());
@@ -101,6 +134,13 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
                 if (holder.moviedatalist != null) {
                     TMDbInfoDialog bottomSheetDialog = TMDbInfoDialog.newInstance(holder.moviedatalist, 0, true);
                     bottomSheetDialog.show(((FragmentActivity) v.getContext()).getSupportFragmentManager(), "tag");
+                } else {
+                    if (data.get(position).containsKey("tmdbinfo")) {
+                        if (data.get(position).get("tmdbinfo") != null) {
+                            TMDbInfoDialog bottomSheetDialog = TMDbInfoDialog.newInstance((ArrayList<Movie>) data.get(position).get("tmdbinfo"), 0, true);
+                            bottomSheetDialog.show(((FragmentActivity) v.getContext()).getSupportFragmentManager(), "tag");
+                        }
+                    }
                 }
             }
         });
@@ -113,11 +153,11 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
         }.getType();
         sharedPreferences = context.getSharedPreferences("lists", Activity.MODE_PRIVATE);
 
-        fav_list = new ArrayList<>();
-        fav_list = gson.fromJson(sharedPreferences.getString("fav_list", "[]"), listType);
+        fav_data = new ArrayList<>();
+        fav_data = gson.fromJson(sharedPreferences.getString("fav_list", "[]"), listType);
 
-        for (int j = 0; j < fav_list.size(); j++) {
-            if (this.data.get(position).equals(fav_list.get(j))) {
+        for (int j = 0; j < fav_data.size(); j++) {
+            if (this.data.get(position).equals(fav_data.get(j))) {
                 holder.bookmark_check.setChecked(true);
                 break;
             }
@@ -126,19 +166,19 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
         holder.bookmark_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                fav_list = new ArrayList<>();
-                fav_list = gson.fromJson(sharedPreferences.getString("fav_list", "[]"), listType);
+                fav_data = new ArrayList<>();
+                fav_data = gson.fromJson(sharedPreferences.getString("fav_list", "[]"), listType);
                 if (isChecked) {
-                    fav_list.add(data.get(position));
+                    fav_data.add(data.get(position));
                 } else {
-                    for (int j = 0; j < fav_list.size(); j++) {
-                        if (data.get(position).equals(fav_list.get(j))) {
-                            fav_list.remove(j);
+                    for (int j = 0; j < fav_data.size(); j++) {
+                        if (data.get(position).equals(fav_data.get(j))) {
+                            fav_data.remove(j);
                             break;
                         }
                     }
                 }
-                sharedPreferences.edit().putString("fav_list", gson.toJson(fav_list)).commit();
+                sharedPreferences.edit().putString("fav_list", gson.toJson(fav_data)).commit();
             }
         });
 
@@ -156,48 +196,9 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
 
         holder.moviedataurl = "https://api.themoviedb.org/3/search/movie?api_key=4ce769e35162474ccf8833d517f5285e&query=" + this.data.get(position).get("title").toString().replace(" ", "+") + "&language=" + languages.get(sharedPreferences_settings.getInt("language_spinner", 0));
 
-        new FetchMovies(holder).execute();
-
+        new FetchMovies(holder, position).execute();
 
     }
-
-    public class FetchMovies extends AsyncTask<Void, Void, Void> {
-
-        MovieItemAdapter.ViewHolder holder;
-
-        public FetchMovies(MovieItemAdapter.ViewHolder holder) {
-            this.holder = holder;
-        }
-
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-
-            holder.moviedatalist = new ArrayList<>();
-            try {
-                if (NetworkUtils.networkStatus(context)) {
-                    holder.moviedatalist = NetworkUtils.fetchData(holder.moviedataurl);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-
-
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void s) {
-            super.onPostExecute(s);
-
-            if (holder.moviedatalist.size() != 0) {
-                holder.movie = holder.moviedatalist.get(0);
-                Picasso.get().load(holder.movie.getPosterPath()).placeholder(R.drawable.ic_no_cover).into(holder.item_cover);
-            }
-        }
-    }
-
 
     public void multiple_item(MovieItemAdapter.ViewHolder holder, int position) {
         holder.single_item_card.setVisibility(View.GONE);
@@ -208,27 +209,18 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
 
         }
 
-
-        HashMap<String, Object> tmp_list = new HashMap<String, Object>();
-        tmp_list = data.get(position);
-        if (tmp_list.containsKey("title")) {
-            tmp_list.remove("title");
-        }
-        if (tmp_list.containsKey("type")) {
-            tmp_list.remove("type");
-        }
-
         ArrayList<HashMap<String, Object>> series_list = new ArrayList<HashMap<String, Object>>();
         HashMap<String, Object> tmp_list2 = new HashMap<String, Object>();
-        for (int i = 0; i < tmp_list.size(); i++) {
-            tmp_list2 = (HashMap<String, Object>) tmp_list.get(String.valueOf(i));
-            series_list.add(tmp_list2);
+        for (int i = 0; i < data.get(position).size(); i++) {
+            if (data.get(position).containsKey(String.valueOf(i))) {
+                tmp_list2 = (HashMap<String, Object>) data.get(position).get(String.valueOf(i));
+                series_list.add(tmp_list2);
+            }
         }
 
 
         holder.multiple_movies_recyclerview.setLayoutManager(new LinearLayoutManager(this.context));
-        //holder.multiple_movies_recyclerview.setLayoutManager(new GridLayoutManager(context, 2));
-        holder.multiple_movies_recyclerview.setAdapter(new MovieItemAdapter(series_list, context, R.layout.movieitem_view));
+        holder.multiple_movies_recyclerview.setAdapter(new MovieItemAdapter(series_list, context, activity));
 
 
         if (!m_expanded.containsKey(position)) {
@@ -243,6 +235,51 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
                 set_multiple_item_expand(!m_expanded.get(position), holder, position);
             }
         });
+
+
+        /** Search and Filter */
+        itemViewModel.getHashmap().observe(activity, hashMap -> {
+
+            Boolean childFiltermatch = false;
+            for (HashMap<String, Object> child : series_list) {
+                if (child.containsKey("title")) {
+                    if (child.get("title").toString().toLowerCase().contains(hashMap.get("search"))) {
+                        childFiltermatch = true;
+                    } else {
+                        childFiltermatch = false;
+                        continue;
+                    }
+                }
+                if (child.containsKey("language")) {
+                    if (child.get("language").toString().toLowerCase().contains(hashMap.get("language"))) {
+                        childFiltermatch = true;
+                    } else {
+                        childFiltermatch = false;
+                        continue;
+                    }
+                }
+                if (child.containsKey("resolution")) {
+                    if (child.get("resolution").toString().toLowerCase().contains(hashMap.get("resolution"))) {
+                        childFiltermatch = true;
+                    } else {
+                        childFiltermatch = false;
+                        continue;
+                    }
+                }
+                if (childFiltermatch) {
+                    break;
+                }
+            }
+
+
+            if (childFiltermatch) {
+                holder.multiple_item_card.setVisibility(View.VISIBLE);
+            } else {
+                holder.multiple_item_card.setVisibility(View.GONE);
+            }
+        });
+
+
     }
 
     public void set_multiple_item_expand(boolean setexpanded, ViewHolder holder, Integer position) {
@@ -262,7 +299,6 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
         }
         animator.start();
     }
-
 
     @Override
     public int getItemCount() {
@@ -305,6 +341,52 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
             this.dropdown_image = view.findViewById(R.id.dropdown_image);
             this.multiple_movies_recyclerview = view.findViewById(R.id.multiple_movies_recyclerview);
 
+        }
+    }
+
+    public class FetchMovies extends AsyncTask<Void, Void, Void> {
+
+        MovieItemAdapter.ViewHolder holder;
+        int position;
+
+        public FetchMovies(ViewHolder holder, int position) {
+            this.holder = holder;
+            this.position = position;
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+
+            holder.moviedatalist = new ArrayList<>();
+            try {
+                if (NetworkUtils.networkStatus(context)) {
+                    holder.moviedatalist = NetworkUtils.fetchData(holder.moviedataurl);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void s) {
+            super.onPostExecute(s);
+
+            if (holder.moviedatalist.size() != 0) {
+
+                data.get(position).put("tmdbinfo", holder.moviedatalist);
+
+                holder.movie = holder.moviedatalist.get(0);
+
+                if (!MainActivity.datasaving) {
+                    Picasso.get().load(holder.movie.getPosterPath()).placeholder(R.drawable.ic_no_cover).into(holder.item_cover);
+                }
+
+            }
         }
     }
 }

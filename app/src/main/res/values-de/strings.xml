@@ -57,5 +57,19 @@
     <string name="Search_currently_not_available">Suche derzeit nicht verfügbar</string>
     <string name="Search_not_available">nicht verfügbar</string>
     <string name="no_trailer">Kein Trailer</string>
+    <string name="watch">Schauen</string>
+    <string name="russian">Russisch</string>
+    <string name="all">Alle</string>
+    <string name="ex_192_168_4_44">bsp: 192.168.4.44</string>
+    <string name="username">Benutzername</string>
+    <string name="password">Passwort</string>
+    <string name="ex_yanndroid">bsp: yanndroid</string>
+    <string name="server">Server</string>
+    <string name="local_server">Lokaler Server</string>
+    <string name="ip_or_hostname">IP oder Hostname</string>
+    <string name="data_saving">Daten sparen</string>
+    <string name="don_t_load_covers_in_list">Keine Cover in der Liste laden</string>
+    <string name="use_a_local_server_for_streaming">Von einem lokalen Server streamen</string>
+    <string name="default_tab">Tab</string>
 
 </resources>
