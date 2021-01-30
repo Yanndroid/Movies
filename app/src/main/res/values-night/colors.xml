@@ -8,5 +8,10 @@
     <color name="tip_title_color">#fafafa</color>
     <color name="tip_text_color">#038bfb</color>
     <color name="text_color">#ffffffff</color>
+    <color name="switch_thumb_off_disabled_color">#ff828282</color>
+    <color name="switch_thumb_off_disabled_stroke_color">#ff3b3b3b</color>
+    <color name="switch_thumb_on_disabled_color">#ff858585</color>
+    <color name="switch_thumb_on_disabled_stroke_color">#ff3b3b3b</color>
+
 
 </resources>

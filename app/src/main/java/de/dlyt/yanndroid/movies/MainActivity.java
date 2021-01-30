@@ -36,6 +36,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
@@ -53,7 +54,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -83,9 +87,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        setLanguageAndTheme();
+
+
         viewModel = new ViewModelProvider(this).get(ItemViewModel.class);
 
-        setLanguage();
 
         tabnames = new String[]{getString(R.string.movies), getString(R.string.series), getString(R.string.favorites)};
         settilte(getString(R.string.movies));
@@ -190,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setLanguage() {
+    public void setLanguageAndTheme() {
 
         SharedPreferences sharedPreferences = getSharedPreferences("settings", Activity.MODE_PRIVATE);
 
@@ -208,6 +215,19 @@ public class MainActivity extends AppCompatActivity {
                 setLocale(MainActivity.this, "fr");
                 return;
         }
+
+        switch (sharedPreferences.getInt("theme_spinner", 0)) {
+            case 0:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                return;
+            case 1:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                return;
+            case 2:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                return;
+        }
+
     }
 
     public void setLocale(Activity activity, String languageCode) {

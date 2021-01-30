@@ -3,11 +3,11 @@
     <item
         android:width="@dimen/rounded_corner_size"
         android:height="@dimen/rounded_corner_size"
-        android:drawable="@drawable/sesl_bottom_left_round"
+        android:drawable="@drawable/rounded_corner_bottom_left"
         android:gravity="bottom|center|left" />
     <item
         android:width="@dimen/rounded_corner_size"
         android:height="@dimen/rounded_corner_size"
-        android:drawable="@drawable/sesl_bottom_right_round"
+        android:drawable="@drawable/rounded_corner_bottom_right"
         android:gravity="bottom|center|right" />
 </layer-list>

@@ -6,8 +6,15 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
 
-
     <dimen name="rounded_corner_size">24dp</dimen>
 
-    <dimen name="sesl_action_button_src_size">24.0dip</dimen>
+    <dimen name="sesl_action_button_src_size">24dp</dimen>
+
+
+
+    <dimen name="sesl_progress_circle_size">60.0dip</dimen>
+    <dimen name="sesl_progress_circle_thickness">2.5dip</dimen>
+
+
+
 </resources>

@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,12 +37,12 @@ public class TabFragment extends Fragment {
 
     private static final String ARG_COUNT = "param1";
     public static int[] listsize = new int[3];
-    private static ArrayList<HashMap<String, Object>> list;
+    private ArrayList<HashMap<String, Object>> list;
     RecyclerView recyclerView;
+    LinearLayout loadingView;
     MovieItemAdapter adapter;
     SharedPreferences sharedPreferences;
     private Integer current_tab;
-    private ItemViewModel viewModel;
 
     private View rootView;
 
@@ -79,6 +82,8 @@ public class TabFragment extends Fragment {
 
         sharedPreferences = getContext().getSharedPreferences("lists", Activity.MODE_PRIVATE);
 
+        loadingView = view.findViewById(R.id.loadingView);
+
         initRecycler(view);
 
     }
@@ -87,6 +92,7 @@ public class TabFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerview);
 
         if (current_tab == 2) {
+
 
             Gson gson = new Gson();
             Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>() {
@@ -100,6 +106,7 @@ public class TabFragment extends Fragment {
                 adapter = new MovieItemAdapter(list, getContext(), getActivity());
                 recyclerView.setAdapter(adapter);
             }
+
 
             listsize[current_tab] = list.size();
             MainActivity.refreshcount(current_tab);
@@ -159,5 +166,13 @@ public class TabFragment extends Fragment {
                 }
             });
         }
+        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                loadingView.setVisibility(View.GONE);
+                recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
     }
+
 }

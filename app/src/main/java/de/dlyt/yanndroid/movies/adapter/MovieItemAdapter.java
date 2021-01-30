@@ -79,11 +79,6 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
         }
     }
 
-    public void no_item(MovieItemAdapter.ViewHolder holder) {
-        holder.single_item_card.setVisibility(View.GONE);
-        holder.multiple_item_card.setVisibility(View.GONE);
-    }
-
 
     public void single_item(MovieItemAdapter.ViewHolder holder, int position) {
         holder.single_item_card.setVisibility(View.VISIBLE);
@@ -147,17 +142,17 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
 
 
         /** fav */
-        SharedPreferences sharedPreferences;
+        SharedPreferences sharedPreferences = context.getSharedPreferences("lists", Activity.MODE_PRIVATE);
         Gson gson = new Gson();
         Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>() {
         }.getType();
-        sharedPreferences = context.getSharedPreferences("lists", Activity.MODE_PRIVATE);
+
 
         fav_data = new ArrayList<>();
         fav_data = gson.fromJson(sharedPreferences.getString("fav_list", "[]"), listType);
 
         for (int j = 0; j < fav_data.size(); j++) {
-            if (this.data.get(position).equals(fav_data.get(j))) {
+            if (this.data.get(position).get("title").equals(fav_data.get(j).get("title"))) {
                 holder.bookmark_check.setChecked(true);
                 break;
             }
