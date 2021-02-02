@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,8 +44,8 @@ public class TabFragment extends Fragment {
     MovieItemAdapter adapter;
     SharedPreferences sharedPreferences;
     private Integer current_tab;
+    View fav_view;
 
-    private View rootView;
 
     public TabFragment() {
     }
@@ -93,8 +94,9 @@ public class TabFragment extends Fragment {
 
         if (current_tab == 2) {
 
+            fav_view = view;
 
-            Gson gson = new Gson();
+            /*Gson gson = new Gson();
             Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>() {
             }.getType();
 
@@ -107,9 +109,18 @@ public class TabFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
             }
 
+            recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    loadingView.setVisibility(View.GONE);
+                    recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            });
+
 
             listsize[current_tab] = list.size();
-            MainActivity.refreshcount(current_tab);
+            MainActivity.refreshcount(current_tab);*/
+
         } else {
 
             /*Gson gson = new Gson();
@@ -158,6 +169,14 @@ public class TabFragment extends Fragment {
                     adapter = new MovieItemAdapter(list, getContext(), getActivity());
                     recyclerView.setAdapter(adapter);
 
+                    recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            loadingView.setVisibility(View.GONE);
+                            recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        }
+                    });
+
                 }
 
                 @Override
@@ -166,13 +185,38 @@ public class TabFragment extends Fragment {
                 }
             });
         }
-        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                loadingView.setVisibility(View.GONE);
-                recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-        });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        /** reload Favorites */
+        if (current_tab == 2){
+            Gson gson = new Gson();
+            Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>() {
+            }.getType();
+
+
+            list = gson.fromJson(sharedPreferences.getString("fav_list", "[]"), listType);
+            if (list != null) {
+                recyclerView = fav_view.findViewById(R.id.recyclerview);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                adapter = new MovieItemAdapter(list, getContext(), getActivity());
+                recyclerView.setAdapter(adapter);
+            }
+
+            recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    loadingView.setVisibility(View.GONE);
+                    recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            });
+
+            listsize[current_tab] = list.size();
+            MainActivity.refreshcount(current_tab);
+        }
+
+    }
 }

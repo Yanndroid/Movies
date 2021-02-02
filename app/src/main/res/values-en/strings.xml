@@ -71,6 +71,7 @@
     <string name="ex_yanndroid">ex: yanndroid</string>
     <string name="password">Password</string>
     <string name="default_tab">Tab</string>
+    <string name="please_wait_and_retry">Please wait until the covers have loaded in the list and retry</string>
 
 
 </resources>

@@ -71,5 +71,6 @@
     <string name="don_t_load_covers_in_list">Keine Cover in der Liste laden</string>
     <string name="use_a_local_server_for_streaming">Von einem lokalen Server streamen</string>
     <string name="default_tab">Tab</string>
+    <string name="please_wait_and_retry">" Bitte warten Sie, bis die Cover in die Liste geladen wurden, und versuchen Sie es erneut"</string>
 
 </resources>

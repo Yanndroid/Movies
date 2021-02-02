@@ -72,6 +72,7 @@
     <string name="don_t_load_covers_in_list">Ne pas charger les couvrtures</string>
     <string name="data_saving">Économiser les donnés</string>
     <string name="default_tab">Onglet</string>
+    <string name="please_wait_and_retry">Please wait until the covers have loaded in the list and retry</string>
 </resources>
 
 

@@ -2,9 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="de.dlyt.yanndroid.movies.AppInfoActivity">
+
+    <item
+        android:id="@+id/changelog"
+        android:icon="@drawable/ic_info"
+        android:title="@string/changelog"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/download"
         android:icon="@drawable/ic_loop"
         android:title="@string/update_app"
         app:showAsAction="always" />
+
 </menu>

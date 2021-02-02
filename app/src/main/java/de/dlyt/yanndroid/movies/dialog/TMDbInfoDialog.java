@@ -97,22 +97,25 @@ public class TMDbInfoDialog extends BottomSheetDialogFragment {
         RatingBar ratingBar = dialog.findViewById(R.id.ratingBar);
 
         if (moviedatalist.size() != 0) {
-            movie = moviedatalist.get(whichtoload);
-            Picasso.get().load(movie.getBackdropPath()).placeholder(R.drawable.ic_no_backdrop).into(backdrop_image);
-            Picasso.get().load(movie.getPosterPath()).placeholder(R.drawable.ic_no_cover).into(poster_image);
+            try {
+                movie = moviedatalist.get(whichtoload);
+                Picasso.get().load(movie.getBackdropPath()).placeholder(R.drawable.ic_no_backdrop).into(backdrop_image);
+                Picasso.get().load(movie.getPosterPath()).placeholder(R.drawable.ic_no_cover).into(poster_image);
 
-            original_title.setText(movie.getOriginalTitle());
-            overview.setText(movie.getOverview());
-            release_date.setText(movie.getReleaseDate());
+                original_title.setText(movie.getOriginalTitle());
+                overview.setText(movie.getOverview());
+                release_date.setText(movie.getReleaseDate());
 
-            ratingBar.setRating(Float.valueOf(movie.getVoteAverage()) / 2);
+                ratingBar.setRating(Float.valueOf(movie.getVoteAverage()) / 2);
 
-            ProgressBar loading = dialog.findViewById(R.id.loading);
-            loading.setVisibility(View.VISIBLE);
+                ProgressBar loading = dialog.findViewById(R.id.loading);
+                loading.setVisibility(View.VISIBLE);
 
-            new setGenre(movie.getGenreIds(), dialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new loadTrailer(movie.getId(), dialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
+                new setGenre(movie.getGenreIds(), dialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new loadTrailer(movie.getId(), dialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }catch (Exception e){
+                overview.setText(R.string.please_wait_and_retry);
+            }
         }
 
         close.setOnClickListener(new View.OnClickListener() {

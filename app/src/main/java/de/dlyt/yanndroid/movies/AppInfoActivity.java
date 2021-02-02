@@ -34,6 +34,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Random;
 
+import de.dlyt.yanndroid.movies.dialog.ChangelogDialog;
 import de.dlyt.yanndroid.movies.dialog.UpdateDialog;
 
 import static de.dlyt.yanndroid.movies.R.string.Baguette;
@@ -221,6 +222,11 @@ public class AppInfoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.download) {
             UpdateDialog bottomSheetDialog = UpdateDialog.newInstance(getBaseContext());
+            bottomSheetDialog.show(getSupportFragmentManager(), "tag");
+        }
+
+        if (item.getItemId() == R.id.changelog) {
+            ChangelogDialog bottomSheetDialog = ChangelogDialog.newInstance();
             bottomSheetDialog.show(getSupportFragmentManager(), "tag");
         }
 

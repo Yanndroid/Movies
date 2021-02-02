@@ -1,6 +1,7 @@
 package de.dlyt.yanndroid.movies;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -24,8 +25,6 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
-import de.dlyt.yanndroid.movies.dialog.RestartDialog;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -239,8 +238,12 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void restartapp() {
-        RestartDialog bottomSheetDialog = RestartDialog.newInstance();
-        bottomSheetDialog.show(getSupportFragmentManager(), "tag");
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("EXIT", true);
+        startActivity(intent);
+        /*RestartDialog bottomSheetDialog = RestartDialog.newInstance();
+        bottomSheetDialog.show(getSupportFragmentManager(), "tag");*/
     }
 
 }

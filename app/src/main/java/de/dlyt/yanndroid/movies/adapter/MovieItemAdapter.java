@@ -167,7 +167,7 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
                     fav_data.add(data.get(position));
                 } else {
                     for (int j = 0; j < fav_data.size(); j++) {
-                        if (data.get(position).equals(fav_data.get(j))) {
+                        if (data.get(position).get("title").equals(fav_data.get(j).get("title"))) {
                             fav_data.remove(j);
                             break;
                         }
