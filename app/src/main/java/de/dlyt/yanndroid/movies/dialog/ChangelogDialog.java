@@ -33,6 +33,12 @@ public class ChangelogDialog extends BottomSheetDialogFragment {
 
 
         String changlog = "\n" +
+                "Soon\n" +
+                "- redesign trailer view\n" +
+                "- Grid or list layout\n" +
+                "- change some icons\n" +
+                "- (drawer instead of 3 dots) ?\n" +
+                "\n" +
                 "1.6.4\n" +
                 "- favorites now working\n" +
                 "- change language without restart\n" +
@@ -49,7 +55,8 @@ public class ChangelogDialog extends BottomSheetDialogFragment {
                 "- install apk working\n" +
                 "- improved language\n" +
                 "- improved tmdb\n" +
-                "- added trailer View\n";
+                "- added trailer View\n" +
+                "- started logging\n";
 
 
 
