@@ -98,6 +98,9 @@
                     android:id="@+id/info_image"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:src="@drawable/ic_info" />
 
 
@@ -113,7 +116,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:animateLayoutChanges="true"
         android:background="?selectableItemBackground"
         android:clickable="true"
         android:focusable="true">
@@ -121,7 +123,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
             android:orientation="vertical">
 
             <LinearLayout
@@ -154,11 +155,20 @@
 
             </LinearLayout>
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/multiple_movies_recyclerview"
+            <LinearLayout
+                android:id="@+id/leon_nervt"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/multiple_movies_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

@@ -72,6 +72,9 @@
     <string name="password">Password</string>
     <string name="default_tab">Tab</string>
     <string name="please_wait_and_retry">Please wait until the covers have loaded in the list and retry</string>
+    <string name="design_inspiration">Design inspiration</string>
+    <string name="more">More</string>
+    <string name="lottie_animations">Lottie animations</string>
 
 
 </resources>

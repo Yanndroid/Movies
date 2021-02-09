@@ -11,6 +11,7 @@ import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -93,6 +94,8 @@ public class AppInfoActivity extends AppCompatActivity {
         ImageView ygithub = findViewById(R.id.ygithub);
         ImageView tbrowser = findViewById(R.id.tbrowser);
         ImageView fbrowser = findViewById(R.id.fbrowser);
+        ImageView sbrowser = findViewById(R.id.sbrowser);
+        ImageView lbrowser = findViewById(R.id.lbrowser);
         ytelegram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +121,18 @@ public class AppInfoActivity extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://firebase.google.com/")));
             }
         });
-
+        sbrowser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.samsung.com/one-ui/index.html")));
+            }
+        });
+        lbrowser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://lottiefiles.com/")));
+            }
+        });
 
     }
 
@@ -221,6 +235,11 @@ public class AppInfoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.download) {
+            /** check for install permission*/
+            if (!getPackageManager().canRequestPackageInstalls()) {
+                startActivity(new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:de.dlyt.yanndroid.movies")));
+            }
+            /** install */
             UpdateDialog bottomSheetDialog = UpdateDialog.newInstance(getBaseContext());
             bottomSheetDialog.show(getSupportFragmentManager(), "tag");
         }

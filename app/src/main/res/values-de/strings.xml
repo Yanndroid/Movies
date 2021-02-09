@@ -72,5 +72,8 @@
     <string name="use_a_local_server_for_streaming">Von einem lokalen Server streamen</string>
     <string name="default_tab">Tab</string>
     <string name="please_wait_and_retry">" Bitte warten Sie, bis die Cover in die Liste geladen wurden, und versuchen Sie es erneut"</string>
+    <string name="design_inspiration">Design Inspiration</string>
+    <string name="more">Mehr</string>
+    <string name="lottie_animations">Lottie Animationen</string>
 
 </resources>

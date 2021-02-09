@@ -1,5 +1,6 @@
 package de.dlyt.yanndroid.movies.adapter;
 
+import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.view.animation.BounceInterpolator;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
@@ -221,7 +223,7 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
         if (!m_expanded.containsKey(position)) {
             m_expanded.put(position, false);
         }
-        set_multiple_item_expand(m_expanded.get(position), holder, position);
+        //set_multiple_item_expand(m_expanded.get(position), holder, position);
 
 
         holder.multiple_item_card.setOnClickListener(new View.OnClickListener() {
@@ -284,10 +286,12 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
         animator.setDuration(500);
         animator.setInterpolator(new BounceInterpolator());
         if (setexpanded) {
+            holder.leon_nervt.setLayoutTransition(new LayoutTransition());
             holder.multiple_movies_recyclerview.setVisibility(View.VISIBLE);
             m_expanded.put(position, true);
             animator.setFloatValues(180);
         } else {
+            holder.leon_nervt.setLayoutTransition(null);
             holder.multiple_movies_recyclerview.setVisibility(View.GONE);
             m_expanded.put(position, false);
             animator.setFloatValues(0);
@@ -315,6 +319,7 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
         private TextView item_multiple_title;
         private ImageView dropdown_image;
         private RecyclerView multiple_movies_recyclerview;
+        private LinearLayout leon_nervt;
 
         private String moviedataurl;
         private ArrayList<Movie> moviedatalist;
@@ -335,6 +340,7 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemAdapter.View
             this.item_multiple_title = view.findViewById(R.id.item_multiple_title);
             this.dropdown_image = view.findViewById(R.id.dropdown_image);
             this.multiple_movies_recyclerview = view.findViewById(R.id.multiple_movies_recyclerview);
+            this.leon_nervt = view.findViewById(R.id.leon_nervt);
 
         }
     }

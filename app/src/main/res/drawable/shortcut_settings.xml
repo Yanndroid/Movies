@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/shortcut_background" />
-    <item android:gravity="center" android:height="35dp" android:width="35dp" android:drawable="@drawable/shortcut_ic_settings" />
+    <item
+        android:width="35dp"
+        android:height="35dp"
+        android:drawable="@drawable/shortcut_ic_settings"
+        android:gravity="center" />
 </layer-list>

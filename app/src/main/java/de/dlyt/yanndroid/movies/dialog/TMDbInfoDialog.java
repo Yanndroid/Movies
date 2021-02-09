@@ -113,7 +113,7 @@ public class TMDbInfoDialog extends BottomSheetDialogFragment {
 
                 new setGenre(movie.getGenreIds(), dialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new loadTrailer(movie.getId(), dialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            }catch (Exception e){
+            } catch (Exception e) {
                 overview.setText(R.string.please_wait_and_retry);
             }
         }

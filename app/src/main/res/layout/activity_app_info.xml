@@ -128,6 +128,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="2"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <com.google.android.material.textview.MaterialTextView
@@ -136,21 +137,36 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginHorizontal="10dp"
                                 android:layout_weight="1"
+                                android:ellipsize="marquee"
                                 android:gravity="center_vertical|left"
+                                android:singleLine="true"
                                 android:text="@string/yanndroid" />
 
-                            <ImageView
-                                android:id="@+id/ytelegram"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/ic_telegram" />
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
 
-                            <ImageView
-                                android:id="@+id/ygithub"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="24dp"
-                                android:src="@drawable/ic_github" />
+                                <ImageView
+                                    android:id="@+id/ytelegram"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="?selectableItemBackgroundBorderless"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:src="@drawable/ic_telegram" />
+
+                                <ImageView
+                                    android:id="@+id/ygithub"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="24dp"
+                                    android:background="?selectableItemBackgroundBorderless"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:src="@drawable/ic_github" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -199,6 +215,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="2"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <com.google.android.material.textview.MaterialTextView
@@ -207,15 +224,20 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginHorizontal="10dp"
                                 android:layout_weight="1"
+                                android:ellipsize="marquee"
                                 android:gravity="center_vertical|left"
+                                android:singleLine="true"
                                 android:text="@string/tmdb" />
 
                             <ImageView
                                 android:id="@+id/tbrowser"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginRight="24dp"
+                                android:background="?selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:src="@drawable/ic_samsung_internet" />
 
                         </LinearLayout>
@@ -260,6 +282,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="2"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <com.google.android.material.textview.MaterialTextView
@@ -268,15 +291,155 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginHorizontal="10dp"
                                 android:layout_weight="1"
+                                android:ellipsize="marquee"
                                 android:gravity="center_vertical|left"
+                                android:singleLine="true"
                                 android:text="@string/firebase" />
 
                             <ImageView
                                 android:id="@+id/fbrowser"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginRight="24dp"
+                                android:background="?selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:src="@drawable/ic_samsung_internet" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="?android:attr/textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/design_inspiration"
+                    android:textStyle="bold"
+
+                    />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left|center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="185.04dp"
+                            android:layout_height="133.4dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:scaleType="fitEnd"
+                            android:src="@drawable/ic_one_ui" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                style="?android:attr/textAppearanceLarge"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="10dp"
+                                android:layout_weight="1"
+                                android:ellipsize="marquee"
+                                android:gravity="center_vertical|left"
+                                android:singleLine="true"
+                                android:text="@string/samsung" />
+
+                            <ImageView
+                                android:id="@+id/sbrowser"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="24dp"
+                                android:background="?selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:src="@drawable/ic_samsung_internet" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="?android:attr/textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/lottie_animations"
+                    android:textStyle="bold"
+
+                    />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left|center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="185.04dp"
+                            android:layout_height="133.4dp"
+                            android:layout_weight="1"
+                            android:scaleType="fitCenter"
+                            app:lottie_autoPlay="true"
+                            app:lottie_fileName="lottie.json"
+                            app:lottie_loop="true" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                style="?android:attr/textAppearanceLarge"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="10dp"
+                                android:layout_weight="1"
+                                android:ellipsize="marquee"
+                                android:gravity="center_vertical|left"
+                                android:singleLine="true"
+                                android:text="@string/lottiefiles" />
+
+                            <ImageView
+                                android:id="@+id/lbrowser"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="24dp"
+                                android:background="?selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:focusable="true"
                                 android:src="@drawable/ic_samsung_internet" />
 
                         </LinearLayout>

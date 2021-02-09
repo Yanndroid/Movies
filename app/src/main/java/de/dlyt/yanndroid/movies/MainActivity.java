@@ -1,9 +1,3 @@
-/**
- * todo:
- * bookmark
- */
-
-
 package de.dlyt.yanndroid.movies;
 
 import android.Manifest;
@@ -35,12 +29,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -54,10 +50,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -100,16 +93,19 @@ public class MainActivity extends AppCompatActivity {
         checkforconnection();
         checkforupdate();
 
+        /** permissions */
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
         }
+
 
         /** Def */
         expanded_subtitle = findViewById(R.id.expanded_subtitle);
 
         /** collapsing Toolbar */
         initToolbar();
+        initDrawer();
 
         /** ViewPager */
         initViewPager();
@@ -254,6 +250,68 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    public void initDrawer() {
+        View content = findViewById(R.id.main_content);
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+        View drawer = findViewById(R.id.drawer);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+        ViewGroup.LayoutParams layoutParams = drawer.getLayoutParams();
+        layoutParams.width = (int) ((double) this.getResources().getDisplayMetrics().widthPixels / 1.19);
+        drawerLayout.setScrimColor(ContextCompat.getColor(getBaseContext(), R.color.drawer_dim_color));
+        drawerLayout.setDrawerElevation(0);
+
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.opend, R.string.closed) {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                float slideX = drawerView.getWidth() * slideOffset;
+                content.setTranslationX(slideX);
+            }
+        };
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(drawer, true);
+            }
+        });
+
+
+        View drawer_settings = findViewById(R.id.drawer_settings);
+        View drawer_appinfo = findViewById(R.id.drawer_appinfo);
+        View drawer_videoinfo = findViewById(R.id.drawer_videoinfo);
+
+        drawer_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+        drawer_appinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), AppInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+        drawer_videoinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), VideoInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
     public void initToolbar() {
         /** Def */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -266,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
 
         /** 1/3 of the Screen */
         ViewGroup.LayoutParams layoutParams = AppBar.getLayoutParams();
-        layoutParams.height = (int) ((double) this.getResources().getDisplayMetrics().heightPixels / 2.4);
+        layoutParams.height = (int) ((double) this.getResources().getDisplayMetrics().heightPixels / 2.6);
 
 
         /** Collapsing */
@@ -279,6 +337,7 @@ public class MainActivity extends AppCompatActivity {
                 collapsed_title.setAlpha(percentage * -1);
             }
         });
+
 
     }
 
@@ -475,7 +534,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.filter:
                 switchfiltering();
                 return true;
-            case R.id.settings:
+            /*case R.id.settings:
                 intent.setClass(getApplicationContext(), SettingsActivity.class);
                 startActivity(intent);
                 return true;
@@ -486,7 +545,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.info:
                 intent.setClass(getApplicationContext(), VideoInfoActivity.class);
                 startActivity(intent);
-                return true;
+                return true;*/
         }
 
         return super.onOptionsItemSelected(item);

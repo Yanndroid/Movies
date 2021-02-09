@@ -182,12 +182,12 @@
 
 
                     <LinearLayout
-                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:foreground="@drawable/rounded_corner"
                         android:foregroundTint="@color/switch_card_background_off"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -208,8 +208,8 @@
                             android:visibility="gone" />
 
                         <ProgressBar
-                            style="@style/Base.Widget.AppCompat.ProgressBar.Circle"
                             android:id="@+id/loading"
+                            style="@style/Base.Widget.AppCompat.ProgressBar.Circle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"

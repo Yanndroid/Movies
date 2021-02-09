@@ -3,7 +3,6 @@ package de.dlyt.yanndroid.movies.dialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -36,14 +35,22 @@ public class ChangelogDialog extends BottomSheetDialogFragment {
                 "Soon\n" +
                 "- redesign trailer view\n" +
                 "- Grid or list layout\n" +
-                "- change some icons\n" +
-                "- (drawer instead of 3 dots) ?\n" +
+                "- Activity transition effect\n" +
+                "\n" +
+                "1.6.5\n" +
+                "- splash screen\n" +
+                "- \"leon_nervt\"-fix\n" +
+                "- more app info\n" +
+                "- changed some icons\n" +
+                "- apk install prompt\n" +
+                "- Drawer instead of 3 dots\n" +
+                "- more OneUI design\n" +
                 "\n" +
                 "1.6.4\n" +
                 "- favorites now working\n" +
                 "- change language without restart\n" +
                 "- more OneUI design\n" +
-                "- added changelog\n" +
+                "- added changelog View\n" +
                 "\n" +
                 "1.6.3\n" +
                 "- added genre\n" +
@@ -52,13 +59,11 @@ public class ChangelogDialog extends BottomSheetDialogFragment {
                 "- the usual like bug fix\n" +
                 "\n" +
                 "1.6.2\n" +
-                "- install apk working\n" +
+                "- install apk fixed\n" +
                 "- improved language\n" +
                 "- improved tmdb\n" +
                 "- added trailer View\n" +
-                "- started logging\n";
-
-
+                "- started changelog\n";
 
 
         TextView changelog_text = dialog.findViewById(R.id.changelog_text);

@@ -1,7 +1,6 @@
 package de.dlyt.yanndroid.movies.dialog;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +9,6 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import de.dlyt.yanndroid.movies.MainActivity;
 import de.dlyt.yanndroid.movies.R;
 
 public class RestartDialog extends BottomSheetDialogFragment {
