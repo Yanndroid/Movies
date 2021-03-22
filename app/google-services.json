@@ -1,10 +1,40 @@
 {
   "project_info": {
     "project_number": "756652903016",
+    "firebase_url": "https://movies-yanndroid-default-rtdb.firebaseio.com",
     "project_id": "movies-yanndroid",
     "storage_bucket": "movies-yanndroid.appspot.com"
   },
   "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756652903016:android:9852850ac00681ed8b49dd",
+        "android_client_info": {
+          "package_name": "de.dlyt.yanndroid.firebasenoti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756652903016-eqgquin7kimg1u3cegggcl66jn3j1nnj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK4_XcbIB4JhX70f0MukFNvfxBibqPtWQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "756652903016-eqgquin7kimg1u3cegggcl66jn3j1nnj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:756652903016:android:d223a3d8da5a6f5f8b49dd",
