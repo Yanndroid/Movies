@@ -1,5 +1,6 @@
 package de.dlyt.yanndroid.movies;
 
+
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
