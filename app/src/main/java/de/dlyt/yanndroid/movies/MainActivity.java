@@ -82,12 +82,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         setLanguageAndTheme();
 
-
         viewModel = new ViewModelProvider(this).get(ItemViewModel.class);
-
 
         tabnames = new String[]{getString(R.string.movies), getString(R.string.series), getString(R.string.favorites)};
         settilte(getString(R.string.movies));
